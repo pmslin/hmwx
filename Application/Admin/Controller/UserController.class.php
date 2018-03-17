@@ -1,57 +1,63 @@
 <?php
 namespace Admin\Controller;
+use Admin\Model\UserModel;
 use Think\Controller;
 class UserController extends BaseController {
+
+    //用户列表页面
     public function index(){
 
         $this->display();
     }
 
-    /***
-     * 页面
-     */
-//    public function User(){
-//
-//        $this->display();
-//    }
+    //获取用户列表
+    public function getUserList(){
+        $list = D("user")->getUser();
+
+        echo 123;
+        show_bug($list);exit();
+        $this->ajaxReturn($list,'json');
+    }
 
 
     /***
      * 生成账号
      */
     public function AddUser(){
-        $deptModel=D('dept');
+
         if ($_POST){
-            $post=I('post.');
+            $post=array(
+                "username"  =>  I("username","","trim"),
+                "tel"       =>  I("tel",0),
+                "wechatAccount_id"  =>  I("wechatAccount_id",0)
+            );
+
             $userModel=D('user');
             $checkTel=$userModel->getUserTelByTel($post['tel']);
-            echo M()->_sql();
-            show_bug($post['tel']);exit();
             if (!empty($checkTel)){
                 $msg['status']=99;
-                $msg['msg']="手机号码重复了";
+                $msg['msg']="该手机号码已被注册！";
             }else{
-//                show_bug($post);exit();
-                $dept=$deptModel->getDeptById($post['dept']);
-                $data['username']=$post['username'];
-                $data['tel']=$post['tel'];
-                $data['bus_unit']=$dept['dept_name'];
-                $data['password']=md5('123456');
-                $data['roleid']=$dept['roleid'];
-                $data['createdtime']=time();
-                $add=$userModel->add($data);
+                $post['u_wc_id'] = $post['wechatAccount_id'];
+                $post['password']=md5('123456');
+                $post['roleid']=UserModel::USER_ROLE_ID3;//小编
+                $post['createdtime']=date("Y-m-d H:i:s");
+                $add=$userModel->add($post);
                 if ($add>0){
                     $msg['status']=1;
                     $msg['msg']="添加账号成功";
                 }
             }
 
+            $this->ajaxReturn($msg);
         }else{
-            $dept=D('dept')->getDept();
-//            show_bug($dept);
-            $this->assign('dept',$dept);
+            $wcModel=D('wechat_account');
+            $wechatAccount=$wcModel->getWechatAccoun();
+            $this->assign('wechatAccount',$wechatAccount);
             $this->display();
         }
-
     }
+
+
+
 }
