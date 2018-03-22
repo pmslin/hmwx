@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<!-- saved from url=(0059)http://wx.zmyouth.com/index.php/App/LoveWall/index/token/69 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<title>表白墙排版</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="author" content="kai">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="Shortcut Icon" href="__PUBLIC__/js/bbq/sm.png">
+<!-- Bootstrap core CSS -->
+<link href="__PUBLIC__/js/bbq/bootstrap.min.css" rel="stylesheet">
+<!-- Font Awesome -->
+<link href="__PUBLIC__/js/bbq/font-awesome.min.css" rel="stylesheet">
+<!-- Datepicker -->
+<link href="__PUBLIC__/js/bbq/datepicker.css" rel="stylesheet">
+<!-- Animate -->
+<link href="__PUBLIC__/js/bbq/animate.min.css" rel="stylesheet">
+<!-- Simplify -->
+<link href="__PUBLIC__/js/bbq/simplify.min.css" rel="stylesheet">
+<link href="__PUBLIC__/js/bbq/zm.css" rel="stylesheet">
+    <style>
+        .jw-select{
+            height: 30px;
+            line-height: 30px;
+        }
+        .other-panel{
+            border: 1px solid #dfdfdf;
+            margin: 4px;
+            padding: 10px 20px;
+        }
+
+
+        .css-panel>div,.css-panel>a>div{
+            height: 100px;
+            border: 1px solid #DDD;
+            display: inline-block;
+            vertical-align:top;
+        }
+        .css-title{
+            width: 80px;
+            line-height: 100px;
+            font-weight: bold;
+            color: #0f9ae0;
+            text-align: center;
+        }
+        .add-css-btn{
+            width: 100px;
+            line-height: 100px;
+            text-align: center;
+        }
+        .add-css-btn:hover{
+            border: 1px solid #0f9ae0;
+        }
+        .css-item{
+            font-size: 12px;
+            width: 120px;
+        }
+        .css-item .pic{
+            width: 118px;
+            height: 65px;
+            background-position: center center;
+            background-size: cover;
+        }
+        .css-item:hover{
+            border: 1px solid #0f9ae0;
+        }
+        .css-form{
+            width: 200px;
+        }
+        .css-form input{
+            width: 100%;
+            border: 0;
+            height: 28px;
+            padding:0 12px;
+            margin: 2px 0;
+        }
+        .css-form textarea{
+            width: 100%;
+            height: 100%;
+            border: 0;
+            resize:none;
+            padding: 12px;
+        }
+
+        #the-type{
+            width: 460px;
+            margin: 0 auto;
+        }
+
+        .bb{
+            padding: 8px 0;
+            margin: 6px;
+            border-bottom: 1px solid #ccc;
+        }
+        .bb>div{
+            vertical-align: middle;
+            display: inline-block;
+            padding: 0 6px;
+        }
+        .b1{
+            width: 6%;
+        }
+        .b2{
+            width: 12%;
+        }
+        .b3{
+            width: 54%;
+        }
+    </style>
+</head>
+
+<body class="">
+<div class="wrapper">
+    <!--顶栏-->
+    <header class="top-nav">
+    <div class="top-nav-inner">
+        <div class="nav-header">
+            <button type="button" class="navbar-toggle pull-left sidebar-toggle" id="sidebarToggleSM">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://wx.zmyouth.com/index.php/App/LoveWall/index/token/69#" class="brand">
+                <img src="__PUBLIC__/js/bbq/sm.png" style="vertical-align: middle"><span class="brand-name" style="vertical-align: middle"><span class="text-primary">纵梦校园2.0 Alpha</span></span>
+            </a>
+        </div>
+        <div class="nav-container">
+            <button type="button" class="navbar-toggle pull-left sidebar-toggle" id="sidebarToggleLG">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://wx.zmyouth.com/App/App/logout">
+                <div class="pull-right text-danger" style="line-height: 54px;padding: 0 30px">
+                    <i class="fa fa-sign-out"></i> <b>退出</b>
+                </div>
+            </a>
+        </div>
+    </div>
+</header>
+
+    <!-- 菜单 -->
+    <aside class="sidebar-menu fixed">
+    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100%;"><div class="sidebar-inner scrollable-sidebar" style="overflow: hidden; width: auto; height: 100%;">
+        <div class="main-menu">
+            <div class="side-head">
+                <img class="img-circle" src="__PUBLIC__/js/bbq/0">
+                <br><br>
+                <span>纵梦广青</span>
+            </div>
+            <ul class="accordion">
+                <li class="bg-palette1 ">
+                    <a href="http://wx.zmyouth.com/App/Index/index">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-home fa-lg"></i></span>
+                            <span class="text m-left-sm">首页</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="bg-palette2 ">
+                <a href="http://wx.zmyouth.com/App/PicWord/index">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-file fa-lg"></i></span>
+                            <span class="text m-left-sm">图文素材</span>
+                        </span>
+                </a>
+                </li>
+                <li class="bg-palette3 ">
+                <a href="http://wx.zmyouth.com/App/The/index">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-user fa-lg"></i></span>
+                            <span class="text m-left-sm">个人中心</span>
+                        </span>
+                </a>
+                </li>
+                <li class="openable bg-palette2 ">
+                    <a href="http://wx.zmyouth.com/index.php/App/LoveWall/index/token/69#">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-list fa-lg"></i></span>
+                            <span class="text m-left-sm">基础功能</span>
+                            <span class="submenu-icon"></span>
+                        </span>
+                    </a>
+                    <ul class="submenu bg-palette2">
+                        <!--<li><a href="#"><span class="submenu-label">关注回复</span></a></li>-->
+                        <!--<li><a href="#"><span class="submenu-label">默认回复</span></a></li>-->
+                        <li><a href="http://wx.zmyouth.com/App/Reply/text"><span class="submenu-label">文本回复/关键词</span></a></li>
+                        <li><a href="http://wx.zmyouth.com/App/Reply/dReply"><span class="submenu-label">默认回复</span></a></li>
+                        <li><a href="http://wx.zmyouth.com/App/Reply/gReply"><span class="submenu-label">关注回复</span></a></li>
+                        <li><a href="http://wx.zmyouth.com/App/Reply/diyMenu"><span class="submenu-label">自定菜单</span></a></li>
+                    </ul>
+                </li>
+                <li class="bg-palette3 ">
+                    <a href="http://wx.zmyouth.com/App/TheTools/index">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-desktop fa-lg"></i></span>
+                            <span class="text m-left-sm">我的应用</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="bg-palette4 ">
+                    <a href="http://wx.zmyouth.com/App/Tools/index">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-gift fa-lg"></i></span>
+                            <span class="text m-left-sm">应用中心</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="bg-palette1">
+                    <a target="_blank" href="http://school.zmyouth.com/">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-gift fa-lg"></i></span>
+                            <span class="text m-left-sm">纵梦学堂</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div><div class="slimScrollBar" style="background: rgb(0, 0, 0); width: 0px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 113.558px;"></div><div class="slimScrollRail" style="width: 0px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div><!-- sidebar-inner -->
+</aside>
+
+    <!--主要内容-->
+    <div class="main-container">
+        <div class="padding-md">
+            <!--标题-->
+            <ul class="breadcrumb">
+                <li><a href="http://wx.zmyouth.com/App">主页</a></li>
+                <li><a href="http://wx.zmyouth.com/App/TheTools">我的应用</a></li>
+                <li>纵梦表白墙 3.0</li>
+            </ul>
+
+
+
+            <div class="jw-step" style="display: block;">
+                <div class="jw-box">
+                    <span class="title-line">第一步：筛选数据</span>
+                    <a class="btn btn-default btn-sm" href="http://wx.zmyouth.com/App/LoveWall/settings/token/69">设置/表白地址</a>
+                    <a class="btn btn-danger btn-sm" href="http://wx.zmyouth.com/index.php/App/LoveWall/index/token/69">♥ 新表白数据</a>
+                    <a class="btn btn-danger btn-sm" href="javascript:;" id="used-btn">× 强制采用(删除)所有数据</a>
+                    <a class="btn btn-primary btn-sm" onclick="showPanel(0)"><i class="the-icon fa fa-arrow-circle-down"></i> 历史表白数据 7068</a>
+                    <div class="pull-right">
+                        <a type="button" class="btn btn-success btn-sm" onclick="jumpStep(1);setDefaultType();">下一步</a>
+                    </div>
+
+                    <div class="other-panel" style="display: none;">
+                        <form method="post">
+                            开始日期
+                            <input type="date" name="start_date" style="height: 30px;" value="2016-9-10">
+                            &nbsp;&nbsp;--&gt;结束日期
+                            <input type="date" name="end_date" style="height: 30px;" value="2016-9-10">
+                            &nbsp;&nbsp;--&gt;
+                            <button class="btn btn-primary btn-sm">获取数据</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="jw-box">
+                    <div class="bb">
+                        <div class="b1">序号</div>
+                        <div class="b2">对象</div>
+                        <div class="b3">内容</div>
+                        <div class="b2">日期</div>
+                        <div class="b2">操作</div>
+                    </div>
+                    <div id="bb-data">
+                        <div class="bb" draggable="true">
+                                <div class="b1">1</div>
+                                <div class="b2">L€F</div>
+                                <div class="b3">曾经的我们很美好，现在的我们也要好好的，放下过去吧！明天一定要过的比昨天开心噢！</div>
+                                <div class="b2">2018-03-22 21:04:29</div>
+                                <div class="b2">
+                                    <a class="top_btn text-primary"><i class="fa fa-angle-double-up"></i> 置顶</a> --
+                                    <a class="del_btn text-danger" data-id="1776404"><i class="fa fa-trash-o"></i> 删除</a>
+                                </div>
+                            </div><div class="bb" draggable="true">
+                                <div class="b1">2</div>
+                                <div class="b2">说客家人的那个</div>
+                                <div class="b3">客家人怎么你了，很厉害吗，很牛吗，有本事别匿名！</div>
+                                <div class="b2">2018-03-22 21:06:30</div>
+                                <div class="b2">
+                                    <a class="top_btn text-primary"><i class="fa fa-angle-double-up"></i> 置顶</a> --
+                                    <a class="del_btn text-danger" data-id="1776409"><i class="fa fa-trash-o"></i> 删除</a>
+                                </div>
+                            </div><div class="bb" draggable="true">
+                                <div class="b1">3</div>
+                                <div class="b2">上期表白19</div>
+                                <div class="b3">我在上上期的表白墙说我很想家  这一期表白19的回应是在回应上一期的我吗？  不管是不是都很感谢你同学  因为最近也生病特别累   那天躺在床上我不知道为什么跟闺蜜聊着天心里就特别难受  眼泪就不知怎么的不受控制跑出来了  不管怎么样看到类似的回应还是要谢谢今晚回应的同学   现在也是在晚上的21:11分  晚安！</div>
+                                <div class="b2">2018-03-22 21:12:13</div>
+                                <div class="b2">
+                                    <a class="top_btn text-primary"><i class="fa fa-angle-double-up"></i> 置顶</a> --
+                                    <a class="del_btn text-danger" data-id="1776423"><i class="fa fa-trash-o"></i> 删除</a>
+                                </div>
+                            </div><div class="bb" draggable="true">
+                                <div class="b1">4</div>
+                                <div class="b2">那个表白颜启学的同学</div>
+                                <div class="b3">不好意思，他已经有女票了，他说不如去考虑他的舍友更好。</div>
+                                <div class="b2">2018-03-22 21:20:07</div>
+                                <div class="b2">
+                                    <a class="top_btn text-primary"><i class="fa fa-angle-double-up"></i> 置顶</a> --
+                                    <a class="del_btn text-danger" data-id="1776438"><i class="fa fa-trash-o"></i> 删除</a>
+                                </div>
+                            </div>                    </div>
+                </div>
+
+                <div class="jw-box text-right">
+                    <span class="text-danger">*.请务必检查清楚哦</span>
+                    <a class="btn btn-success btn-sm" onclick="jumpStep(1);setDefaultType();">下一步</a>
+                </div>
+            </div>
+
+            <div class="jw-step" style="display: none;">
+                <div class="jw-box">
+                    <span class="title-line">第二步：排版表白墙</span>
+                    <select id="cssid" class="jw-select">
+                        <option value="1">纵梦经典</option>
+                        <option value="2">粉色经典</option>
+                    </select>
+                    <a class="btn btn-default btn-sm" onclick="showPanel(1)">更多细节  <i class="the-icon fa fa-arrow-circle-down"></i></a>
+                    <a class="btn btn-default btn-sm" onclick="showPanel(2)">样式生态  <i class="the-icon fa fa-arrow-circle-down"></i></a>
+                    <a class="btn btn-warning btn-sm" onclick="setTheType()">修改样式</a>
+
+                    <!--<input class="" type="date"><input class="" type="date">-->
+                    <div class="pull-right">
+                        <a class="btn btn-info btn-sm" onclick="jumpStep(0)">上一步</a>
+                        <a class="btn btn-success btn-sm" onclick="jumpStep(2)">下一步</a>
+                    </div>
+
+                    <div class="other-panel" style="display: none;">
+                        框框颜色
+                        <input id="color" type="color" value="#e83239">
+                        &nbsp;&nbsp;&nbsp;人名颜色
+                        <input id="obj_color" type="color" value="#e83239">
+                        &nbsp;&nbsp;&nbsp;表白前缀
+                        <input id="head" type="text" value="♥表白">
+                    </div>
+
+                    <div class="other-panel" style="overflow-x: auto; white-space: nowrap; display: none;">
+                        <div class="css-panel" style="display: block;">
+                            <div class="css-title">
+                                样式生态
+                            </div>
+                            <a onclick="showCss(2)">
+                                <div class="add-css-btn">
+                                    <span class="text-primary"><i class="fa fa-file-o"></i> 发表样式</span>
+                                </div>
+                            </a>
+                            <a onclick="showCss(1)">
+                                <div class="add-css-btn">
+                                    <span class="text-primary"><i class="fa fa-user"></i> 我的发表</span>
+                                </div>
+                            </a>
+                            <div class="css-item">
+                                <div class="pic" style="background-image: none;">
+                                    上次使用
+                                </div>
+                                作者 JIAWEI<br>
+                                使用 5
+                            </div>&nbsp;<div class="css-item"><div class="pic" style="background-image: url(发)"></div>作者 文峰<br> 使用 0<textarea style="display:none">["&lt;section style=\"margin:20px;\"&gt;\n&lt;section&gt;\n&lt;span style=\"font-size:13px;color:#ffa900;\"&gt;@","[WHO]","&lt;\/span&gt; \n&lt;\/section&gt;\n&lt;section&gt;\n&lt;span style=\"font-size:14px;color:#3e3e3e;\"&gt;","[WHAT]","&lt;\/span&gt; \n&lt;\/section&gt;\n&lt;\/section&gt;"]</textarea></div>&nbsp;<div class="css-item"><div class="pic" style="background-image: url(http://weibo.com/ajaxlogin.php?framelogin=1&amp;callback=parent.sinaSSOController.feedBackUrlCallBack)"></div>作者 hilun<br> 使用 0<textarea style="display:none">["&lt;section id=\"wrap_node\" style=\"border: dashed 1px #797979; padding: 5px;\"&gt;\n    &lt;section id=\"shifu_c_009\" donone=\"shifuMouseDownCard('shifu_c_009')\" style=\"margin: 2em 0em; padding: 0.5em 1em; white-space: normal; border: 1px solid rgb(91, 174, 240); display: block; font-size: 1em; font-family: inherit; font-style: normal; text-decoration: inherit; background-color: rgb(255, 255, 255);\"&gt;\n        &lt;section style=\"margin-top: -1.4em; text-align: center; padding: 0px; border: none; line-height: 1.4;\"&gt;\n            &lt;section style=\"padding: 0px 24px; font-size: 20px; white-space: normal; text-align: center; font-family: inherit; font-style: normal; text-decoration: inherit; background-color: rgb(254, 255, 255); border-color: rgb(255, 255, 255); display: inline-block;\"&gt;\n                &lt;section&gt;\n                    &lt;span style=\"color: rgb(141, 179, 226);\"&gt;&lt;span style=\"text-decoration: none;\"&gt;&lt;strong&gt;&lt;span style=\"text-decoration: none;\"&gt;\u8868\u767d\u2665&lt;\/span&gt;&lt;\/strong&gt;&lt;\/span&gt;&lt;strong&gt;","[NO]","&lt;\/strong&gt;&lt;\/span&gt;\n                &lt;\/section&gt;\n            &lt;\/section&gt;\n        &lt;\/section&gt;\n        &lt;section style=\"color: rgb(32, 32, 32); font-weight: inherit; padding: 16px; font-size: 1em; line-height: 1.4; font-family: inherit; font-style: normal;\"&gt;\n            &lt;p&gt;\n                &lt;span style=\"color: rgb(255, 0, 0);\"&gt;&lt;strong&gt;","[WHO]","&lt;\/strong&gt;&lt;\/span&gt; ","[WHAT]","&lt;br\/&gt;\n            &lt;\/p&gt;\n        &lt;\/section&gt;\n    &lt;\/section&gt;\n&lt;\/section&gt;\n&lt;p class=\"shifubrush\"&gt;\n    &lt;br\/&gt;\n&lt;\/p&gt;"]</textarea></div>&nbsp;<div class="css-item"><div class="pic" style="background-image: url(http://a4.qpic.cn/psb?/V13ppmxL439ZsA/mz*8uVg5bG82Vm7YokYYHQEkD4gYb*3RfFjRe**vem0!/b/d)"></div>作者 AJI<br> 使用 0<textarea style="display:none">["&lt;section class=\"_135editor\" data-tools=\"135\u7f16\u8f91\u5668\" data-id=\"3668\" data-color=\"#EB6794\" data-custom=\"#EB6794\" style=\"border: 0px none; padding: 0px; position: relative;\"&gt;\n    &lt;section style=\"margin: 20px 5px 5px; padding: 5px; border: 1px solid rgb(200, 200, 200); max-width: 100%; line-height: 24px; box-shadow: rgb(165, 165, 165) 5px 5px 2px; border-radius: 4px; word-wrap: break-word !important;background-color: rgba(248,248,248,0.7);\"&gt;\n        &lt;section style=\"color: rgb(0, 0, 0); margin: -25px 5px 0px; padding: 5px; max-width: 100%; text-align: center; word-wrap: break-word !important;\"&gt;\n            &lt;span style=\"color:inherit; font-size:14px; max-width:100%; word-wrap:break-word !important\"&gt;&lt;strong style=\"color:rgb(102, 102, 102); max-width:100%; word-wrap:break-word !important\"&gt;&lt;span class=\"135brush\" data-brushtype=\"text\" style=\"border-radius: 4px; box-shadow: #A5A5A5 4px 4px 2px; color: #FFFFFF; max-width: 100%; padding: 4px 10px; word-wrap: break-word !important; background-color: #EB6794;\"&gt;\u8868\u767d","[NO]","&lt;\/span&gt;&lt;\/strong&gt;&lt;\/span&gt;\n        &lt;\/section&gt;\n        &lt;section class=\"135brush\" style=\"font-size:14px;padding: 20px;\"&gt;\n            &lt;p style=\"color: rgb(0, 0, 0); white-space: normal; border-width: 0px; text-align: left;\"&gt;\n                &lt;span style=\"color: #EB6794;\"&gt;&lt;strong&gt;To\uff1a&nbsp;","[WHO]","&lt;\/strong&gt;&lt;\/span&gt;\n            &lt;\/p&gt;\n            &lt;p style=\"color: rgb(0, 0, 0); white-space: normal; border-width: 0px; text-align: left; text-indent: 2em;\"&gt;\n                ","[WHAT]","\n            &lt;\/p&gt;\n        &lt;\/section&gt;\n    &lt;\/section&gt;\n&lt;\/section&gt;\n&lt;p&gt;\n    &lt;br\/&gt;\n&lt;\/p&gt;\n&lt;p&gt;\n    &lt;br\/&gt;\n&lt;\/p&gt;"]</textarea></div>&nbsp;<div class="css-item"><div class="pic" style="background-image: url(http://image.baidu.com/detail/newindex?col=&amp;tag=&amp;pn=0&amp;pid=39416644211&amp;aid=413092661&amp;user_id=1432353211&amp;setid=-1&amp;sort=0&amp;newsPn=&amp;star=&amp;fr=&amp;from=2)"></div>作者 1(内测..)<br> 使用 0<textarea style="display:none">["&lt;section class=\"_135editor\" data-tools=\"135\u7f16\u8f91\u5668\" data-id=\"87860\" style=\"border: 0px none; padding: 0px;\"&gt;\n    &lt;section class=\"layout\" style=\"margin: 0px auto; width: 80%;\" data-width=\"80%\"&gt;\n        &lt;section class=\"135brush\" data-style=\"line-height: 1.75em; text-align: justify; margin: 10px 0px 0;font-size: 14px; color: #A1A1A1;\"&gt;\n            &lt;section class=\"pEditor\"&gt;\n                &lt;section style=\"margin:10px auto;background-color:rbg(249,249,249);border-radius:5px;border:1px solid rgb(206, 207, 206);box-shadow:0 1px 0 rgb(206, 207, 206), 0 2px 0 rgb(206, 207, 206), 0 3px 0 rgb(206, 207, 206), 0 4px 0 rgb(206, 207, 206);text-align:center\" data-css=\" margin:10px auto;background-color:rbg(249,249,249);border-radius:5px;border:1px solid rgb(197,200,204);box-shadow:0 1px 0 rgb(255,255,255), 0 2px 0 rgb(197,200,204), 0 3px 0 rgb(255,255,255), 0 4px 0 rgb(197,200,204);text-align:center\"&gt;\n                    &lt;section style=\"margin:0px;background-color:rgb(206, 207, 206);border-bottom:0px solid rgb(206, 207, 206);border-radius:4px 4px 0 0;display:block;height:25px\" data-css=\" margin:0px;background-color:#dbdbdd;border-bottom:0px solid rgb(197,200,204);border-radius:4px 4px 0 0;display:block;height:25px\"&gt;\n                        &lt;section style=\"display:inline-block;background-color:#adadad;border-radius:7px;border:none solid rgb(206, 207, 206);height:14px;margin-right:100px;width:14px\" data-css=\" display:inline-block;background-color:#adadad;border-radius: 7px;border:none solid rgb(163,164,167);height:14px;margin-right:100px;width:14px\"&gt;\n                            &lt;section style=\"background-color:rgb(222,222,222);border-radius:7px;border:none solid rgb(206, 207, 206);height:14px;margin-top:30px;width:14px\" data-css=\"background-color:rgb(222,222,222);border-radius: 7px;border:none solid rgb(163,164,167);height:14px;margin-top:30px;width:14px\"&gt;&lt;\/section&gt;\n                            &lt;section style=\"margin-top:-37px;background-color:rgb(255,255,255);border-radius:3px;border:1px solid #cacaca;height:30px;margin-left:2px;width:8px\" data-css=\" margin-top:-37px;background-color:rgb(255,255,255);border-radius: 3px;border:1px solid #cacaca;height:30px;margin-left:2px;width:8px\"&gt;&lt;\/section&gt;\n                        &lt;\/section&gt;\n                        &lt;section style=\"display:inline-block;background-color:#adadad;border-radius:7px;border:none solid rgb(206, 207, 206);height:14px;width:14px\" data-css=\" display:inline-block;background-color:#adadad;border-radius: 7px;border:none solid rgb(163,164,167);height:14px;width:14px\"&gt;\n                            &lt;section style=\"background-color:rgb(222,222,222);border-radius:7px;border:none solid rgb(206, 207, 206);height:14px;margin-top:30px;width:14px\" data-css=\"background-color:rgb(222,222,222);border-radius: 7px;border:none solid rgb(163,164,167);height:14px;margin-top:30px;width:14px\"&gt;&lt;\/section&gt;\n                            &lt;section style=\"margin-top:-37px;background-color:rgb(255,255,255);border-radius:3px;border:1px solid #cacaca;height:30px;margin-left:2px;width:8px\" data-css=\" margin-top:-37px;background-color:rgb(255,255,255);border-radius: 3px;border:1px solid #cacaca;height:30px;margin-left:2px;width:8px\"&gt;&lt;\/section&gt;\n                        &lt;\/section&gt;\n                    &lt;\/section&gt;\n                    &lt;section style=\"margin:40px 10px;\"&gt;\n                        &lt;p class=\"pBrush\" style=\"text-align: center;\"&gt;\n                            to:&nbsp;&lt;span style=\"color: rgb(179, 1, 18);\"&gt;&lt;strong&gt;&lt;span style=\"font-family: Raleway, sans-serif; font-size: 13px; line-height: 16.8831px; text-align: right; background-color: rgb(255, 255, 255);\"&gt;","[WHO]","&lt;\/span&gt;&lt;\/strong&gt;&lt;\/span&gt;\n                        &lt;\/p&gt;\n                        &lt;p class=\"pBrush\" style=\"text-align: center;\"&gt;\n                            &lt;span style=\"color: rgb(102, 102, 102); font-family: Raleway, sans-serif; font-size: 13px; line-height: 16.8831px; text-align: right; background-color: rgb(255, 255, 255);\"&gt;&lt;br\/&gt;&lt;\/span&gt;\n                        &lt;\/p&gt;\n                        &lt;p class=\"pBrush\" style=\"text-align: left;\"&gt;\n                            &lt;span style=\"line-height: 22.4px;\"&gt;&lt;\/span&gt;&lt;span style=\"color: rgb(56, 57, 56);\"&gt;&lt;span style=\"font-size: 12px; letter-spacing: 3px; line-height: 19.2px; text-align: center; background-color: rgb(254, 254, 254);\"&gt;&gt;&lt;\/span&gt;&lt;span style=\"line-height: 22.4px;\"&gt;&lt;\/span&gt;&lt;span style=\"font-size: 12px; letter-spacing: 3px; line-height: 19.2px; text-align: center; background-color: rgb(254, 254, 254);\"&gt;&gt;&lt;\/span&gt;&lt;span style=\"font-size: 12px; letter-spacing: 3px; line-height: 19.2px; text-align: center; background-color: rgb(254, 254, 254);\"&gt;&gt;","[WHAT]","&lt;\/span&gt;&lt;\/span&gt;\n                        &lt;\/p&gt;\n                    &lt;\/section&gt;\n                &lt;\/section&gt;\n            &lt;\/section&gt;\n            &lt;p style=\"line-height: 1.75em; text-align: justify; margin-top: 10px; color: rgb(161, 161, 161);\"&gt;\n                &lt;br\/&gt;\n            &lt;\/p&gt;\n        &lt;\/section&gt;\n    &lt;\/section&gt;\n&lt;\/section&gt;\n"]</textarea></div>&nbsp;<div class="css-item"><div class="pic" style="background-image: url(/Public/img/css/css4.jpg)"></div>作者 纵梦华工<br> 使用 0<textarea style="display:none">["&lt;section style=\"margin: 0.9em;border: 3px solid black\"&gt;&lt;section style=\"font-size: 13px;margin: 3px;border: 1px solid black;text-align: right;padding: 0.9em\"&gt;&lt;span style=\"color:palevioletred\"&gt;\u2764&lt;\/span&gt; \u8868\u767d","[NO]","&lt;br&gt;TO ","[WHO]",":&lt;br&gt;&lt;p style=\"color:#AAA\"&gt;","[WHAT]","&lt;\/p&gt;&lt;\/section&gt;&lt;\/section&gt;"]</textarea></div>     
+                            <a id="gcd" onclick="getCssData()">
+                                <div class="add-css-btn">
+                                    <span class="text-success"><i class="fa fa-spinner"></i> 更多</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="css-panel" style="display: none;">
+                            <div class="css-title">
+                                我的发表
+                            </div>
+                            <a onclick="showCss(0)">
+                                <div class="add-css-btn">
+                                    <span class="text-danger"><i class="fa fa-sign-out"></i> 返回</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="css-panel" style="display: none;">
+                            <div class="css-title">
+                                发表样式
+                            </div>
+                            <div class="add-css-btn">
+                                <span class="text-primary">样式教程</span>
+                            </div>
+                            <div class="css-form">
+                                <textarea rows="3" id="code" placeholder="样式代码"></textarea>
+                            </div>
+                            <div class="css-form" style="white-space: normal;">
+                                <input type="text" id="name" placeholder="样式名称">
+                                <input type="text" id="author" placeholder="作者署名">
+                                <input type="text" id="url" placeholder="封面图片地址(120*65)">
+                            </div>
+                            <div class="add-css-btn" onclick="sendCss()">
+                                <span class="text-success">确认发表</span>
+                            </div>
+                            <a onclick="showCss(0)">
+                                <div class="add-css-btn">
+                                    <span class="text-danger"><i class="fa fa-sign-out"></i> 返回</span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="css-panel" style="display: none;">
+                            <div class="css-title">
+                                提示
+                            </div>
+                            <div class="css-form" style="padding:20px">
+                                <span id="tip"></span>
+                            </div>
+                            <a onclick="showCss(0)">
+                                <div class="add-css-btn">
+                                    <span class="text-danger"><i class="fa fa-sign-out"></i> 返回</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="jw-box">
+                    <div id="the-type"><section class="ZM_YOUTH" style="margin: 1em; max-width: 100%; box-sizing: border-box; font-family: inherit; font-weight: inherit; tgcdext-align: inherit; white-space: normal; border: 1px solid #e83239; font-size: 14px; text-decoration: inherit; color: rgb(51, 51, 51); word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><section class="ZM_YOUTH" style="margin-top: -1em; margin-right: 16px; margin-left: 16px; max-width: 100%; box-sizing: border-box; border: none; line-height: 1.4; word-wrap: break-word !important;"><span class="ZM_YOUTH" style="padding: 3px 8px; max-width: 100%; box-sizing: border-box; display: inline-block; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; color: rgb(255, 255, 255); font-size: 12px; text-align: center; font-family: inherit; font-weight: inherit; text-decoration: inherit; border-color: rgb(160, 160, 160); word-wrap: break-word !important; background-color:#e83239;"><section class="ZM_YOUTH" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">♥表白1</section></span></section><section class="ZM_YOUTH" style="padding: 16px; max-width: 100%; box-sizing: border-box; font-size: 1em; line-height: 1.4; font-family: inherit; word-wrap: break-word !important;"><section class="ZM_YOUTH" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><strong><span style="color: #e83239;">L€F</span></strong> 曾经的我们很美好，现在的我们也要好好的，放下过去吧！明天一定要过的比昨天开心噢！</section></section><section style="max-width: 100%; width: 0px; height: 0px; clear: both; box-sizing: border-box !important; word-wrap: break-word !important;"></section></section><section class="ZM_YOUTH" style="margin: 1em; max-width: 100%; box-sizing: border-box; font-family: inherit; font-weight: inherit; tgcdext-align: inherit; white-space: normal; border: 1px solid #e83239; font-size: 14px; text-decoration: inherit; color: rgb(51, 51, 51); word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><section class="ZM_YOUTH" style="margin-top: -1em; margin-right: 16px; margin-left: 16px; max-width: 100%; box-sizing: border-box; border: none; line-height: 1.4; word-wrap: break-word !important;"><span class="ZM_YOUTH" style="padding: 3px 8px; max-width: 100%; box-sizing: border-box; display: inline-block; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; color: rgb(255, 255, 255); font-size: 12px; text-align: center; font-family: inherit; font-weight: inherit; text-decoration: inherit; border-color: rgb(160, 160, 160); word-wrap: break-word !important; background-color:#e83239;"><section class="ZM_YOUTH" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">♥表白2</section></span></section><section class="ZM_YOUTH" style="padding: 16px; max-width: 100%; box-sizing: border-box; font-size: 1em; line-height: 1.4; font-family: inherit; word-wrap: break-word !important;"><section class="ZM_YOUTH" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><strong><span style="color: #e83239;">说客家人的那个</span></strong> 客家人怎么你了，很厉害吗，很牛吗，有本事别匿名！</section></section><section style="max-width: 100%; width: 0px; height: 0px; clear: both; box-sizing: border-box !important; word-wrap: break-word !important;"></section></section><section class="ZM_YOUTH" style="margin: 1em; max-width: 100%; box-sizing: border-box; font-family: inherit; font-weight: inherit; tgcdext-align: inherit; white-space: normal; border: 1px solid #e83239; font-size: 14px; text-decoration: inherit; color: rgb(51, 51, 51); word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><section class="ZM_YOUTH" style="margin-top: -1em; margin-right: 16px; margin-left: 16px; max-width: 100%; box-sizing: border-box; border: none; line-height: 1.4; word-wrap: break-word !important;"><span class="ZM_YOUTH" style="padding: 3px 8px; max-width: 100%; box-sizing: border-box; display: inline-block; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; color: rgb(255, 255, 255); font-size: 12px; text-align: center; font-family: inherit; font-weight: inherit; text-decoration: inherit; border-color: rgb(160, 160, 160); word-wrap: break-word !important; background-color:#e83239;"><section class="ZM_YOUTH" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">♥表白3</section></span></section><section class="ZM_YOUTH" style="padding: 16px; max-width: 100%; box-sizing: border-box; font-size: 1em; line-height: 1.4; font-family: inherit; word-wrap: break-word !important;"><section class="ZM_YOUTH" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><strong><span style="color: #e83239;">上期表白19</span></strong> 我在上上期的表白墙说我很想家  这一期表白19的回应是在回应上一期的我吗？  不管是不是都很感谢你同学  因为最近也生病特别累   那天躺在床上我不知道为什么跟闺蜜聊着天心里就特别难受  眼泪就不知怎么的不受控制跑出来了  不管怎么样看到类似的回应还是要谢谢今晚回应的同学   现在也是在晚上的21:11分  晚安！</section></section><section style="max-width: 100%; width: 0px; height: 0px; clear: both; box-sizing: border-box !important; word-wrap: break-word !important;"></section></section><section class="ZM_YOUTH" style="margin: 1em; max-width: 100%; box-sizing: border-box; font-family: inherit; font-weight: inherit; tgcdext-align: inherit; white-space: normal; border: 1px solid #e83239; font-size: 14px; text-decoration: inherit; color: rgb(51, 51, 51); word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><section class="ZM_YOUTH" style="margin-top: -1em; margin-right: 16px; margin-left: 16px; max-width: 100%; box-sizing: border-box; border: none; line-height: 1.4; word-wrap: break-word !important;"><span class="ZM_YOUTH" style="padding: 3px 8px; max-width: 100%; box-sizing: border-box; display: inline-block; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; color: rgb(255, 255, 255); font-size: 12px; text-align: center; font-family: inherit; font-weight: inherit; text-decoration: inherit; border-color: rgb(160, 160, 160); word-wrap: break-word !important; background-color:#e83239;"><section class="ZM_YOUTH" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">♥表白4</section></span></section><section class="ZM_YOUTH" style="padding: 16px; max-width: 100%; box-sizing: border-box; font-size: 1em; line-height: 1.4; font-family: inherit; word-wrap: break-word !important;"><section class="ZM_YOUTH" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><strong><span style="color: #e83239;">那个表白颜启学的同学</span></strong> 不好意思，他已经有女票了，他说不如去考虑他的舍友更好。</section></section><section style="max-width: 100%; width: 0px; height: 0px; clear: both; box-sizing: border-box !important; word-wrap: break-word !important;"></section></section></div>
+                </div>
+
+                <div class="jw-box text-right">
+                    <span class="text-danger">*.请务必检查清楚哦</span>
+                    <a class="btn btn-info btn-sm" onclick="jumpStep(0)">上一步</a>
+                    <a class="btn btn-success btn-sm" onclick="jumpStep(2)">下一步</a>
+                </div>
+            </div>
+
+            <div class="jw-step" style="display: none;">
+                <div class="jw-box">
+                    <span class="title-line">第三步：传送到图文素材</span>
+                    <div class="pull-right">
+                        <a class="btn btn-info btn-sm" onclick="jumpStep(1)">上一步</a>
+                    </div>
+                </div>
+
+                <div class="jw-box text-center">
+                    <div class="jw-box">
+                        <div class="text-left" style="padding: 0 120px">
+                            <h3 class="text-center">表白图文排版,传送注意</h3><br>
+                            1. 请<span class="text-danger">认真确认</span> 上一步 排版的图文;请认真检查是否包含<span class="text-danger">敏感词汇</span><br><br>
+                            2. 传送完毕之后，系统将会<span class="text-danger">默认采用</span>本次数据<br><br>
+                            3. 传送完毕之后，请前往<span class="text-danger">微信后台</span>检查图文是否到位<br><br>
+                            4. 要找回本次数据或者之前数据，请<span class="text-danger">按日期来获取</span><br><br>
+                            0. 图文总字数不能<span class="text-danger">超过两万字</span>，超过请使用<span class="text-danger">火狐浏览器</span>进行复制<br><br>
+                            <p class="text-right">纵梦技术部 JiaweiXS<br>2016.11.8</p>
+                        </div>
+                        <hr>
+                        <a class="btn btn-success btn-sm" id="finish-bt" href="http://wx.zmyouth.com/index.php/App/LoveWall/index/token/69" style="display: none"><i class="fa fa-check"></i> 完成图文</a>
+                        <a class="btn btn-info btn-sm" id="start-bt"><i class="fa fa-rocket"></i> 开始传送</a>
+                    </div>
+
+                    <div class="progress progress-striped active">
+                        <div id="progress" class="progress-bar progress-bar-primary" data-jd="0" role="progressbar" style="width: 0;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- ./padding-md -->
+    </div><!-- /main-container -->
+
+    <footer class="footer">
+    <span class="footer-brand">
+        <strong class="text-primary">ZM</strong> Youth.com
+    </span>
+    <p class="no-margin">
+        © 2016 <strong>纵梦校园</strong>
+    </p>
+</footer>
+</div><!-- /wrapper -->
+<a href="http://wx.zmyouth.com/index.php/App/LoveWall/index/token/69#" class="scroll-to-top hidden-print"><i class="fa fa-chevron-up fa-lg"></i></a>
+<!-- Jquery -->
+<script src="__PUBLIC__/js/bbq/jquery-1.11.1.min.js"></script>
+<!--<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>-->
+<!-- Bootstrap -->
+<script src="__PUBLIC__/js/bbq/bootstrap.min.js"></script>
+<!-- Slimscroll平滑滚动 -->
+<script src="__PUBLIC__/js/bbq/jquery.slimscroll.min.js"></script>
+<!-- Datepicker时间选择 -->
+<script src="__PUBLIC__/js/bbq/datepicker.js"></script>
+<!-- Sortable -->
+<script src="__PUBLIC__/js/bbq/jquery.sortable.js"></script>
+<!-- Simplify -->
+<script src="__PUBLIC__/js/bbq/simplify.js"></script>
+<script>
+    setInterval(function () {
+        $.ajax({
+            url:'/App/LoveWall/alive',
+            type:'get',
+            success:function (msg) {
+                console.log(msg);
+            }
+        });
+    },600000)
+</script>
+<input type="hidden" id="page" value="1">
+<input type="hidden" id="minId" value="1776404">
+<input type="hidden" id="maxId" value="1776438">
+<script>
+    //    自动排序
+    $('#bb-data').sortable();
+    //    跳转步骤
+    function jumpStep(index){
+        $('.jw-step').hide();
+        $('.jw-step:eq('+index+')').show();
+    }
+    //    显示样式生态页面
+    function showCss(index){
+        $('.css-panel').hide();
+        $('.css-panel:eq('+index+')').show();
+    }
+    //根据样式改变默认颜色
+    $('#cssid').change(function () {
+        switch ($('#cssid').val()){
+            case '1':
+                break;
+            case '2':
+                break;
+        }
+    });
+    //采用
+    $('#used-btn').click(function () {
+        var isTrue = confirm('你确定要强制采取当前所有数据');
+        if(!isTrue){
+            return false;
+        }
+        $.ajax({
+            url:'/App/LoveWall/used/token/69',
+            type:'post',
+            data:{min:$('#minId').val(),max:$('#maxId').val()},
+            success:function (msg) {
+                alert(msg.msg);
+            }
+        });
+    });
+    //进度条 开始传送
+    $('#start-bt').click(function(){
+        $('#start-bt').attr('disabled',true);
+        $('#start-bt').html('正在传送 <i class="fa fa-spinner fa-spin"></i>');
+        $('#progress').data('jd',0);
+        var timer = setInterval(function(){
+            var cur_index = $('#progress').data('jd');
+            if(cur_index>=90){
+                clearInterval(timer);
+            }
+            var new_index = cur_index+2;
+            $('#progress').css('width',new_index+'%');
+            $('#progress').data('jd',new_index);
+        },200);
+        $.ajax({
+            url:'/App/LoveWall/send/token/69',
+            type:'post',
+            data:{text:$('#the-type').html(),min:$('#minId').val(),max:$('#maxId').val()},
+            success:function (msg) {
+                $('#start-bt').attr('disabled',false);
+                $('#start-bt').html('<i class="fa fa-repeat"></i> 重新传送');
+                if(msg.code!=200){
+                    if(msg.status==0){
+                        alert(msg.info);
+                        location.href = msg.url;
+                        return;
+                    }
+                    $('#progress').css('width',0);
+                    $('#progress').data('jd',0);
+                    alert(msg.msg);
+                }else{
+                    finish();
+                    $('#progress').parents().removeClass('active');
+                    $('#finish-bt').show();
+                }
+            }
+        });
+    });
+    //    进度条直接完成
+    function finish(){
+        $('#progress').css('width','100%');
+        $('#progress').data('jd',100);
+    }
+    //默认一键排版
+    function setDefaultType(){
+        setType('1','#e83239','#e83239','♥表白');
+    }
+    //排版
+    function setType(cssid,color,obj_color,head){
+        var count = $('#bb-data').children().length;
+        var html = '';
+        for(var i=0;i<count;i++){
+            var index =i+1;
+            var obj = $('#bb-data').children(':eq('+i+')').children(':eq(1)').html();
+            var content = $('#bb-data').children(':eq('+i+')').children(':eq(2)').html();
+            switch(cssid){
+                case '1'://#e83239
+                    html += '<section class="ZM_YOUTH" style="margin: 1em; max-width: 100%; box-sizing: border-box; font-family: inherit; font-weight: inherit; tgcdext-align: inherit; white-space: normal; border: 1px solid '+color+'; font-size: 14px; text-decoration: inherit; color: rgb(51, 51, 51); word-wrap: break-word !important; background-color: rgb(255, 255, 255);"><section class="ZM_YOUTH" style="margin-top: -1em; margin-right: 16px; margin-left: 16px; max-width: 100%; box-sizing: border-box; border: none; line-height: 1.4; word-wrap: break-word !important;"><span class="ZM_YOUTH" style="padding: 3px 8px; max-width: 100%; box-sizing: border-box; display: inline-block; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; color: rgb(255, 255, 255); font-size: 12px; text-align: center; font-family: inherit; font-weight: inherit; text-decoration: inherit; border-color: rgb(160, 160, 160); word-wrap: break-word !important; background-color:'+color+';"><section class="ZM_YOUTH" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;">' +
+                            head+index+'</section></span></section><section class="ZM_YOUTH" style="padding: 16px; max-width: 100%; box-sizing: border-box; font-size: 1em; line-height: 1.4; font-family: inherit; word-wrap: break-word !important;"><section class="ZM_YOUTH" style="max-width: 100%; box-sizing: border-box; word-wrap: break-word !important;"><strong><span style="color: '+obj_color+';">' +
+                            obj+'</span></strong> ' +
+                            content+'</section></section><section style="max-width: 100%; width: 0px; height: 0px; clear: both; box-sizing: border-box !important; word-wrap: break-word !important;"></section></section>';
+                    break;
+                case '2'://#ffbeb7
+                    html += '<section style="margin: 1em;"><section class="ZM_YOUTH" style="box-sizing:border-box;display:inline-block;color:#FFFFFF;font-family:inherit;font-size:13px;white-space:normal;padding:3px 8px;line-height:1.4;border-top-left-radius:8px;border-top-right-radius:8px;background-color:'+color+';"> <section class="ZM_YOUTH" style="box-sizing:border-box;">'+
+                            head+index+' </section></section> <section class="ZM_YOUTH" style="box-sizing:border-box;font-family:inherit;font-size:1em;white-space:normal;background-color:#FFFFFF;margin-top:-1px;border:1px solid '+color+';border-bottom-left-radius:8px;border-bottom-right-radius:8px;text-decoration:inherit;color:#333333;"> <section class="ZM_YOUTH" style="box-sizing:border-box;padding:16px;border-bottom-left-radius:8px;border-bottom-right-radius:8px;line-height:1.4;"> <section class="ZM_YOUTH" style="box-sizing:border-box;"> <span style="box-sizing:border-box;font-weight:700;"><span style="box-sizing:border-box;color:'+obj_color+';">'+
+                            obj+'</span></span>&nbsp;'+
+                            content+'</section></section></section></section>';
+                    break;
+            }
+
+        }
+        $('#the-type').html(html);
+    }
+    //显示细节面板
+    function showPanel(index){
+        var isShow = $('.other-panel:eq('+index+')').css('display');
+        if(isShow=='none'){//up
+            $('.the-icon:eq('+index+')').removeClass('fa-arrow-circle-down');
+            $('.the-icon:eq('+index+')').addClass('fa-arrow-circle-up');
+            $('.other-panel:eq('+index+')').show();
+        }else{//down
+            $('.the-icon:eq('+index+')').removeClass('fa-arrow-circle-up');
+            $('.the-icon:eq('+index+')').addClass('fa-arrow-circle-down');
+            $('.other-panel:eq('+index+')').hide();
+        }
+
+    }
+    //排版
+    function setTheType(){
+        var cssid = $('#cssid').val();
+        var color = $('#color').val();
+        var obj_color = $('#obj_color').val();
+        var head = $('#head').val();
+        setType(cssid,color,obj_color,head);
+    }
+    //删除表白记录
+    function delAction(instance) {
+        var index = instance.parents().parents().index();
+        $.ajax({
+            url:'/App/LoveWall/del/token/69',
+            type:'post',
+            data:{id:instance.data('id')},
+            success:function (msg) {
+                console.log(msg);
+                if(msg.code!=200){
+                    if(msg.status==0){
+                        alert(msg.info);
+                        location.href = msg.url;
+                        return;
+                    }
+                    alert(msg.msg);
+                }else{
+                    $('#bb-data').children(':eq('+index+')').remove();
+                }
+            }
+        });
+    }
+    //置顶
+    function topAction(instance) {
+        var temp = instance.parent().parent().html();
+        temp = '<div class="bb">'+temp+'</div>';
+        instance.parent().parent().remove();
+        $('#bb-data').prepend(temp);
+        $('.top_btn').unbind('click').click(function () {
+            topAction($(this))
+        });
+        $('.del_btn').unbind('click').click(function () {
+            delAction($(this));
+        });
+    }
+
+    $('.top_btn').click(function () {
+        topAction($(this))
+    });
+    $('.del_btn').click(function () {
+        delAction($(this));
+    });
+    //发表样式
+    function sendCss() {
+        $.ajax({
+            url:'/App/LoveWall/addCss',
+            type:'post',
+            data:{name:$('#name').val(),url:$('#url').val(),author:$('#author').val(),code:$('#code').val()},
+            success:function (msg) {
+                if(msg.code!=200){
+                    if(msg.status==0){
+                        alert(msg.info);
+                        location.href = msg.url;
+                        return;
+                    }
+                    alert(msg.msg);
+                }else{
+                    $('#tip').html(msg.msg);
+                    $('#url').val('');
+                    $('#name').val('');
+                    $('#author').val('');
+                    $('#code').val('');
+                    showCss(3);
+                }
+            }
+        });
+    }
+    //获取样式
+    function getCssData() {
+        $('#gcd').attr('disabled',true);
+        var page = $('#page').val();
+        page++;
+        $.ajax({
+            url:'/App/LoveWall/getCssData/p/'+page,
+            type:'get',
+            success:function (msg) {
+                console.log('成功',msg);
+                if(msg.code==200){
+                    $('#gcd').attr('disabled',false);
+                    $.each(msg.data,function (k,v) {
+                        $('.css-panel:first').children('.css-item:last').after('&nbsp;<div class="css-item"><div class="pic" style="background-image: url('+v.url+')"></div>作者 '+v.author+'<br> 使用 '+v.count+'<textarea style="display:none">'+v.code+'</textarea></div> ');
+                    });
+                    $('.css-item').click(setCssType);
+                    $('#page').val(page);
+                }else if(msg.code==201){
+                    alert(msg.msg);
+                }else{
+                    if(msg.status==0){
+                        alert(msg.info);
+                        location.href = msg.url;
+                        return;
+                    }
+                    alert(msg.msg);
+                }
+            },
+            error:function (msg) {
+                console.log('错误',msg);
+            }
+        });
+    }
+    //默认获取一页
+    getCssData();
+    //获取样式
+    function getMyCss() {
+        $('#gcd').attr('disabled',true);
+        var page = $('#page').val();
+        page++;
+        $.ajax({
+            url:'/App/LoveWall/getMyCss/',
+            type:'get',
+            success:function (msg) {
+                if(msg.code==200){
+                    $('#gcd').attr('disabled',false);
+                    $.each(msg.data,function (k,v) {
+                        $('.css-panel:eq(1)').children('.css-title').after('&nbsp;<div class="css-item"><div class="pic" style="background-image: url('+v.url+')"></div>作者 '+v.author+'<br> 使用 '+v.count+'<textarea style="display:none">'+v.code+'</textarea></div> ');
+                    });
+                    $('.css-item').click(setCssType);
+                    $('#page').val(page);
+                }else if(msg.code==201){
+//                    alert(msg.msg);
+                }else{
+                    if(msg.status==0){
+                        alert(msg.info);
+                        location.href = msg.url;
+                        return;
+                    }
+                    alert(msg.msg);
+                }
+            }
+        });
+    }
+    //默认获取一页
+    getMyCss();
+    //样式排版
+    function setCssType() {
+        var code = $(this).children('textarea').val();
+        var json = JSON.parse(code);
+
+        var count = $('#bb-data').children().length;
+        var html = '';
+        for(var i=0;i<count;i++){
+            var index =i+1;
+            var obj = $('#bb-data').children(':eq('+i+')').children(':eq(1)').html();
+            var content = $('#bb-data').children(':eq('+i+')').children(':eq(2)').html();
+            $.each(json,function (k,v) {
+                switch (v){
+                    case '[NO]':
+                        html+=index;
+                        break;
+                    case '[WHO]':
+                        html+=obj;
+                        break;
+                    case '[WHAT]':
+                        html+=content;
+                        break;
+                    default:
+                        html+=v;
+                }
+            })
+        }
+        $('#the-type').html(html);
+    }
+</script>
+
+</body></html>

@@ -49,7 +49,7 @@
 <div class="content">
 
     <div class="lead">
-        <h4><strong>其他证书</strong></h4>
+        <h4><strong>账号管理</strong></h4>
     </div>
 
     <hr>
@@ -59,7 +59,7 @@
         <!-- 首次考试时间： -->
             <!-- <select  class="btn btn-default dropdown-toggle" id="test_time" > -->
                 <!-- <option value="0">全部</option> -->
-				<!-- <option value="2017-11">2017-11</option> -->
+                <!-- <option value="2017-11">2017-11</option> -->
                 <!-- <foreach name="testTime" item="vo"> -->
                     <!-- <option value="{$vo.thtt_time}">{$vo.thtt_time}</option> -->
                 <!-- </foreach> -->
@@ -70,19 +70,19 @@
         <!-- -- -->
             <!-- <input placeholder=" 请输入日期" class="laydate-icon" style=" width:142px; height:30px;" -->
                <!-- onclick="laydate()" name="date_e" id="date_e" > -->
-		<!-- &nbsp;&nbsp;&nbsp;&nbsp;是否核实： -->
+        <!-- &nbsp;&nbsp;&nbsp;&nbsp;是否核实： -->
             <!-- <select  class="btn btn-default dropdown-toggle" id="is_check"> -->
                 <!-- <option value="-1">全部</option> -->
                 <!-- <option value="1">核实</option> -->
-				<!-- <option value="0">未核实</option> -->
+                <!-- <option value="0">未核实</option> -->
             <!-- </select> -->
-		<!-- &nbsp;&nbsp;&nbsp;&nbsp;是否预报名： -->
+        <!-- &nbsp;&nbsp;&nbsp;&nbsp;是否预报名： -->
             <!-- <select  class="btn btn-default dropdown-toggle" id="is_bk"> -->
                 <!-- <option value="-1">全部</option> -->
                 <!-- <option value="1">是</option> -->
-				<!-- <option value="0">否</option> -->
+                <!-- <option value="0">否</option> -->
             <!-- </select> -->
-		<!-- <br/>	 -->
+        <!-- <br/>   -->
         <!-- <div style="padding: 10px; float: right"> -->
             <!-- <input type="button" class="btn btn-primary" onclick="search()"  value="查询"> -->
             <!-- <input type="button" class="btn btn-primary" onclick="exprot()"  value="导出Excel表格"> -->
@@ -91,10 +91,10 @@
     <!-- </div> -->
         <!-- <hr> -->
     </if>
-	
-	<div style="padding: 10px; float: right">
+    
+    <!-- <div style="padding: 10px; float: right">
         <input type="button" class="btn btn-primary" onclick="add()"  value="新增缴费记录">
-    </div>
+    </div> -->
 
 
 
@@ -102,12 +102,10 @@
     <thead>
     <tr>
         <th>序号</th>
-        <th>学生姓名</th>
-        <th style="width: 100px;">缴费时间</th>
-        <th>缴费金额</th>
-		<th>报考证书</th>
-        <th>业务员姓名</th>
-		 <th>操作</th>
+        <th>小编姓名</th>
+        <th>手机号码</th>
+        <th>所属公众号</th>
+        <th  style="width:150px;">操作</th>
     </tr>
     </thead>
     <!--<tbody>-->
@@ -145,7 +143,7 @@
             "bLengthChange": true,//屏蔽tables的一页展示多少条记录的下拉列表
             "language":lang,    //国际化
             "processing": true, //打开数据加载时的等待效果
-			//"deferRender": true, //渲染加速
+            //"deferRender": true, //渲染加速
             // "serverSide": true,//打开后台分页
             "ajax": {
                 "url": "{:U('admin/User/getUserList')}",
@@ -161,53 +159,49 @@
                 }
             },
             "columns": [
-                { "data": "student_name" },
-                { "data": "student_name" },
-                { "data": "create_time" },
-				{ "data": "some_cash" },
-                { "data": "num" },
+                { "data": "key" },
                 { "data": "username" },
-				{ "data": "ac" },
+                { "data": "tel" },
+                { "data": "wc_name" },
+                { "data": "ac" },
             ]
+        });
 
-        } );
     } );
-	
-	
-	
-	//新增其他证书收款记录
-    function add(){
+    
+    
+    //账号修改
+    function save(id){
         layer.open({
             type: 2,
-            title: ['其他证书缴费信息录入'],
+            title: ['账号修改'],
             scrollbar: false, //是否允许浏览器出现滚动条
             maxmin: false,  //最大最小化按钮
             shadeClose: true, //点击遮罩关闭层
-            area: ['80%', '80%'], //控制大小
-            content: "__CONTROLLER__/otherCercost/",
+            area: ['100%', '100%'], //控制大小
+            content: "__CONTROLLER__/userSaveIndex/user_id/" + id,
             closeBtn: 1,    //关闭按钮样式
             anim:3, //弹出动画
             moveOut: true //是否允许拖动
         });
     }
-	
-	//删除
-    function dele(id)
-    {
-	var msg = "您真的确定要删除吗？\n\n请确认！"; 
-	 if (confirm(msg)==true){ 
-	  var url = "{:U('admin/Order/deleteOrder/id/"+id+"')}";
-       // alert(url);
-        window.location.href = url; 
-	 }else{ 
-	  return false; 
-	 } 
-        
-        
+
+   
+    
+    //删除
+    function dele(id){
+        var msg = "您真的确定要删除吗？\n\n请确认！"; 
+         if (confirm(msg)==true){ 
+          var url = "{:U('Admin/User/deleteUser/id/"+id+"')}";
+           // alert(url);
+            window.location.href = url; 
+         }else{ 
+          return false; 
+         } 
     }
-	
-	
-	
+    
+    
+    
 
     //点击搜索按钮
     function search()
@@ -217,7 +211,22 @@
 
     
 
-
+ 
+    // //新增其他证书收款记录
+    // function add(){
+    //     layer.open({
+    //         type: 2,
+    //         title: ['其他证书缴费信息录入'],
+    //         scrollbar: false, //是否允许浏览器出现滚动条
+    //         maxmin: false,  //最大最小化按钮
+    //         shadeClose: true, //点击遮罩关闭层
+    //         area: ['80%', '80%'], //控制大小
+    //         content: "__CONTROLLER__/otherCercost/",
+    //         closeBtn: 1,    //关闭按钮样式
+    //         anim:3, //弹出动画
+    //         moveOut: true //是否允许拖动
+    //     });
+    // }
 
 
 </script>

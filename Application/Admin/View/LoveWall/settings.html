@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>表白墙设置</title>
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__PUBLIC__/H/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="__PUBLIC__/H/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/H/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/H/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/H/css/style.min.css?v=4.0.0" rel="stylesheet">
+    <link href="__PUBLIC__/magic-check/magic-check.css" rel="stylesheet">
+    <link href="__PUBLIC__/Validform/style.css" rel="stylesheet">
+
+	<script src="__PUBLIC__/H/js/jquery.min.js?v=2.1.4"></script>
+
+    <!--点提交新页面打开-->
+    <!--<base target="_blank">-->
+
+
+    <style>
+        .laydate-icon {
+            width: 242px;
+            height: 30px;
+        }
+
+        .magic-radio + label,
+        .magic-checkbox + label {
+            display: inline;
+        }
+
+        .magic-checkbox:checked + label:before {
+            border: #3e97eb;
+            background: #2E8B57;
+        }
+
+        .laydate_body .laydate_y .laydate_yms ul li {
+            width: 58px;
+        }
+    </style>
+
+
+    <style>
+        .jw-box{
+            background: white;
+            box-shadow: 0 0 2px #BBB;
+            padding: 16px 20px;
+            border-radius: 2px;
+            margin-bottom: 10px;
+        }
+
+        .title-line{
+            font-size: 16px;
+            font-weight: bold;
+            padding: 0 20px;
+        }
+
+        .phone{
+            margin: 0 auto;
+            width: 300px;
+            min-height: 480px;
+            background: #f9f9f9;
+            border: 1px solid #CCC;
+            box-shadow: 0 0 6px #CCC;
+        }
+        .phone .title-bar{
+            background: #666;
+            color: white;
+            padding: 8px;
+        }
+        .phone img{
+            width: 100%;
+        }
+        .phone .the-input{
+            border-top: 1px solid #CCC;
+            border-bottom: 1px solid #CCC;
+            margin:16px 0 6px;
+            background: white;
+        }
+        .phone .the-input input,textarea{
+            width: 100%;
+            padding: 6px 16px;
+            border: none;
+        }
+    </style>
+
+</head>
+
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>表白墙设置</h5>
+
+                    <!--<div class="ibox-tools">-->
+                    <!--<a class="collapse-link">-->
+                    <!--<i class="fa fa-chevron-up"></i>-->
+                    <!--</a>-->
+                    <!--<a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">-->
+                    <!--<i class="fa fa-wrench"></i>-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-menu dropdown-user">-->
+                    <!--<li><a href="form_basic.html#">选项1</a>-->
+                    <!--</li>-->
+                    <!--<li><a href="form_basic.html#">选项2</a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                    <!--<a class="close-link">-->
+                    <!--<i class="fa fa-times"></i>-->
+                    <!--</a>-->
+                    <!--</div>-->
+
+                </div>
+                <div class="ibox-content">
+
+                    <form class="form-horizontal demoform" action="{:U('Admin/LoveWall/settings')}" method="post"
+                          enctype="multipart/form-data">
+                         
+
+                    <div class="jw-box">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="jw-box">
+                                <div class="form-group">
+                                    <label>表单封面</label><br>
+                                    <img id="loading" style="max-width:300px;padding-bottom: 8px;" src="__PUBLIC__/{$lwc_info.lwc_file}">
+                                    <!-- <input id="addpic" class="form-control" type="file" placeholder="选择封面"> -->
+                                    <input type="file" name="lwc_file" />
+                                </div>
+                                <div class="form-group">
+                                    <label>表单标题</label>
+                                    <input class="form-control" name="lwc_title" type="text" value="{$lwc_info.lwc_title}"  required="">
+                                </div>
+                                <div class="form-group">
+                                    <label>表白对象 提示语</label>
+                                    <input class="form-control" name="lwc_express_class" type="text" value="{$lwc_info.lwc_express_class}"  required="">
+                                </div>
+                                <div class="form-group">
+                                    <label>表白内容 提示语</label>
+                                    <input class="form-control" name="lwc_express_content" type="text" value="{$lwc_info.lwc_express_content}"  required="">
+                                </div>
+                                 <div class="form-group">
+                                    <label>你的名字 提示语</label>
+                                    <input class="form-control" name="lwc_your_name" type="text" value="{$lwc_info.lwc_your_name}"  required="">
+                                </div>
+                                 <div class="form-group">
+                                    <label>联系方式 提示语</label>
+                                    <input class="form-control" name="lwc_link" type="text" value="{$lwc_info.lwc_link}"  required="">
+                                </div>
+                                <div class="form-group">
+                                    <label>图片 提示语</label>
+                                    <input class="form-control" name="lwc_img" type="text" value="{$lwc_info.lwc_img}"  required="">
+                                </div>
+                                <div class="form-group">
+                                    <label>提交表白 按钮内容</label>
+                                    <input class="form-control" name="lwc_post_botton" type="text" value="{$lwc_info.lwc_post_botton}" required="">
+                                </div>
+                                <div class="form-group">
+                                    <label>提交表白 按钮颜色</label>
+                                    <input class="form-control" name="lwc_botton_color" type="color" value="选择颜色"  required="{$lwc_info.lwc_botton_color}">
+                                </div>
+                                <input id="wc_id" name="wc_id" type="hidden" value="{$wc_id}">
+                                <!-- <div class="form-group text-center">
+                                    <button type="button" class="btn btn-success btn-sm" onclick="preview()"> 预览效果--&gt;</button>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="jw-box">
+                                <label>表白墙表单地址<span class="text-danger">（设置在 自定义菜单 或者 自动回复）</span></label>
+                                <div class="input-group">
+                                    <input id="com_url" type="text" class="form-control" value="{$com_name}">
+                                    <span class="input-group-btn">
+                                        <button id="copy" class="btn" type="button"  onClick="copyUrl()">复制链接</button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="jw-box">
+                                <label>手机端效果预览</label>
+                                <div class="phone">
+                                    <div class="title-bar text-center">
+                                        <span id="title">{$lwc_info.lwc_title}</span>
+                                        <span class="pull-left">&lt;</span>
+                                        <i class="pull-right fa fa-ellipsis-h"></i>
+                                    </div>
+                                    <img src="__PUBLIC__/{$lwc_info.lwc_file}">
+                                    <div class="the-input">
+                                        <input id="obj" type="text" placeholder="{$lwc_info.lwc_express_class}">
+                                        <div style="border-top: 1px solid #ccc;margin: 0 8px;"></div>
+                                        <textarea id="content" rows="3" placeholder="{$lwc_info.lwc_express_content}"></textarea>
+                                         <div style="border-top: 1px solid #ccc;margin: 0 8px;"></div>
+                                         <input id="obj2" type="text" placeholder="{$lwc_info.lwc_your_name}">
+                                         <div style="border-top: 1px solid #ccc;margin: 0 8px;"></div>
+                                         <input id="obj3" type="text" placeholder="{$lwc_info.lwc_link}">
+                                         <div style="border-top: 1px solid #ccc;margin: 0 8px;"></div>
+                                         <span style="padding-left:15px;">{$lwc_info.lwc_img}</span>
+                                         <input id="obj4" type="file"  placeholder="{$lwc_info.lwc_your_name}">
+                                         <!-- <div style="border-top: 1px solid #ccc;margin: 0 8px;"></div> -->
+                                        <!-- <div class="text-right text-muted">字数限10以上,800以内,可以写小作文了</div> -->
+                                    </div>
+                                    <div style="padding: 0 8px;">
+                                        <button id="btn" class="btn btn-danger" style="width: 100%;background:{$lwc_info.lwc_botton_color};">{$lwc_info.lwc_post_botton}</button>
+                                    </div>
+                                    <div class="text-center" style="margin-top: 10px"><a href="#"></a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+						
+                        
+
+                        <div class="hr-line-dashed"></div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-5">
+                                <button class="btn btn-primary" type="submit" id="save">保存
+                                </button>
+                            </div>
+                        </div>
+                        <!-- <span style="font-size:6px;">&nbsp;&nbsp;&nbsp;*&nbsp;不填用“-”代替</span> -->
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="__PUBLIC__/H/js/bootstrap.min.js?v=3.3.5"></script>
+<script src="__PUBLIC__/H/js/content.min.js?v=1.0.0"></script>
+<script src="__PUBLIC__/H/js/plugins/iCheck/icheck.min.js"></script>
+<script src="__PUBLIC__/laydate/laydate.js"></script>
+
+<script src="__PUBLIC__/Validform/Validform_v5.3.2_min.js"></script>
+
+<script src="__PUBLIC__/plugins/layer/layer.js"></script>
+
+<!--身份证识别出生日期-->
+<script src="__PUBLIC__/js/plugins/js/idcardByBirthday.js"></script>
+<!--检测照片规格-->
+<script src="__PUBLIC__/js/plugins/js/checkImg.js"></script>
+
+
+<script>
+    //初始化Validform
+    $(".demoform").Validform();
+
+
+    function copyUrl()
+    {
+        var Url2=document.getElementById("com_url");
+        Url2.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        layer.alert("已复制地址，可贴粘。");
+    }
+
+
+
+
+
+
+
+
+
+
+  
+</script>
+
+</body>
+
+</html>

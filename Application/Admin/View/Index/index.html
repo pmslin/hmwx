@@ -42,48 +42,19 @@
                 <li>
                     <a href="#">
                         <i class="glyphicon glyphicon-edit"></i>
-                        <span class="nav-label">录入报名表</span>
+                        <span class="nav-label">我的应用</span>
                         <span class="fa arrow"></span>
                     </a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a class="J_menuItem" href="teacher"><i class="glyphicon glyphicon-chevron-right"></i>录入教师证报名表</a>
+                            <a class="J_menuItem" href="LoveWall/loveWallList"><i class="glyphicon glyphicon-chevron-right"></i>表白墙</a>
                         </li>
                        
 
                     </ul>
                 </li>
 
-                <li>
-                    <a href="#">
-                        <i class="fa fa-table"></i>
-                        <span class="nav-label">学生报名表</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a class="J_menuItem" href="teacher/teacherList"><i class="glyphicon glyphicon-chevron-right"></i>教师证学生报名表</a>
-                        </li>
-                        
-
-                    </ul>
-                </li>
-
-                <if condition="($Think.session.roleid eq 1) OR ($Think.session.roleid eq 5) ">
-                <li>
-                    <a href="#">
-                        <i class="fa fa fa-bar-chart-o"></i>
-                        <span class="nav-label">财务报表</span>
-                        <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-						<li>
-                            <a class="J_menuItem" href="Order/otherCerList"><i class="glyphicon glyphicon-chevron-right"></i>其他证书业绩录入</a>
-                        </li>
-
-                    </ul>
-                </li>
-                </if>
+                
 
                 <li>
                     <a href="#">

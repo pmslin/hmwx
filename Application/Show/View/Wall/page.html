@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{$lwinfo.lwc_title}</title>
+    <link href="__PUBLIC__/css/plugins/show/wall/wall.css" rel="stylesheet">
+</head>
+<body>
+<img src="__PUBLIC__/{$lwinfo.lwc_file}" width="100%">
+<form action="{:U('Show/Wall/sendWall')}" method="post" enctype="multipart/form-data">
+    <div class="weui_cells weui_cells_form">
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="lw_express_class" placeholder="{$lwinfo.lwc_express_class}">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <textarea class="weui_textarea" placeholder="{$lwinfo.lwc_express_content}" rows="3" name="lw_express_content" id="lw_express_content"></textarea>
+                <div class="weui_textarea_counter" style="font-size:14px;">3~800字</div>
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="lw_your_name" placeholder="{$lwinfo.lwc_your_name}">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                <input class="weui_input" type="text" name="lw_link" placeholder="{$lwinfo.lwc_link}">
+            </div>
+        </div>
+        <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary">
+                {$lwinfo.lwc_img}
+                <input class="weui_input" type="file" name="lw_img_url" >
+            </div>
+        </div>
+        <input type="hidden" name="wechat" value="{$wechat}" >
+    </div>
+    <div style="padding:10px;">
+        <input class="weui_btn weui_btn_warn"type="submit" value="{$lwinfo.lwc_post_botton}" style="background: {$lwinfo.lwc_botton_color}" id="post" >
+    </div>
+</form>
+
+<div id="bottom"></div>
+
+<script src="__PUBLIC__/H/js/jquery.min.js?v=2.1.4"></script>
+<script src="__PUBLIC__/plugins/layer/layer.js"></script>
+
+
+<script>
+    $(function(){
+         $("#post").click(function(){
+            //检测内容字数
+            var length = $("#lw_express_content").val().length;
+            if (length < 3) {
+                layer.msg("字数不少于3个");
+                return false;
+            }else if(length > 800){
+                layer.msg("字数不大于800字");
+                return false;
+            }
+
+            //检测上传的文件是否是图片格式
+            filepath=$("input[name='lw_img_url']").val();
+            var extStart=filepath.lastIndexOf(".");
+            var ext=filepath.substring(extStart,filepath.length).toUpperCase();
+            if (ext != ''){
+                if(ext!=".BMP" && ext!=".PNG" && ext!=".GIF" && ext!=".JPG" && ext!=".JPEG"){
+                    layer.msg("只能上传图片格式");
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+
+
+
+</body>
+
+</html>
