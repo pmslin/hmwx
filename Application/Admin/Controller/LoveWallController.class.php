@@ -24,21 +24,80 @@ class LoveWallController extends BaseController
      * 获取表白墙数据列表页面
      */
     public function getLoveWallList(){
-        $list = D("LoveWall")->getNewLoveWall();
+//        show_bug(I());exit();
+        $userInfo = M("user")->where("id=%d",session("userid"))->find();
+
+        $map=array();
+        $map['lw_wc_id'] = $userInfo['u_wc_id'];
+        $map['lw_new'] = 1;
+
+        $data_b = I("date_b");
+        $data_e = I("date_e");
+        $map_data_b = empty($data_b) ? date("Y-m-d") : $data_b;
+        $map_data_e = empty($data_e) ? date("Y-m-d") : $data_e;
+        if (!empty($data_b) || !empty($data_e)){
+            $map['lw_create_time']=array('between',array($map_data_b." 00:00:00",$map_data_e." 23:59:59"));
+            $map['lw_new'] = 0;
+        }
+
+
+        $list = D("LoveWall")->where($map)->order("lw_sort DESC,lw_create_time ASC")->select();
+//        echo M()->_sql();
         foreach ($list as $k=>$v){
             $list[$k]['i'] = $k+1;
-            $list[$k]['top'] = "";
+            $list[$k]['ac'] = '<button class="layui-btn" onclick="sort('.$v['lw_id'].')" >置顶</button> 
+                                <button class="layui-btn" onclick="dele('.$v['lw_id'].')" >删除</button>';
             if (empty($v['lw_img_url'])){
                 $list[$k]['img'] = "";
             }else{
                 $list[$k]['img'] = "<img width='200' src='../../public/".$v['lw_img_url']."'/>";
             }
-
         }
-//        var_dump($list);exit();
-//        exit();
-        $this->ajaxReturn($list,'json');
 
+
+        //获取表白墙排版数据
+        if (I("style")==1){
+            $this->assign("list",$list);
+//            show_bug($list);
+            $this->display("style");
+            exit();
+        }
+
+        //复制完成，将数据改变为旧数据
+        if (I("copy")==1){
+            if (empty($list)) $this->ajaxReturn("没有数据");
+            $ids= implode(",",array_column($list,"lw_id"));
+            $save_all = M('love_wall')->where(" lw_id IN ($ids) ")->save(array("lw_new"=>1));
+            $save_all !== false ? $this->ajaxReturn("完成") : $this->ajaxReturn("失败~");
+            exit();
+        }
+
+        $this->ajaxReturn($list,'json');
+    }
+
+
+    /**
+     * ajax置顶
+     */
+    public function sort(){
+        $id = I("lw_id",0,"intval");
+        $lw_model = M("love_wall");
+        $max_sort = $lw_model->where("lw_new=1")->max("lw_sort");
+        empty($max_sort) ? $max_sort=100 : $max_sort;
+        $sort = $max_sort + 1;
+        $save = $lw_model->where("lw_id=%d",$id)->save(array("lw_sort" => $sort));
+        $save == false ? $this->ajaxReturn("置顶失败")  : $this->ajaxReturn("置顶成功");
+    }
+
+
+    /**
+     * ajax删除
+     */
+    public function delete(){
+        $lw_id = I("lw_id",0,"intval");
+        if ($lw_id <= 0) $this->ajaxReturn("参数错误");
+        $delete = M("love_wall")->where("lw_id = %d",$lw_id)->delete();
+        $delete ? $this->ajaxReturn("删除成功") : $this->ajaxReturn("删除失败");
     }
 
 
@@ -71,7 +130,6 @@ class LoveWallController extends BaseController
 
 //            show_bug($lwc_info);exit();
 
-
             $add !== false ? $this->success("保存成功") : $this->error("保存失败");
 
         }else{
@@ -81,9 +139,6 @@ class LoveWallController extends BaseController
             $this->assign("lwc_info",$lwc_info);
             $this->display();
         }
-
-
-
     }
 
 

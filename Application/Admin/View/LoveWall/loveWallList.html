@@ -54,86 +54,43 @@
 
     <hr>
 
-    <if condition="($Think.session.roleid eq 1) OR ($Think.session.roleid eq 4) OR ($Think.session.roleid eq 5) ">
+  
     <div class="form-group">
-        首次考试时间：
-            <select  class="btn btn-default dropdown-toggle" id="test_time" >
-                <option value="0">全部</option>
-				<option value="2017-11">2017-11</option>
-                <foreach name="testTime" item="vo">
-                    <option value="{$vo.thtt_time}">{$vo.thtt_time}</option>
-                </foreach>
-            </select>
-        &nbsp;&nbsp;&nbsp;&nbsp;报名日期:
+        时间:
             <input placeholder=" 请输入日期" class="laydate-icon" style=" width:142px; height:30px;"
                onclick="laydate()" name="date_b" id="date_b" >
         --
             <input placeholder=" 请输入日期" class="laydate-icon" style=" width:142px; height:30px;"
                onclick="laydate()" name="date_e" id="date_e" >
-		&nbsp;&nbsp;&nbsp;&nbsp;核实：
-            <select  class="btn btn-default dropdown-toggle" id="is_check">
-                <option value="-1">全部</option>
-                <option value="1">核实</option>
-				<option value="0">未核实</option>
-            </select>
-		&nbsp;&nbsp;&nbsp;&nbsp;预报名：
-            <select  class="btn btn-default dropdown-toggle" id="is_bk">
-                <option value="-1">全部</option>
-                <option value="1">是</option>
-				<option value="0">否</option>
-            </select>
-          <br/><br/>
-		&nbsp;&nbsp;&nbsp;&nbsp;审核：
-            <select  class="btn btn-default dropdown-toggle" id="is_audit">
-                <option value="-1">全部</option>
-                <option value="1">是</option>
-				<option value="0">否</option>
-            </select>			
-			&nbsp;&nbsp;&nbsp;&nbsp;业务员:
-             <input type="text" style=" width:142px; height:30px;" id="user_name" value="">
-			 &nbsp;&nbsp;&nbsp;&nbsp;学生:
-             <input type="text" style=" width:142px; height:30px;" id="stundet_name" value="">
 		
+		<input type="button" class="btn btn-primary" onclick="search()"  value="查询旧数据">
 			   
 		<br/>	
         <div style="padding: 10px; float: right">
-            <input type="button" class="btn btn-primary" onclick="search()"  value="查询">
+            <input type="button" class="btn btn-primary" onclick="style_set()"  value="表白墙排版">
             <input type="button" class="btn btn-primary" onclick="settings()"  value="表白墙设置">
-            <!-- <input type="button" class="btn btn-primary" onclick="exprot()"  value="导出Excel表格"> -->
-            <input type="button" class="btn btn-primary" onclick="downImg()"  value="导出考生图片">
+           <input type="button" class="btn btn-primary" onclick="copy()"  value="复制完成">
         </div>
 		
-		<if condition="($Think.session.roleid eq 1) OR ($Think.session.roleid eq 5)">
-		<div  class="cost">
-			<hr>
-			 &nbsp;&nbsp;&nbsp;&nbsp;缴费日期:
-				<input placeholder=" 请输入日期" class="laydate-icon" style=" width:142px; height:30px;"
-				   onclick="laydate()" name="pay_date_b" id="pay_date_b" >
-			--
-				<input placeholder=" 请输入日期" class="laydate-icon" style=" width:142px; height:30px;"
-				   onclick="laydate()" name="pay_date_e" id="pay_date_e" >
-			<div style=" float: right">
-				<input type="button" class="btn btn-primary" onclick="cost_exprot()"   value="导出财务Excel表格">
-			</div>
-		</div>
+	
+          <if condition="($Think.session.roleid eq 1) OR ($Think.session.roleid eq 4) OR ($Think.session.roleid eq 5) ">
 		</if>
 		
     </div>
-        <hr>
-    </if>
+        
 
 
 
 <table id="table_id_example" class="display">
     <thead>
     <tr>
-        <th>序号</th>
+        <th style="width: 30px;">序号</th>
         <th style="width: 100px;">对象</th>
         <th>内容</th>
         <th>联系方式</th>
         <th>图片</th>
-        <th>日期</th>
-        <th>操作</th>
+        <th style="width: 80px;">日期</th>
+        <th style="width: 160px;">操作</th>
     </tr>
     </thead>
   
@@ -150,7 +107,7 @@
         table = $('#table_id_example').DataTable( {
             "pagingType": "simple_numbers",//设置分页控件的模式
             searching: true,//datatales的查询框
-//            aLengthMenu:[10],//设置一页展示10条记录
+           aLengthMenu:[500],//设置一页展示10条记录
             // "aaSorting" : [[1, "asc"]], //默认的排序方式，按第2列desc排序
             "bLengthChange": true,//屏蔽tables的一页展示多少条记录的下拉列表
             "language":lang,    //国际化
@@ -163,16 +120,9 @@
                 // "type": "POST",
                 "data": function ( d ) {
                     //添加额外的参数传给服务器
-                    d.test_time = $('#test_time').val();
                     d.date_b = $('#date_b').val();
                     d.date_e = $('#date_e').val();
-                    d.is_check = $('#is_check').val();
-                    d.is_bk = $('#is_bk').val();
-					//d.pay_date_b = $('#pay_date_b').val();
-					//d.pay_date_e = $('#pay_date_e').val();
-					d.is_audit = $('#is_audit').val();
-					d.user_name = $('#user_name').val();
-					d.stundet_name = $('#stundet_name').val();
+                 
                 }
             },
             "columns": [
@@ -182,7 +132,7 @@
                 { "data": "lw_link" },
                 { "data": "img" },
                 { "data": "lw_create_time" },
-                { "data": "top" },
+                { "data": "ac" },
             ]
 
         } );
@@ -212,71 +162,90 @@
     }
 
 
-
-
-
-
-    //导出excel
-    function exprot()
-    {
-        test_time = $('#test_time').val();
-        date_b = $('#date_b').val();
-        date_e = $('#date_e').val();
-        is_check = $('#is_check').val();
-        is_bk = $('#is_bk').val();
-		is_audit = $('#is_audit').val();
-		user_name = $('#user_name').val()==''? 0 : $('#user_name').val();
-		stundet_name = $('#stundet_name').val()==''? 0 : $('#stundet_name').val();
-        var url = "{:U('admin/Teacher/getTeacherList/exprot/1/test_time/"+test_time+"/date_b/"+date_b+"/date_e/"+date_e+"/is_check/"+is_check+"/is_bk/"+is_bk+"/is_audit/"+is_audit+"/user_name/"+user_name+"/stundet_name/"+stundet_name+"')}";
-       // alert(url);
-        window.location.href = url;
-    }
-	
-	//财务导出excel
-    function cost_exprot()
-    {
-        test_time = $('#test_time').val();
-        date_b = $('#date_b').val();
-        date_e = $('#date_e').val();
-        is_check = $('#is_check').val();
-        is_bk = $('#is_bk').val();
-		is_audit = $('#is_audit').val();
-		user_name = $('#user_name').val()==''? 0 : $('#user_name').val();
-		stundet_name = $('#stundet_name').val()==''? 0 : $('#stundet_name').val();
-		pay_date_b = $('#pay_date_b').val();
-        pay_date_e = $('#pay_date_e').val();	
-		
-        var url = "{:U('admin/Teacher/getTeacherList/cost_exprot/1/test_time/"+test_time+"/date_b/"+date_b+"/date_e/"+date_e+"/is_check/"+is_check+"/is_bk/"+is_bk+"/is_audit/"+is_audit+"/user_name/"+user_name+"/stundet_name/"+stundet_name+"/pay_date_b/"+pay_date_b+"/pay_date_e/"+pay_date_e+"')}";
-//        alert(url);
-        window.location.href = url;
+    //置顶
+    function sort(id){
+         $.ajax({
+            type: "POST",
+            url: "__CONTROLLER__/sort",
+            timeout: 3000,
+            data: {
+                lw_id: id,
+            },
+            success: function (data) {
+                layer.msg(data);
+                table.ajax.reload();
+            },
+            error: function () {
+                layer.msg('网络开小差，请稍后再试！');
+            }
+        });
     }
 
-    //导出考生图片
-    function downImg()
-    {
-        test_time = $('#test_time').val();
-        date_b = $('#date_b').val();
-        date_e = $('#date_e').val();
-        is_check = $('#is_check').val();
-        is_bk = $('#is_bk').val();
-		is_audit = $('#is_audit').val();
-		user_name = $('#user_name').val()==''? 0 : $('#user_name').val();
-		stundet_name = $('#stundet_name').val()==''? 0 : $('#stundet_name').val();
-        var url = "{:U('admin/Teacher/getTeacherList/downImg/1/test_time/"+test_time+"/date_b/"+date_b+"/date_e/"+date_e+"/is_check/"+is_check+"/is_bk/"+is_bk+"/is_audit/"+is_audit+"/user_name/"+user_name+"/stundet_name/"+stundet_name+"')}";
-        // var url = "{:U('admin/Teacher/getTeacherList/downImg/1/test_time/"+test_time+"/date_b/"+date_b+"/date_e/"+date_e+"')}";
-        window.location.href = url;
+
+    //删除
+    function dele(id){
+         $.ajax({
+            type: "POST",
+            url: "__CONTROLLER__/delete",
+            timeout: 3000,
+            data: {
+                lw_id: id,
+            },
+            success: function (data) {
+                layer.msg(data);
+                table.ajax.reload();
+            },
+            error: function () {
+                layer.msg('网络开小差，请稍后再试！');
+            }
+        });
     }
 
-    //详情
-    function detail(id){
+
+    //复制完成
+    function copy(){
+        var msg = "确认完成复制？\n\n请确认！"; 
+         if (confirm(msg)==true){ 
+
+         $.ajax({
+            type: "POST",
+            url: "__CONTROLLER__/getLoveWallList",
+            timeout: 3000,
+            data: {
+                date_b : $('#date_b').val(),
+                date_e : $('#date_e').val(),
+                copy : 1,
+            },
+            success: function (data) {
+                layer.msg(data);
+                table.ajax.reload();
+            },
+            error: function () {
+                layer.msg('网络开小差，请稍后再试！');
+            }
+        });
+
+         }else{ 
+          return false; 
+         } 
+    
+    }
+
+
+
+
+
+   
+    //进入表白墙排版
+    function style_set(){
         layer.open({
             type: 2,
-            title: ['教师证学生报名表详情'],
+            title: ['表白墙排版'],
             scrollbar: false, //是否允许浏览器出现滚动条
             maxmin: false,  //最大最小化按钮
             shadeClose: true, //点击遮罩关闭层
-            area: ['100%', '100%'], //控制大小
-            content: "__CONTROLLER__/teacherStatusDetail/id/" + id,
+            area: ['50%', '95%'], //控制大小
+            content: "__CONTROLLER__/getLoveWallList/style/1/date_b/"+$('#date_b').val()+'/date_e/'+$('#date_e').val(),
             closeBtn: 1,    //关闭按钮样式
             anim:3, //弹出动画
             moveOut: true //是否允许拖动

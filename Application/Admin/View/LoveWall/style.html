@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>表白墙设置</title>
+
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="__PUBLIC__/H/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
+    <link href="__PUBLIC__/H/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
+    <link href="__PUBLIC__/H/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="__PUBLIC__/H/css/animate.min.css" rel="stylesheet">
+    <link href="__PUBLIC__/H/css/style.min.css?v=4.0.0" rel="stylesheet">
+    <link href="__PUBLIC__/magic-check/magic-check.css" rel="stylesheet">
+    <link href="__PUBLIC__/Validform/style.css" rel="stylesheet">
+
+    <script src="__PUBLIC__/H/js/jquery.min.js?v=2.1.4"></script>
+
+    <!--点提交新页面打开-->
+    <!--<base target="_blank">-->
+
+
+</head>
+
+<body>
+
+<foreach name="list" item="vo">
+
+
+    <section style="white-space: normal;">
+        <section class="" powered-by="xiumi.us">
+            <section>
+                <section class="" powered-by="xiumi.us">
+                    <section style="color: rgb(62, 62, 62);">
+                        <section class="" powered-by="xiumi.us">
+                            <section class="" style="margin-top: 10px;margin-bottom: 10px;text-align: center;">
+                                <section class="" style="padding-right: 1em;padding-left: 1em;display: inline-block;">
+                                    <span class=""
+                                          style="padding: 0.3em 0.5em;display: inline-block;box-shadow: rgb(165, 165, 165) 4px 4px 2px;font-size: 14px;color: rgb(255, 255, 255);background-color: rgb(249, 110, 87);"><p>告白</p></span>
+                                </section>
+                                <section class=""
+                                         style="margin-top: -1em;padding: 20px 10px 10px;border-width: 1px;border-style: solid;border-color: rgb(204, 204, 204);box-shadow: rgb(165, 165, 165) 4px 4px 2px;background-color: rgb(254, 255, 255);">
+                                    <section class="" powered-by="xiumi.us">
+                                        <section class="">
+                                            <section class="" style="text-align: left;"><p><span
+                                                    style="color: rgb(236, 131, 120);font-size: 14px;">@<span style=";"><span
+                                                    style=";">{$vo.lw_express_class}</span></span></span></p>
+                                                <p><span style="color: rgb(236, 131, 120);font-size: 14px;"><br></span>
+                                                </p>
+
+                                                
+                                                <p style="text-align: center;"><span
+                                                        style="font-size: 14px;color: rgb(136, 136, 136);"><span
+                                                        style=";"><span
+                                                        style=";">{$vo.lw_express_conten}</span></span></span></p>
+                                                <p style="text-align: center;"><span
+                                                        style="font-size: 14px;color: rgb(136, 136, 136);"><br></span>
+                                                </p>
+                                                
+
+                                                <if condition="$vo.lw_img_url neq null">
+                                                <p><img data-s="300,640" data-type="png"
+                                                        data-src="__PUBLIC__/{$vo.lw_img_url}"
+                                                        style="width: auto !important; height: auto !important; visibility: visible !important;"
+                                                        class="" data-ratio="0.7515625" data-w="640"
+                                                        src="__PUBLIC__/{$vo.lw_img_url}"
+                                                        data-fail="0"></p>
+                                                </if>
+
+                                                <p style="text-align: right;"><span
+                                                        style="color: rgb(136, 136, 136);font-size: 14px;"><span
+                                                        style=";"><span style=";">{$vo.lw_your_name}</span></span></span></p>
+                                                <p style="text-align: right;"><span
+                                                        style="color: rgb(136, 136, 136);font-size: 14px;"><span
+                                                        style=";"><br></span></span></p>
+                                                <p style="text-align: right;"><span
+                                                        style="color: rgb(136, 136, 136);font-size: 14px;"><span
+                                                        style=";"></span></span></p>
+
+                                                
+                                            </section>
+                                        </section>
+                                    </section>
+                                </section>
+                            </section>
+                        </section>
+                    </section>
+                    <p style="color: rgb(62, 62, 62);text-align: center;"><br></p></section>
+            </section>
+        </section>
+    </section>
+
+
+</foreach>
+
+
+<script src="__PUBLIC__/H/js/bootstrap.min.js?v=3.3.5"></script>
+<script src="__PUBLIC__/H/js/content.min.js?v=1.0.0"></script>
+<script src="__PUBLIC__/H/js/plugins/iCheck/icheck.min.js"></script>
+<script src="__PUBLIC__/laydate/laydate.js"></script>
+
+<script src="__PUBLIC__/Validform/Validform_v5.3.2_min.js"></script>
+
+<script src="__PUBLIC__/plugins/layer/layer.js"></script>
+
+<!--身份证识别出生日期-->
+<script src="__PUBLIC__/js/plugins/js/idcardByBirthday.js"></script>
+<!--检测照片规格-->
+<script src="__PUBLIC__/js/plugins/js/checkImg.js"></script>
+
+
+<script>
+    //初始化Validform
+    $(".demoform").Validform();
+
+
+    function copyUrl() {
+        var Url2 = document.getElementById("com_url");
+        Url2.select(); // 选择对象
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        layer.alert("已复制地址，可贴粘。");
+    }
+</script>
+
+</body>
+
+</html>

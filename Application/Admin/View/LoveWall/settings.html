@@ -165,10 +165,14 @@
                                     <label>提交表白 按钮内容</label>
                                     <input class="form-control" name="lwc_post_botton" type="text" value="{$lwc_info.lwc_post_botton}" required="">
                                 </div>
+                                <!-- <div class="form-group">
+                                    <label>提交表白 文字颜色</label>
+                                    <input class="form-control" name="lwc_font_color" type="color" value="选择颜色"  required="{$lwc_info.lwc_font_color}">
+                                </div>
                                 <div class="form-group">
                                     <label>提交表白 按钮颜色</label>
                                     <input class="form-control" name="lwc_botton_color" type="color" value="选择颜色"  required="{$lwc_info.lwc_botton_color}">
-                                </div>
+                                </div> -->
                                 <input id="wc_id" name="wc_id" type="hidden" value="{$wc_id}">
                                 <!-- <div class="form-group text-center">
                                     <button type="button" class="btn btn-success btn-sm" onclick="preview()"> 预览效果--&gt;</button>
@@ -211,7 +215,8 @@
                                         <!-- <div class="text-right text-muted">字数限10以上,800以内,可以写小作文了</div> -->
                                     </div>
                                     <div style="padding: 0 8px;">
-                                        <button id="btn" class="btn btn-danger" style="width: 100%;background:{$lwc_info.lwc_botton_color};">{$lwc_info.lwc_post_botton}</button>
+                                    <!--     <button id="btn" class="btn btn-danger" style="width: 100%;background:{$lwc_info.lwc_botton_color};color:{$lwc_info.lwc_font_color}; ">{$lwc_info.lwc_post_botton}</button> -->
+                                         <button id="btn" class="btn btn-danger" style="width: 100%;background:#000000; ">{$lwc_info.lwc_post_botton}</button>
                                     </div>
                                     <div class="text-center" style="margin-top: 10px"><a href="#"></a></div>
                                 </div>
@@ -271,17 +276,6 @@
         document.execCommand("Copy"); // 执行浏览器复制命令
         layer.alert("已复制地址，可贴粘。");
     }
-
-
-
-
-
-
-
-
-
-
-  
 </script>
 
 </body>

@@ -5,7 +5,7 @@ use Think\Model;
 
 class WechatAccountModel extends Model
 {
-    const COM_NAME="http://xiyaoju.cn/";
+    const COM_NAME="http://lexuexi.net/";
 
     /**
      * 获取公众号
