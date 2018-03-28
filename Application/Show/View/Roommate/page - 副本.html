@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{$rminfo.rmc_title}</title>
+    <link href="__PUBLIC__/css/plugins/show/wall/wall.css" rel="stylesheet">
+</head>
+<body>
+<img src="__PUBLIC__/{$rminfo.rmc_file}" width="100%">
+<form action="{:U('Show/Roommate/sendRoommate')}" method="post" enctype="multipart/form-data">
+    <div class="weui_cells weui_cells_form">
+       
+    <div class="weui_cell">
+        <!-- <div class="weui_cell_hd"><label class="weui_label">昵称</label></div> -->
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" name="rm_tel" type="text" placeholder="{$rminfo.rmc_tel}" required="">
+        </div>
+    </div>
+    <div class="weui_cell">
+        <!-- <div class="weui_cell_hd"><label class="weui_label">班级</label></div> -->
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" name="rm_nickname" type="text" placeholder="{$rminfo.rmc_nickname}" required="">
+        </div>
+    </div>
+    <div class="weui_cell">
+        <!-- <div class="weui_cell_hd"><label class="weui_label">微信</label></div> -->
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" name="rm_grade" type="text" placeholder="{$rminfo.rmc_grade}" required="">
+        </div>
+    </div>
+    <div class="weui_cell">
+        <!-- <div class="weui_cell_hd"><label class="weui_label">微信</label></div> -->
+        <div class="weui_cell_bd weui_cell_primary">
+            <input class="weui_input" name="rm_wc_number" type="text" placeholder="{$rminfo.rmc_wc_number}" required="">
+        </div>
+    </div>
+    <div class="weui_cell">
+        <!-- <div class="weui_cell_hd"><label class="weui_label">描述</label></div> -->
+        <div class="weui_cell_bd weui_cell_primary">
+            <textarea class="weui_input" name="rm_introduce" rows="3" style="height: 60px" placeholder="{$rminfo.rmc_introduce}" required=""></textarea>
+        </div>
+    </div>
+    <div class="weui_cell">
+        <!-- <div class="weui_cell_hd"><label class="weui_label">喜欢</label></div> -->
+        <div class="weui_cell_bd weui_cell_primary">
+            <textarea class="weui_input" name="rm_interest" rows="3" style="height: 60px" placeholder="{$rminfo.rmc_interest}" required=""></textarea>
+        </div>
+    </div>
+    
+    <div class="weui_cell">
+            <div class="weui_cell_bd weui_cell_primary" style="color: #828282;">
+                {$rminfo.rmc_img}
+                <input class="weui_input" type="file" name="rm_img_url" >
+            </div>
+    </div>
+    <input type="hidden" name="wechat" value="{$wechat}" >
+
+    <div class="weui_cell">
+        <!--活动描述-->
+        <div style="padding: 20px;font-size: 12px;color: #AAA;">
+            游戏规则：<br>
+            1、面向对象：舍友、闺蜜、基友、自己<br>
+            2、拒绝无脑黑，尊重大家的友谊，适当黑，高端夸，有助于给TA脱单&交友<br>
+            3、被卖人不想被打扰，可以联系我们撤回联系方式，但是文章发布后不会删除<br>
+            4、肖像权等责任一律由提供者自行承担，所以卖之前请与被卖人获得允许权<br>
+            5、图片最好是正面！高清！无码！
+        </div>
+    </div>
+</div>
+
+
+<div style="margin: 40px 16px">
+    <input class="weui_btn weui_btn_primary" type="submit" style="background: #000000;" value="{$rminfo.rmc_post_botton}">
+</div>
+
+</form>
+
+<div id="bottom"></div>
+
+<script src="__PUBLIC__/H/js/jquery.min.js?v=2.1.4"></script>
+<script src="__PUBLIC__/plugins/layer/layer.js"></script>
+
+
+<script>
+    $(function(){
+         $("#post").click(function(){
+            //检测内容字数
+            var length = $("#lw_express_content").val().length;
+            if (length < 3) {
+                layer.msg("字数不少于3个");
+                return false;
+            }else if(length > 800){
+                layer.msg("字数不大于800字");
+                return false;
+            }
+
+            //检测上传的文件是否是图片格式
+            filepath=$("input[name='lw_img_url']").val();
+            var extStart=filepath.lastIndexOf(".");
+            var ext=filepath.substring(extStart,filepath.length).toUpperCase();
+            if (ext != ''){
+                if(ext!=".BMP" && ext!=".PNG" && ext!=".GIF" && ext!=".JPG" && ext!=".JPEG"){
+                    layer.msg("只能上传图片格式");
+                    return false;
+                }
+            }
+        });
+    });
+</script>
+
+
+
+</body>
+
+</html>
