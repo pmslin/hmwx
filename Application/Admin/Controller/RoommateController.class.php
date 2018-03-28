@@ -41,13 +41,13 @@ class RoommateController extends BaseController
         }
 
 
-        $list = D("LoveWall")->where($map)->order("rm_sort DESC,lw_create_time ASC")->select();
+        $list = M("roommate")->where($map)->order("rm_sort DESC,rm_create_time ASC")->select();
 //        echo M()->_sql();
         foreach ($list as $k=>$v){
             $list[$k]['i'] = $k+1;
             $list[$k]['ac'] = '<button class="layui-btn" onclick="sort('.$v['rm_id'].')" >置顶</button> 
                                 <button class="layui-btn" onclick="dele('.$v['rm_id'].')" >删除</button>';
-            if (empty($v['lw_img_url'])){
+            if (empty($v['rm_img_url'])){
                 $list[$k]['img'] = "";
             }else{
                 $list[$k]['img'] = "<img width='200' src='../../public/".$v['rm_img_url']."'/>";

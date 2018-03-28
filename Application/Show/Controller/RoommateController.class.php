@@ -39,7 +39,7 @@ class RoommateController extends BaseController
 
             $file = $this->upload();
 //            show_bug($file);exit();
-            if (!empty($file)) $post['rm_img_url'] ='Uploads/roommate'.$file;
+            if (!empty($file)) $post['rm_img_url'] ='Uploads/roommate/'.$file;
 
             $wc = D("Admin/WechatAccount")->getWCTelByCode(I("wechat","","trim"));
             $post['rm_wc_id'] = $wc['wc_id'];
@@ -57,7 +57,7 @@ class RoommateController extends BaseController
         $upload = new \Think\Upload();
         $upload->maxSize = 3145728;
         $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
-        $upload->rootPath = './Public/Uploads/roommate';
+        $upload->rootPath = './Public/Uploads/roommate/';
 
         if ($_FILES['rm_img_url']['error']==4) return'';
 

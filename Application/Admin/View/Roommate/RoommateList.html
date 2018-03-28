@@ -62,20 +62,20 @@
         --
             <input placeholder=" 请输入日期" class="laydate-icon" style=" width:142px; height:30px;"
                onclick="laydate()" name="date_e" id="date_e" >
-		
-		<input type="button" class="btn btn-primary" onclick="search()"  value="查询旧数据">
-			   
-		<br/>	
+        
+        <input type="button" class="btn btn-primary" onclick="search()"  value="查询旧数据">
+               
+        <br/>   
         <div style="padding: 10px; float: right">
             <input type="button" class="btn btn-primary" onclick="style_set()"  value="卖舍友排版">
             <input type="button" class="btn btn-primary" onclick="settings()"  value="卖舍友设置">
            <input type="button" class="btn btn-primary" onclick="copy()"  value="复制完成">
         </div>
-		
-	
+        
+    
           <if condition="($Think.session.roleid eq 1) OR ($Think.session.roleid eq 4) OR ($Think.session.roleid eq 5) ">
-		</if>
-		
+        </if>
+        
     </div>
         
 
@@ -84,13 +84,16 @@
 <table id="table_id_example" class="display">
     <thead>
     <tr>
-        <th style="width: 30px;">序号</th>
-        <th style="width: 100px;">对象</th>
-        <th>内容</th>
-        <th>联系方式</th>
-        <th>图片</th>
-        <th style="width: 80px;">日期</th>
-        <th style="width: 160px;">操作</th>
+        <th style="width: 5px;">序号</th>
+        <th style="width: 50px;">联系方式</th>
+        <th>昵称</th>
+        <th>年级+专业+班别</th>
+        <th>微信</th>
+        <th style="width: 80px;">介绍</th>
+        <th>兴趣和交友标准</th>
+        <th style="width: 30px;">图片</th>
+        <th>日期</th>
+        <th style="width: 130px;">操作</th>
     </tr>
     </thead>
   
@@ -112,10 +115,10 @@
             "bLengthChange": true,//屏蔽tables的一页展示多少条记录的下拉列表
             "language":lang,    //国际化
             "processing": true, //打开数据加载时的等待效果
-			//"deferRender": true, //渲染加速
+            //"deferRender": true, //渲染加速
             // "serverSide": true,//打开后台分页
             "ajax": {
-                "url": "{:U('admin/LoveWall/getLoveWallList')}",
+                "url": "{:U('admin/Roommate/getRoommateList')}",
                 "dataSrc": '',
                 // "type": "POST",
                 "data": function ( d ) {
@@ -127,11 +130,14 @@
             },
             "columns": [
                 { "data": "i" },
-                { "data": "lw_express_class" },
-                { "data": "lw_express_conten" },
-                { "data": "lw_link" },
+                { "data": "rm_tel" },
+                { "data": "rm_nickname" },
+                { "data": "rm_grade" },
+                { "data": "rm_wc_number" },
+                { "data": "rm_introduce" },
+                { "data": "rm_interest" },
                 { "data": "img" },
-                { "data": "lw_create_time" },
+                { "data": "rm_create_time" },
                 { "data": "ac" },
             ]
 
@@ -169,7 +175,7 @@
             url: "__CONTROLLER__/sort",
             timeout: 3000,
             data: {
-                lw_id: id,
+                rm_id: id,
             },
             success: function (data) {
                 layer.msg(data);
@@ -189,7 +195,7 @@
             url: "__CONTROLLER__/delete",
             timeout: 3000,
             data: {
-                lw_id: id,
+                rm_id: id,
             },
             success: function (data) {
                 layer.msg(data);
@@ -209,7 +215,7 @@
 
          $.ajax({
             type: "POST",
-            url: "__CONTROLLER__/getLoveWallList",
+            url: "__CONTROLLER__/getRoommateList",
             timeout: 3000,
             data: {
                 date_b : $('#date_b').val(),
@@ -240,12 +246,12 @@
     function style_set(){
         layer.open({
             type: 2,
-            title: ['表白墙排版'],
+            title: ['卖舍友排版'],
             scrollbar: false, //是否允许浏览器出现滚动条
             maxmin: false,  //最大最小化按钮
             shadeClose: true, //点击遮罩关闭层
             area: ['50%', '95%'], //控制大小
-            content: "__CONTROLLER__/getLoveWallList/style/1/date_b/"+$('#date_b').val()+'/date_e/'+$('#date_e').val(),
+            content: "__CONTROLLER__/getRoommateList/style/1/date_b/"+$('#date_b').val()+'/date_e/'+$('#date_e').val(),
             closeBtn: 1,    //关闭按钮样式
             anim:3, //弹出动画
             moveOut: true //是否允许拖动
