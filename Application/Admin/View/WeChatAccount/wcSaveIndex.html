@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>账号添加</title>
+    <title>公众号修改</title>
 
     
     <link rel="shortcut icon" href="favicon.ico">
@@ -52,7 +52,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                            <h3>公众号添加</h3>
+                            <h3>公众号修改</h3>
                     <!--<div class="ibox-tools">-->
                         <!--<a class="collapse-link">-->
                             <!--<i class="fa fa-chevron-up"></i>-->
@@ -76,20 +76,60 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">公众号名称：</label>
                             <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
-                                <input id="wc_name" name="wc_name" class="form-control" type="text"  >
+                                <input id="wc_name" name="wc_name" class="form-control" type="text"  value="{$wc_info.wc_name}">
+                                <input type="hidden" name="wc_id" id="wc_id"  value="{$wc_info.wc_id}"  >
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">公众号标识：</label>
+                            <label class="col-sm-3 control-label">公众号标识(用拼音首字母)：</label>
                             <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
-                                <input id="wc_code" name="wc_code" class="form-control" type="text"  placeholder="用拼音首字母..." >
+                                <input id="wc_code" name="wc_code" class="form-control" type="text"   value="{$wc_info.wc_code}" >
                             </div>
                         </div>
-              
+                        <!-- <div class="form-group">
+                            <label class="col-sm-3 control-label">默认初始密码：</label>
+                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
+                                wx123456
+                            </div>
+                        </div> -->
+                        <!-- <div class="form-group">
+                            <label class="col-sm-3 control-label">部门：</label>
+                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
+                                <select name="wechatAccount_id" id="wechatAccount_id">
+                                    <foreach name="wechatAccount" item="vo">
+                                        <option value ="{$vo.wc_id}">{$vo.wc_name}</option>
+                                    </foreach>
+                                </select>
+                            </div>
+                        </div> -->
+                       <!--  <div class="form-group">
+                              <label class="col-sm-3 control-label">所属公众号：</label>
+
+                            <div class="col-sm-5">
+                                <select class="form-control m-b" name="wechatAccount_id" id="wechatAccount_id">
+                                    <foreach name="wechatAccount" item="vo">
+                                        <option value="{$vo.wc_id}" <eq name="userInfo.u_wc_id" value="$vo.wc_id" > selected </eq> > {$vo.wc_name}</option>
+                                    </foreach>
+                                </select>
+                            </div>
+                          </div> -->
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-3 control-label">新密码：</label>-->
+                            <!--<div class="col-sm-5">-->
+                                <!--<input id="password" name="password" class="form-control" type="password">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-3 control-label">确认新密码：</label>-->
+                            <!--<div class="col-sm-5">-->
+                                <!--<input id="confirm_password" name="confirm_password" class="form-control" type="password">-->
+                                <!--&lt;!&ndash;<span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 请再次输入您的密码</span>&ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</div>-->
 
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-3">
-                                <button class="btn btn-primary" type="submit" id="login">添加</button>
+                                <button class="btn btn-primary" type="submit" id="login">保存</button>
                             </div>
                         </div>
                     </div>
@@ -115,32 +155,34 @@
 
 <script>
     $("button").click(function(){
-        if ($("#wc_name").val() == "") { 
-            layer.alert("请输入公众号名称！"); 
-            return false; 
-        }
+        // if ($("#username").val() == "") { 
+        //     layer.alert("请输入用户姓名！"); 
+        //     return false; 
+        // }
 
-        if ($("#wc_code").val() == "") { 
-            layer.alert("请输入公众号标识！"); 
-            return false; 
-        }
+        // if (!$("#tel").val().match(/^(((13[0-9]{1})|159|153)+\d{8})$/)) { 
+        //     layer.alert("手机号码格式不正确！"); 
+        //     return false; 
 
-        
+        // }
+
 
 
         $.ajax({
             type: "POST",
-            url: "{:U('/Admin/WeChatAccount/AddWechatAccount')}",
+            url: "{:U('/Admin/WeChatAccount/wcSaveIndex')}",
             timeout: 3000,
             data: {
+                wc_id:$("#wc_id").val(),
                 wc_name:$("#wc_name").val(),
                 wc_code: $("#wc_code").val(),
-                // wechatAccount_id: $("#wechatAccount_id").val()
             },
             success: function (data) {
+                // alert(username);
                 if (data.status == 99) {
                      layer.alert(data.msg);
                 }else {
+                    // layer.alert(data.msg,2);
                     alert(data.msg);
                     location.reload();
                   

@@ -33,8 +33,11 @@ class RoommateController extends BaseController
 
         $data_b = I("date_b");
         $data_e = I("date_e");
+
         $map_data_b = empty($data_b) ? date("Y-m-d") : $data_b;
         $map_data_e = empty($data_e) ? date("Y-m-d") : $data_e;
+
+
         if (!empty($data_b) || !empty($data_e)){
             $map['rm_create_time']=array('between',array($map_data_b." 00:00:00",$map_data_e." 23:59:59"));
             $map['rm_new'] = 0;
@@ -50,7 +53,7 @@ class RoommateController extends BaseController
             if (empty($v['rm_img_url'])){
                 $list[$k]['img'] = "";
             }else{
-                $list[$k]['img'] = "<img width='200' src='../../public/".$v['rm_img_url']."'/>";
+                $list[$k]['img'] = "<img width='200' src='../../Public/".$v['rm_img_url']."'/>";
             }
         }
 
@@ -67,7 +70,7 @@ class RoommateController extends BaseController
         if (I("copy")==1){
             if (empty($list)) $this->ajaxReturn("没有数据");
             $ids= implode(",",array_column($list,"rm_id"));
-            $save_all = M('roommate')->where(" rm_id IN ($ids) ")->save(array("rm_new"=>1));
+            $save_all = M('roommate')->where(" rm_id IN ($ids) ")->save(array("rm_new"=>0));
             $save_all !== false ? $this->ajaxReturn("完成") : $this->ajaxReturn("失败~");
             exit();
         }
@@ -145,7 +148,7 @@ class RoommateController extends BaseController
     //上传封面
     public function upload(){
         $upload = new \Think\Upload();// 实例化上传类   开始
-        $upload->maxSize = 3145728;// 设置附件上传大小
+        $upload->maxSize = 45728;// 设置附件上传大小
         $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
         $upload->rootPath = './Public/Uploads/roommate/'; // 设置附件上传目录    // 上传文件
         $info = $upload->uploadOne($_FILES['rmc_file']); //pic为字段名

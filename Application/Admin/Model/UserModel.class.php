@@ -21,7 +21,7 @@ class UserModel extends Model {
         return M('user as u')
             ->field("id,username,tel,wc_name")
             ->join("wechat_account as wc ON wc.wc_id=u.u_wc_id","left")
-            ->where('status=1')
+            ->where('status=1 AND roleid!=1')
             ->select();
     }
 

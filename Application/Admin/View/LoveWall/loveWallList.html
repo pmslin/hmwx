@@ -238,6 +238,13 @@
    
     //进入表白墙排版
     function style_set(){
+        var date_b = $('#date_b').val();
+       
+        if (date_b == '') {
+            var date_b=0;
+        }
+        var date_e = $('#date_e').val();
+
         layer.open({
             type: 2,
             title: ['表白墙排版'],
@@ -245,7 +252,7 @@
             maxmin: false,  //最大最小化按钮
             shadeClose: true, //点击遮罩关闭层
             area: ['50%', '95%'], //控制大小
-            content: "__CONTROLLER__/getLoveWallList/style/1/date_b/"+$('#date_b').val()+'/date_e/'+$('#date_e').val(),
+            content: "__CONTROLLER__/getLoveWallList/style/1/date_b/"+date_b+'/date_e/'+date_e,
             closeBtn: 1,    //关闭按钮样式
             anim:3, //弹出动画
             moveOut: true //是否允许拖动
