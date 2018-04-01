@@ -13,9 +13,6 @@ class LoveWallController extends BaseController
      * 表白墙数据列表页面
      */
     public function loveWallList(){
-//        $list = D("LoveWall")->getNewLoveWall();
-////        var_dump($list);exit();
-//        $this->ajaxReturn($list,'json');
 
         $this->display();
     }
@@ -56,7 +53,7 @@ class LoveWallController extends BaseController
                 $list[$k]['img'] = "<img width='200' src='../../Public/".$v['lw_img_url']."'/>";
             }
         }
-
+//show_bug(I());exit();
 
         //获取表白墙排版数据
         if (I("style")==1){
@@ -112,7 +109,8 @@ class LoveWallController extends BaseController
         if ($userInfo['u_wc_id'] <= 0) $this->error("还未绑定所属公众号，请联系管理员绑定");
 
         $lwc_Model = M("love_wall_config");
-        $lwc_info = LoveWallConfigModel::getLoveWallConfigById($userInfo['u_wc_id']);
+        $lwc_info = $lwc_Model->where('lwc_wc_id',$userInfo['u_wc_id'])->find();
+//        show_bug($lwc_info);
 
         if (IS_POST){
             $post=I("post.");
@@ -136,7 +134,7 @@ class LoveWallController extends BaseController
             $add !== false ? $this->success("保存成功") : $this->error("保存失败");
 
         }else{
-            $com_name = WechatAccountModel::COM_NAME.'show/wall/page/wechat/'.M("wechat_account")->where("wc_id=%d",$userInfo['u_wc_id'])->find()['wc_code'];
+            $com_name = $_SERVER["SERVER_NAME"].'/show/wall/page/wechat/'.M("wechat_account")->where("wc_id=%d",$userInfo['u_wc_id'])->find()['wc_code'];
             $this->assign("com_name",$com_name);
             $this->assign("wc_id",$userInfo['u_wc_id']);
             $this->assign("lwc_info",$lwc_info);

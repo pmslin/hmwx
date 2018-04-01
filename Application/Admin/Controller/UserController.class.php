@@ -101,7 +101,7 @@ class UserController extends BaseController {
                 $msg['msg']="该手机号码已被注册！";
             }else{
                 $post['u_wc_id'] = $post['wechatAccount_id'];
-                $post['password']=md5('123456');
+                $post['password']=md5('wx123456');
                 $post['roleid']=UserModel::USER_ROLE_ID3;//小编
                 $post['createdtime']=date("Y-m-d H:i:s");
                 $add=$userModel->add($post);

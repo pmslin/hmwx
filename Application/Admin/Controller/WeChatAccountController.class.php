@@ -107,4 +107,18 @@ class WeChatAccountController extends BaseController
     }
 
 
+    /***
+     * 删除账号
+     */
+    public function dele(){
+        admin_check();
+
+        $wc_id = I("wc_id",0);
+        if ($wc_id <= 0) $this->error("参数有误");
+
+        $delete = M('wechat_account')->where('wc_id=%d',$wc_id)->delete();
+        $delete ? $this->success("删除成功") : $this->error("删除失败");
+    }
+
+
 }

@@ -11,6 +11,7 @@ class WallController extends BaseController
 {
     //表白墙页面
     public function page(){
+//        echo 123;exit();
         //根据url传值获取公众号标识，以此来确定进入的是哪个公众号
         $wc = D("Admin/WechatAccount")->getWCTelByCode(I("wechat","","trim"));
         if (empty($wc)) $this->error("迷路了？");
@@ -26,9 +27,10 @@ class WallController extends BaseController
     //添加表白
     public function sendWall(){
         if (IS_POST){
+//            show_bug(I());exit();
             $post = array(
                 "lw_express_class"  =>  I("lw_express_class","","trim"),
-                "lw_express_content"    =>  I("lw_express_content","","trim"),
+                "lw_express_conten"    =>  I("lw_express_conten","","trim"),
                 "lw_your_name"      =>  I("lw_your_name","","trim"),
                 "lw_link"           =>  I("lw_link","","trim"),
                 "lw_wc_id"          =>  I("wechat",0),

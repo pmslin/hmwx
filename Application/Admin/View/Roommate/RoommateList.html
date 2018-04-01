@@ -244,12 +244,16 @@
    
     //进入表白墙排版
     function style_set(){
-        var date_b = $('#date_b').val();
-       
+        var date_b = $('#date_b').val();    
         if (date_b == '') {
             var date_b=0;
         }
+
         var date_e = $('#date_e').val();
+        if (date_e == '') {
+            var date_e=0;
+        }
+
 
         layer.open({
             type: 2,

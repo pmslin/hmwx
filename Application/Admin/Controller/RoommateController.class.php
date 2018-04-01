@@ -112,7 +112,7 @@ class RoommateController extends BaseController
         if ($userInfo['u_wc_id'] <= 0) $this->error("还未绑定所属公众号，请联系管理员绑定");
 
         $rmc_Model = M("Roommate_config");
-        $rmc_info = RoommateConfigModel::getRoommateConfigById($userInfo['u_wc_id']);
+        $rmc_info = $rmc_Model->where('rmc_wc_id',$userInfo['u_wc_id'])->find();
 
         if (IS_POST){
             $post=I("post.");
@@ -136,7 +136,7 @@ class RoommateController extends BaseController
             $add !== false ? $this->success("保存成功") : $this->error("保存失败");
 
         }else{
-            $com_name = WechatAccountModel::COM_NAME.'show/roommate/page/wechat/'.M("wechat_account")->where("wc_id=%d",$userInfo['u_wc_id'])->find()['wc_code'];
+            $com_name = $_SERVER["SERVER_NAME"].'/show/roommate/page/wechat/'.M("wechat_account")->where("wc_id=%d",$userInfo['u_wc_id'])->find()['wc_code'];
             $this->assign("com_name",$com_name);
             $this->assign("wc_id",$userInfo['u_wc_id']);
             $this->assign("rmc_info",$rmc_info);

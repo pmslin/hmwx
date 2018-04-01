@@ -17,7 +17,7 @@ class RoommateController extends BaseController
 
         $RMInfo =  RoommateConfigModel::getRoommateConfigById($wc['wc_id']);
         if (empty($RMInfo)) $this->error("迷路了？");
-
+//echo M()->_sql();exit();
         $this->assign('rminfo',$RMInfo);
         $this->assign("wechat",I("wechat",'','trim'));
         $this->display();

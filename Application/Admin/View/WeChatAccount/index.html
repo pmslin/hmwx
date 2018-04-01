@@ -190,7 +190,7 @@
     function dele(id){
         var msg = "您真的确定要删除吗？\n\n请确认！"; 
          if (confirm(msg)==true){ 
-          var url = "{:U('Admin/User/deleteWc/wc_id/"+id+"')}";
+          var url = "{:U('Admin/WeChatAccount/dele/wc_id/"+id+"')}";
            // alert(url);
             window.location.href = url; 
          }else{ 
