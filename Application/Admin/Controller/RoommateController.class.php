@@ -48,6 +48,7 @@ class RoommateController extends BaseController
 //        echo M()->_sql();
         foreach ($list as $k=>$v){
             $list[$k]['i'] = $k+1;
+            $list[$k]['i_id'] = $list[$k]['i'].'('.$v['rm_id'].')';
             $list[$k]['ac'] = '<button class="layui-btn" onclick="sort('.$v['rm_id'].')" >置顶</button> 
                                 <button class="layui-btn" onclick="dele('.$v['rm_id'].')" >删除</button>';
             if (empty($v['rm_img_url'])){
