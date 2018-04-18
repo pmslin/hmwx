@@ -109,7 +109,7 @@ class LoveWallController extends BaseController
         if ($userInfo['u_wc_id'] <= 0) $this->error("还未绑定所属公众号，请联系管理员绑定");
 
         $lwc_Model = M("love_wall_config");
-        $lwc_info = $lwc_Model->where('lwc_wc_id',$userInfo['u_wc_id'])->find();
+        $lwc_info = $lwc_Model->where('lwc_wc_id=%d',$userInfo['u_wc_id'])->find();
 //        show_bug($lwc_info);
 
         if (IS_POST){

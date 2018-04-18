@@ -113,7 +113,7 @@ class RoommateController extends BaseController
         if ($userInfo['u_wc_id'] <= 0) $this->error("还未绑定所属公众号，请联系管理员绑定");
 
         $rmc_Model = M("Roommate_config");
-        $rmc_info = $rmc_Model->where('rmc_wc_id',$userInfo['u_wc_id'])->find();
+        $rmc_info = $rmc_Model->where('rmc_wc_id=%d',$userInfo['u_wc_id'])->find();
 
         if (IS_POST){
             $post=I("post.");
