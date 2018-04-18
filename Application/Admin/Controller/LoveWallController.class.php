@@ -134,7 +134,10 @@ class LoveWallController extends BaseController
             $add !== false ? $this->success("保存成功") : $this->error("保存失败");
 
         }else{
-            $com_name = $_SERVER["SERVER_NAME"].'/show/wall/page/wechat/'.M("wechat_account")->where("wc_id=%d",$userInfo['u_wc_id'])->find()['wc_code'];
+            $wc_info = M("wechat_account")->where("wc_id=%d",$userInfo['u_wc_id'])->find();
+            if (empty($wc_info)) $this->error('绑定的公众号被删除了，请重新联系管理员重新绑定');
+
+            $com_name = $_SERVER["SERVER_NAME"].'/show/wall/page/wechat/'.$wc_info['wc_code'];
             $this->assign("com_name",$com_name);
             $this->assign("wc_id",$userInfo['u_wc_id']);
             $this->assign("lwc_info",$lwc_info);
