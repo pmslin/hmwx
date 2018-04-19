@@ -57,7 +57,7 @@
                 </li>
 
                 
-
+                <if condition="($Think.session.roleid eq 1) OR ($Think.session.roleid eq 2) ">
                 <li>
                     <a href="#">
                         <i class="glyphicon glyphicon-cog"></i>
@@ -71,6 +71,7 @@
 
                     </ul>
                 </li>
+                </if>
 
                 <if condition="($Think.session.roleid eq 1) OR ($Think.session.roleid eq 2) ">
                 <li>
