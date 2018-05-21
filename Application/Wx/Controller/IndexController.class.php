@@ -15,10 +15,13 @@ class IndexController extends BaseController {
 
         $weObj = new \Wechat($options);
 
-        $access_token = $weObj->checkAuth();
+//        $access_token = $weObj->checkAuth();
+
+        $check_access = $weObj->valid();
+        echo $check_access;
 
 //        $ca=$weObj->getCache('wechat_access_tokenwxe0503ddb4a9efe4c');
-        show_bug($access_token);
+//        show_bug($access_token);
 
 
     }

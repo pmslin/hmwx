@@ -1217,14 +1217,12 @@ class Wechat
 		    return $this->access_token;
 		}
 
-//        $rs =  $redis = new \redis();
-//        show_bug($rs);exit();
 
-		$authname = 'wechat_access_token'.$appid;
-		if ($rs = $this->getCache($authname))  {
-			$this->access_token = $rs;
-			return $rs;
-		}
+        $authname = 'qywechat_access_token'.$appid;
+        if ($rs = S($authname))  {
+            $this->access_token = $rs;
+            return $rs;
+        }
 
 		$result = $this->http_get(self::API_URL_PREFIX.self::AUTH_URL.'appid='.$appid.'&secret='.$appsecret);
 		if ($result)
@@ -1238,7 +1236,8 @@ class Wechat
 			}
 			$this->access_token = $json['access_token'];
 			$expire = $json['expires_in'] ? intval($json['expires_in'])-100 : 3600;
-			$this->setCache($authname,$this->access_token,$expire);
+            S($authname,$this->access_token,$expire);
+//			$this->setCache($authname,$this->access_token,$expire);
 			return $this->access_token;
 		}
 		return false;

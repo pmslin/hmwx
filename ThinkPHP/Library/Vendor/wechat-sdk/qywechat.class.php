@@ -884,13 +884,11 @@ class Wechat
 		    return $this->access_token;
 		}
 
-//		$rs =  $redis = new \redis();
-//		show_bug($rs);exit();
         $authname = 'qywechat_access_token'.$appid;
-		if ($rs = $this->getCache($authname))  {
-			$this->access_token = $rs;
-			return $rs;
-		}
+        if ($rs = $this->getCache($authname))  {
+            $this->access_token = $rs;
+            return $rs;
+        }
 
 		$result = $this->http_get(self::API_URL_PREFIX.self::TOKEN_GET_URL.'corpid='.$appid.'&corpsecret='.$appsecret);
 		if ($result)
