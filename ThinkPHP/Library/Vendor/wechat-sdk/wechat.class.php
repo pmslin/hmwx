@@ -1217,6 +1217,9 @@ class Wechat
 		    return $this->access_token;
 		}
 
+//        $rs =  $redis = new \redis();
+//        show_bug($rs);exit();
+
 		$authname = 'wechat_access_token'.$appid;
 		if ($rs = $this->getCache($authname))  {
 			$this->access_token = $rs;

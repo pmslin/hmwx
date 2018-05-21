@@ -884,7 +884,9 @@ class Wechat
 		    return $this->access_token;
 		}
 
-		$authname = 'qywechat_access_token'.$appid;
+//		$rs =  $redis = new \redis();
+//		show_bug($rs);exit();
+        $authname = 'qywechat_access_token'.$appid;
 		if ($rs = $this->getCache($authname))  {
 			$this->access_token = $rs;
 			return $rs;
