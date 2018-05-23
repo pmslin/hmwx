@@ -14,9 +14,15 @@ class WeChatAccountController extends BaseController
 
         if ($_POST){
             $post=array(
-                "wc_name"  =>  I("wc_name","","trim"),
-                "wc_code"  =>  I("wc_code","","trim"),
+                "wc_name"       =>  I("wc_name","","trim"),
+                "wc_code"       =>  I("wc_code","","trim"),
+                "wc_appid"      =>  I("wc_appid","","trim"),
+                "wc_appsecret"  =>  I("wc_appsecret","","trim"),
+                "wc_token"      =>  I("wc_token","","trim"),
+                "wc_encodingaeskey"      =>  I("wc_encodingaeskey","","trim"),
             );
+
+//            show_bug($post);exit();
 
             $WechatAccountModel=D('WechatAccount');
             $wc_name=$WechatAccountModel->getWCTelByName($post['wc_name']);

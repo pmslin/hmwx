@@ -46,6 +46,9 @@ class CheckTokenController extends BaseController
                 case "link":    //链接消息
                     $result = $this->receiveLink($postObj);
                     break;
+//                case "event":    //关注/取消关注
+//                    $result = $this->receiveLink($postObj);
+//                    break;
                 default:
                     $result = "unknow msg type: ".$RX_TYPE;
                     break;

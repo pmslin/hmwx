@@ -86,6 +86,30 @@
                                 <input id="wc_code" name="wc_code" class="form-control" type="text"   value="{$wc_info.wc_code}" >
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">appid：</label>
+                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
+                                <input id="wc_appid" name="wc_appid" class="form-control" type="text"  value="{$wc_info.wc_appid}"  >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">appsecret：</label>
+                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
+                                <input id="wc_appsecret" name="wc_appsecret" class="form-control" type="text"  value="{$wc_info.wc_appsecret}"  >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">token：</label>
+                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
+                                <input id="wc_token" name="wc_token" class="form-control" type="text"  value="{$wc_info.wc_token}"  >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">encodingaeskey：</label>
+                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
+                                <input id="wc_encodingaeskey" name="wc_encodingaeskey" class="form-control" type="text"  value="{$wc_info.wc_encodingaeskey}"  >
+                            </div>
+                        </div>
                         <!-- <div class="form-group">
                             <label class="col-sm-3 control-label">默认初始密码：</label>
                             <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
@@ -176,6 +200,10 @@
                 wc_id:$("#wc_id").val(),
                 wc_name:$("#wc_name").val(),
                 wc_code: $("#wc_code").val(),
+                wc_appid:$("#wc_appid").val(),
+                wc_appsecret: $("#wc_appsecret").val(),
+                wc_token:$("#wc_token").val(),
+                wc_encodingaeskey: $("#wc_encodingaeskey").val(),
             },
             success: function (data) {
                 // alert(username);

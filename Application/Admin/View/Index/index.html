@@ -52,6 +52,11 @@
                        <li>
                             <a class="J_menuItem" href="Roommate/RoommateList"><i class="glyphicon glyphicon-chevron-right"></i>卖舍友</a>
                         </li>
+                        <if condition="($Think.session.roleid eq 1) OR ($Think.session.roleid eq 2) ">
+                        <li>
+                            <a class="J_menuItem" href="Poster/index"><i class="glyphicon glyphicon-chevron-right"></i>海报活动</a>
+                        </li>
+                        </if>
 
                     </ul>
                 </li>
