@@ -20,8 +20,12 @@ class PosterController extends BaseController
     //新建海报
     public function addPoster(){
         if (IS_POST){
+echo 12;
+            show_bug($_POST);exit();
 
         }else{
+            $wx_list = D("WechatAccount")->getWechatAccoun();
+            $this->assign('wx_list',$wx_list);
             $this->display();
         }
 

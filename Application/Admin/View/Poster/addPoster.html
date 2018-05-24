@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <title>账号添加</title>
+    <title>新建海报活动</title>
 
-    
+
     <link rel="shortcut icon" href="favicon.ico">
     <link href="__PUBLIC__/H/css/bootstrap.min.css?v=3.3.5" rel="stylesheet">
     <link href="__PUBLIC__/H/css/font-awesome.min.css?v=4.4.0" rel="stylesheet">
@@ -22,22 +22,23 @@
     <script src="__PUBLIC__/H/js/jquery.min.js?v=2.1.4"></script>
 
 
-
-
     <style>
         .laydate-icon {
             width: 242px;
             height: 30px;
         }
+
         .magic-radio + label,
         .magic-checkbox + label {
-            display:inline;
+            display: inline;
         }
+
         .magic-checkbox:checked + label:before {
             border: #3e97eb;
             background: #2E8B57;
         }
-        .laydate_body .laydate_y .laydate_yms ul li{
+
+        .laydate_body .laydate_y .laydate_yms ul li {
             width: 58px;
         }
     </style>
@@ -52,64 +53,69 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                            <h3>公众号添加</h3>
+                    <h3>新建海报活动</h3>
                     <!--<div class="ibox-tools">-->
-                        <!--<a class="collapse-link">-->
-                            <!--<i class="fa fa-chevron-up"></i>-->
-                        <!--</a>-->
-                        <!--<a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">-->
-                            <!--<i class="fa fa-wrench"></i>-->
-                        <!--</a>-->
-                        <!--<ul class="dropdown-menu dropdown-user">-->
-                            <!--<li><a href="form_basic.html#">选项1</a>-->
-                            <!--</li>-->
-                            <!--<li><a href="form_basic.html#">选项2</a>-->
-                            <!--</li>-->
-                        <!--</ul>-->
-                        <!--<a class="close-link">-->
-                            <!--<i class="fa fa-times"></i>-->
-                        <!--</a>-->
+                    <!--<a class="collapse-link">-->
+                    <!--<i class="fa fa-chevron-up"></i>-->
+                    <!--</a>-->
+                    <!--<a class="dropdown-toggle" data-toggle="dropdown" href="form_basic.html#">-->
+                    <!--<i class="fa fa-wrench"></i>-->
+                    <!--</a>-->
+                    <!--<ul class="dropdown-menu dropdown-user">-->
+                    <!--<li><a href="form_basic.html#">选项1</a>-->
+                    <!--</li>-->
+                    <!--<li><a href="form_basic.html#">选项2</a>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+                    <!--<a class="close-link">-->
+                    <!--<i class="fa fa-times"></i>-->
+                    <!--</a>-->
                     <!--</div>-->
                 </div>
                 <div class="ibox-content">
-                    <div class="form-horizontal m-t" id="signupForm" >
+                    <div class="form-horizontal m-t" id="signupForm">
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">公众号名称：</label>
-                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
-                                <input id="wc_name" name="wc_name" class="form-control" type="text"  >
+                            <label class="col-sm-3 control-label">活动名称：</label>
+                            <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
+                                <input id="wx_pt_name" name="wx_pt_name" class="form-control" type="text">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">公众号标识：</label>
-                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
-                                <input id="wc_code" name="wc_code" class="form-control" type="text"  placeholder="用拼音首字母..." >
+                            <label class="col-sm-3 control-label">活动开始时间：</label>
+                            <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
+                                <input type="datetime-local" id="wx_pt_start_time" name="wx_pt_start_time"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">appid：</label>
-                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
-                                <input id="wc_appid" name="wc_appid" class="form-control" type="text"  >
+                            <label class="col-sm-3 control-label">活动结束时间：</label>
+                            <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
+                                <input type="datetime-local" id="wx_pt_end_time" name="wx_pt_end_time"/>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">appsecret：</label>
-                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
-                                <input id="wc_appsecret" name="wc_appsecret" class="form-control" type="text"  >
+                            <label class="col-sm-3 control-label">活动状态：</label>
+                            <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
+                                <input type="radio" checked name="wx_pt_status" value="1">开启
+                                <input type="radio" name="wx_pt_status" value="0">关闭
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">token：</label>
-                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
-                                <input id="wc_token" name="wc_token" class="form-control" type="text"  >
+                            <label class="col-sm-3 control-label">公众号：</label>
+                            <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
+                                <select name="wx_wc_id" id="wx_wc_id">
+                                    <!-- <option value="">请选择</option> -->
+                                    <volist name="wx_list" id="vo">
+                                        <option value="{$vo.wc_id}"
+                                        <in name="vo.wc_id" value="$info.wx_wc_id"> selected</in>
+                                        >
+                                        {$vo.wc_name}
+                                        </option>
+                                    </volist>
+                                </select>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">encodingaeskey：</label>
-                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
-                                <input id="wc_encodingaeskey" name="wc_encodingaeskey" class="form-control" type="text"  >
-                            </div>
-                        </div>
-              
+                      
+
 
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-3">
@@ -134,58 +140,40 @@
 <script src="__PUBLIC__/plugins/layer/layer.js"></script>
 
 
-
-
-
 <script>
-    $("button").click(function(){
-        if ($("#wc_name").val() == "") { 
-            layer.alert("请输入公众号名称！"); 
-            return false; 
+    $("button").click(function () {
+        if ($("#wx_pt_name").val() == "") {
+            layer.alert("请输入活动名称！");
+            return false;
         }
-        if ($("#wc_code").val() == "") { 
-            layer.alert("请输入公众号标识！"); 
-            return false; 
+        if ($("#wx_pt_start_time").val() == "") {
+            layer.alert("请输入活动开始时间！");
+            return false;
         }
-        if ($("#wc_appid").val() == "") { 
-            layer.alert("请输入公众号appid！"); 
-            return false; 
+        if ($("#wx_pt_end_time").val() == "") {
+            layer.alert("请输入活动结束时间！");
+            return false;
         }
-        if ($("#wc_appsecret").val() == "") { 
-            layer.alert("请输入公众号appsecret！"); 
-            return false; 
-        }
-        if ($("#wc_token").val() == "") { 
-            layer.alert("请输入公众号token！"); 
-            return false; 
-        }
-        // if ($("#wc_encodingaeskey").val() == "") { 
-        //     layer.alert("请输入公众号encodingaeskey！"); 
-        //     return false; 
-        // }
-
-        
-
 
         $.ajax({
             type: "POST",
-            url: "{:U('/Admin/WeChatAccount/AddWechatAccount')}",
+            url: "{:U('/Admin/Poster/addPoster')}",
             timeout: 3000,
             data: {
-                wc_name:$("#wc_name").val(),
-                wc_code: $("#wc_code").val(),
-                wc_appid:$("#wc_appid").val(),
-                wc_appsecret: $("#wc_appsecret").val(),
-                wc_token:$("#wc_token").val(),
-                wc_encodingaeskey: $("#wc_encodingaeskey").val(),
+                wx_pt_name: $("#wx_pt_name").val(),
+                wx_pt_start_time: $("#wx_pt_start_time").val(),
+                wx_pt_end_time: $("#wx_pt_end_time").val(),
+                wx_pt_status: $("radio").val(),
+                wx_wc_id: $("#wx_wc_id").val(),
+                // wc_encodingaeskey: $("#wc_encodingaeskey").val(),
             },
             success: function (data) {
                 if (data.status == 99) {
-                     layer.alert(data.msg);
-                }else {
+                    layer.alert(data.msg);
+                } else {
                     alert(data.msg);
                     location.reload();
-                  
+
                 }
             },
             error: function () {
