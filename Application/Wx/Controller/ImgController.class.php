@@ -8,7 +8,10 @@ class ImgController extends Controller
 {
     public function index(){
         /*给图片加文字水印的方法*/
+        //路径要加上http://
         $dst_path = 'http://f4.topitme.com/4/15/11/1166351597fe111154l.jpg';
+        // $dst_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/Uploads/qr/5b0a44e8b91d1.jpg';
+        $dst_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/Uploads/qr/2018-05-27/5b0a44e8b91d1.jpg';
         $dst = imagecreatefromstring(file_get_contents($dst_path));
 
         /*imagecreatefromstring()--从字符串中的图像流新建一个图像，返回一个图像标示符，其表达了从给定字符串得来的图像
@@ -16,8 +19,10 @@ class ImgController extends Controller
 
         $font = './t1.ttf';
         $black = imagecolorallocate($dst, 0, 0, 0);
-        imagefttext($dst, 20, 10, 10, 30, $black, $font, 'Hello world!');
-//        print_r($a);exit();
+        $red = imagecolorallocate($dst, 241,215, 60);
+        //Linux-debian 字体默认路径：/usr/share/fonts/truetype/ttf-dejavu/
+        //wx服务器:/usr/share/fonts/lyx/cmr10.ttf
+        imagefttext($dst, 40, 10, 50, 60, $black, 'c://WINDOWS//Fonts//simsun.ttc', 'Hello');
         /*imagefttext($img,$size,$angle,$x,$y,$color,$fontfile,$text)
         $img由图像创建函数返回的图像资源
         size要使用的水印的字体大小
@@ -56,6 +61,15 @@ class ImgController extends Controller
 
     //水印
     public function water(){
+        $img = file_get_contents($_SERVER['HTTP_HOST'].'Public/Uploads/qr/2018-05-27/5b0a44e8b91d1.jpg',true);
+//使用图片头输出浏览器
+        echo 123;exit();
+        header("Content-Type: image/jpeg;text/html; charset=utf-8");
+        echo $img;
+        exit;
+
+
+
         $dst_path = 'http://f4.topitme.com/4/15/11/1166351597fe111154l.jpg';
         $src_path = 'http://www.logodashi.com/FileUpLoad/inspiration/636003768803214440.jpg';
 //创建图片的实例
