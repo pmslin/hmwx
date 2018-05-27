@@ -55,29 +55,25 @@
     <hr>
 
   
-    <div class="form-group">
+  <!--   <div class="form-group">
         时间:
             <input placeholder=" 请输入日期" class="laydate-icon" style=" width:142px; height:30px;"
                onclick="laydate()" name="date_b" id="date_b" >
-        --
             <input placeholder=" 请输入日期" class="laydate-icon" style=" width:142px; height:30px;"
                onclick="laydate()" name="date_e" id="date_e" >
 		
 		<input type="button" class="btn btn-primary" onclick="search()"  value="查询旧数据">
 			   
-		<br/>	
+		<br/>	 -->
         <div style="padding: 10px; float: right">
             <input type="button" class="btn btn-primary" onclick="add()"  value="新建活动">
-           <!--  <input type="button" class="btn btn-primary" onclick="style_set()"  value="表白墙排版">
-            <input type="button" class="btn btn-primary" onclick="settings()"  value="表白墙设置">
-           <input type="button" class="btn btn-primary" onclick="copy()"  value="复制完成"> -->
         </div>
 		
 	
-          <if condition="($Think.session.roleid eq 1) OR ($Think.session.roleid eq 4) OR ($Think.session.roleid eq 5) ">
+        <!--   <if condition="($Think.session.roleid eq 1) OR ($Think.session.roleid eq 4) OR ($Think.session.roleid eq 5) ">
 		</if>
 		
-    </div>
+    </div> -->
         
 
 
@@ -88,10 +84,10 @@
         <th style="width: 10px;">序号</th>
         <th style="width: 70px;">公众号</th>
         <th style="width: 70px;">活动名称</th>
-        <th style="width: 20px;">活动时间</th>
-        <th style="width: 20px;">活动状态</th>
-        <th style="width: 80px;">日期</th>
-        <th style="width: 160px;">操作</th>
+        <th style="width: 20px;">活动开始时间</th>
+        <th style="width: 20px;">活动结束时间</th>
+        <th style="width: 80px;">活动状态</th>
+        <th style="width: 80px;">操作</th>
     </tr>
     </thead>
   
@@ -116,7 +112,7 @@
 			//"deferRender": true, //渲染加速
             // "serverSide": true,//打开后台分页
             "ajax": {
-                "url": "{:U('admin/LoveWall/getLoveWallList')}",
+                "url": "{:U('admin/Poster/getPosterList')}",
                 "dataSrc": '',
                 // "type": "POST",
                 "data": function ( d ) {
@@ -127,12 +123,12 @@
                 }
             },
             "columns": [
-                { "data": "i" },
-                { "data": "lw_express_class" },
-                { "data": "lw_express_conten" },
-                { "data": "lw_link" },
-                { "data": "img" },
-                { "data": "lw_create_time" },
+                { "data": "k" },
+                { "data": "wc_name" },
+                { "data": "wx_ptc_name" },
+                { "data": "wx_ptc_start_time" },
+                { "data": "wx_ptc_end_time" },
+                { "data": "wx_ptc_status_name" },
                 { "data": "ac" },
             ]
 
@@ -161,6 +157,37 @@
             moveOut: true //是否允许拖动
         });
     }
+
+     //账号修改
+    function save(id){
+        layer.open({
+            type: 2,
+            title: ['公众号修改'],
+            scrollbar: false, //是否允许浏览器出现滚动条
+            maxmin: false,  //最大最小化按钮
+            shadeClose: true, //点击遮罩关闭层
+            area: ['100%', '100%'], //控制大小
+            content: "__CONTROLLER__/save/wx_ptc_id/" + id,
+            closeBtn: 1,    //关闭按钮样式
+            anim:3, //弹出动画
+            moveOut: true //是否允许拖动
+        });
+    }
+
+   
+    
+    //删除
+    function dele(id){
+        var msg = "您真的确定要删除吗？\n\n请确认！"; 
+         if (confirm(msg)==true){ 
+          var url = "{:U('Admin/Poster/delete/wx_ptc_id/"+id+"')}";
+           // alert(url);
+            window.location.href = url; 
+         }else{ 
+          return false; 
+         } 
+    }
+    
 
 
 

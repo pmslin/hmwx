@@ -72,31 +72,34 @@
                     <!--</a>-->
                     <!--</div>-->
                 </div>
+
+                <form class="form-horizontal demoform" action="{:U('Admin/Poster/save')}" method="post"
+                          enctype="multipart/form-data">
                 <div class="ibox-content">
                     <div class="form-horizontal m-t" id="signupForm">
                         <div class="form-group">
                             <label class="col-sm-3 control-label">活动名称：</label>
                             <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
-                                <input id="wx_pt_name" name="wx_ptc_name" class="form-control" type="text">
+                                <input id="wx_ptc_name" name="wx_ptc_name" class="form-control" type="text" value="{$info.wx_ptc_name}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">活动开始时间：</label>
                             <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
-                                <input type="datetime-local" id="wx_ptc_start_time" name="wx_ptc_start_time"/>
+                                {$info.wx_ptc_start_time}修改为：<input type="datetime-local" id="wx_ptc_start_time" name="wx_ptc_start_time"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">活动结束时间：</label>
                             <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
-                                <input type="datetime-local" id="wx_ptc_end_time" name="wx_ptc_end_time"/>
+                                {$info.wx_ptc_end_time}修改为：<input type="datetime-local" id="wx_ptc_end_time" name="wx_ptc_end_time"/>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">活动状态：</label>
                             <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
-                                <input type="radio" checked name="wx_ptc_status" value="1">开启
-                                <input type="radio" name="wx_ptc_status" value="0">关闭
+                                <input type="radio" name="wx_ptc_status" value="1" <if condition="$info.wx_ptc_status eq 1 "> checked="checked" </if> >开启
+                                <input type="radio" name="wx_ptc_status" value="0" <if condition="$info.wx_ptc_status eq 0 "> checked="checked" </if> >关闭
                             </div>
                         </div>
                         <div class="form-group">
@@ -114,17 +117,36 @@
                                 </select>
                             </div>
                         </div>
-                      
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">公众号二维码：</label>
+                            <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
+                                <img src="__PUBLIC__/{$info.wx_ptc_wc_qr}" class="img-responsive"
+                                         id="img2">
+                                <input type="file" name="wx_ptc_wc_qr"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">海报图片：</label>
+                            <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
+                                <img src="__PUBLIC__/{$info.wx_poster_url}" class="img-responsive"
+                                         id="img2">
+                                <input type="file" name="wx_poster_url"/>
+                            </div>
+                        </div>
 
 
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-3">
-                                <button class="btn btn-primary" type="submit" id="login">新建</button>
+                                <button class="btn btn-primary" type="submit" id="login">修改</button>
+                                <input type="hidden" name="wx_ptc_id" value="{$info.wx_ptc_id}">
                             </div>
                         </div>
 
                     </div>
                 </div>
+                </form>
+
+
             </div>
         </div>
     </div>
@@ -142,46 +164,46 @@
 
 
 <script>
-    $("button").click(function () {
-        if ($("#wx_pt_name").val() == "") {
-            layer.alert("请输入活动名称！");
-            return false;
-        }
-        if ($("#wx_ptc_start_time").val() == "") {
-            layer.alert("请输入活动开始时间！");
-            return false;
-        }
-        if ($("#wx_pt_end_time").val() == "") {
-            layer.alert("请输入活动结束时间！");
-            return false;
-        }
+    // $("button").click(function () {
+    //     if ($("#wx_ptc_name").val() == "") {
+    //         layer.alert("请输入活动名称！");
+    //         return false;
+    //     }
+    //     if ($("#wx_ptc_start_time").val() == "") {
+    //         layer.alert("请输入活动开始时间！");
+    //         return false;
+    //     }
+    //     if ($("#wx_pt_end_time").val() == "") {
+    //         layer.alert("请输入活动结束时间！");
+    //         return false;
+    //     }
 
-        $.ajax({
-            type: "POST",
-            url: "{:U('/Admin/Poster/addPoster')}",
-            timeout: 3000,
-            data: {
-                wx_ptc_name: $("#wx_ptc_name").val(),
-                wx_ptc_start_time: $("#wx_ptc_start_time").val(),
-                wx_ptc_end_time: $("#wx_ptc_end_time").val(),
-                wx_ptc_status: $("radio").val(),
-                wx_ptc_wc_id: $("#wx_ptc_wc_id").val(),
-                // wc_encodingaeskey: $("#wc_encodingaeskey").val(),
-            },
-            success: function (data) {
-                if (data.status == 99) {
-                    layer.alert(data.msg);
-                } else {
-                    alert(data.msg);
-                    location.reload();
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "{:U('/Admin/Poster/addPoster')}",
+    //         timeout: 3000,
+    //         data: {
+    //             wx_ptc_name: $("#wx_ptc_name").val(),
+    //             wx_ptc_start_time: $("#wx_ptc_start_time").val(),
+    //             wx_ptc_end_time: $("#wx_ptc_end_time").val(),
+    //             wx_ptc_status: $("input[name='radio']:checked").val(),
+    //             wx_ptc_wc_id: $("#wx_ptc_wc_id").val(),
+    //             // wc_encodingaeskey: $("#wc_encodingaeskey").val(),
+    //         },
+    //         success: function (data) {
+    //             if (data.status == 99) {
+    //                 layer.alert(data.msg);
+    //             } else {
+    //                 alert(data.msg);
+    //                 location.reload();
 
-                }
-            },
-            error: function () {
-                layer.msg('网络开小差，请稍后再试！');
-            }
-        });
-    });
+    //             }
+    //         },
+    //         error: function () {
+    //             layer.msg('网络开小差，请稍后再试！');
+    //         }
+    //     });
+    // });
 </script>
 
 </body>

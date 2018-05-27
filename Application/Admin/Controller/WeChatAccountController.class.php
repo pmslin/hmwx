@@ -84,8 +84,6 @@ class WeChatAccountController extends BaseController
             $wc_name=$WechatAccountModel->getWCTelByName($post['wc_name']);
             $wc_code=$WechatAccountModel->getWCTelByCode($post['wc_code']);
 
-//            echo M()->_sql();
-//            show_bug($wc_name);exit();
             if (!empty($wc_name) && $wc_info['wc_id']!=I('wc_id')){
                 $msg['status']=99;
                 $msg['msg']="该公众号名称已存在！";
