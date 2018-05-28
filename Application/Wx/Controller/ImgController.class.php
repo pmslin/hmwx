@@ -14,9 +14,13 @@ class ImgController extends Controller
 //        $dst_path = 'http://f4.topitme.com/4/15/11/1166351597fe111154l.jpg'; //网络图片
         // $dst_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/Uploads/qr/5b0a44e8b91d1.jpg';
         $dst_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/Uploads/qr/2018-05-27/5b0a44e8b91d1.jpg'; //海报图片
-        $src_path = 'http://www.logodashi.com/FileUpLoad/inspiration/636003768803214440.jpg'; //小图
+
+        $src_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/Uploads/qr/2018-05-27/33.png'; //小图
+//        $src_path1 = 'http://www.logodashi.com/FileUpLoad/inspiration/636003768803214440.jpg'; //小图
         $dst = imagecreatefromstring(file_get_contents($dst_path));
         $src = imagecreatefromstring(file_get_contents($src_path));
+
+//        $src1 = imagecreatefromstring(file_get_contents($src_path1));
 
         /*imagecreatefromstring()--从字符串中的图像流新建一个图像，返回一个图像标示符，其表达了从给定字符串得来的图像
         图像格式将自动监测，只要php支持jpeg,png,gif,wbmp,gd2.*/
@@ -25,8 +29,8 @@ class ImgController extends Controller
         $font = 'c://WINDOWS//Fonts//simsun.ttc';
         $black = imagecolorallocate($dst, 0, 0, 0);
         //wx服务器:/usr/share/fonts/lyx/cmr10.ttf
-        imagefttext($dst, 25, 0, 80, 980, $black, $font, '阿里同学正在参加：');
-        imagefttext($dst, 25, 0, 80, 1030, $black, $font, '《百万葵园门票免费领取》');
+        imagefttext($dst, 25, 0, 80, 950, $black, $font, '阿里同学正在参加：');
+        imagefttext($dst, 25, 0, 80, 1000, $black, $font, '《百万葵园门票免费领取》');
         /*imagefttext($img,$size,$angle,$x,$y,$color,$fontfile,$text)
         $img由图像创建函数返回的图像资源
         size要使用的水印的字体大小
@@ -44,27 +48,30 @@ class ImgController extends Controller
         //获取水印图片的宽高
         list($src_w, $src_h) = getimagesize($src_path);
         //将水印图片复制到目标图片上，最后个参数50是设置透明度，这里实现半透明效果
-        imagecopymerge($dst, $src, 10, 10, 0, 0, $src_w, $src_h, 80);
+        imagecopymerge($dst, $src, 560, 1200, 0, 0, $src_w, $src_h, 100);
 
-print_r($dst_type);exit();
+//        imagecopymerge($dst, $src1, 60, 100, 0, 0, $src_w, $src_h, 100);
+//echo $dst_type;exit();
+
         switch($dst_type){
             case 1://GIF
                 header("content-type:image/gif");
-                imagegif($dst);
+                imagegif($dst,'./Public/Uploads/poster/123.jpg');
                 break;
             case 2://JPG
                 header("content-type:image/jpeg");
-                imagejpeg($dst);
+                imagejpeg($dst,'./Public/Uploads/poster/123.jpg');
                 break;
             case 3://PNG
                 header("content-type:image/png");
-                imagepng($dst);
+                imagepng($dst,'./Public/Uploads/poster/123.jpg');
                 break;
             default:
                 break;
             /*imagepng--以PNG格式将图像输出到浏览器或文件
             imagepng()将GD图像流(image)以png格式输出到标注输出（通常为浏览器），或者如果用filename给出了文件名则将其输出到文件*/
         }
+
 
         imagedestroy($dst);
         imagedestroy($src);
