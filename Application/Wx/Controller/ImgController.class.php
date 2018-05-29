@@ -7,8 +7,8 @@ use Think\Controller;
 class ImgController extends Controller
 {
 
-    //添加文字和图片水印 $dst_path海报图片  $src_path小图
-    public function index($dst_path='',$src_path=''){
+    //添加文字和图片水印 $dst_path海报图片  $src_path二维码小图  $username粉丝名字  $ptc_name活动名称
+    public function index($dst_path='' ,$src_path='' ,$username='' ,$ptc_name){
         /*给图片加文字水印的方法*/
         //路径要加上http://
 //        $dst_path = 'http://f4.topitme.com/4/15/11/1166351597fe111154l.jpg'; //网络图片
@@ -29,8 +29,8 @@ class ImgController extends Controller
         $font = 'c://WINDOWS//Fonts//simsun.ttc';
         $black = imagecolorallocate($dst, 0, 0, 0);
         //wx服务器:/usr/share/fonts/lyx/cmr10.ttf
-        imagefttext($dst, 25, 0, 80, 950, $black, $font, '阿里同学正在参加：');
-        imagefttext($dst, 25, 0, 80, 1000, $black, $font, '《百万葵园门票免费领取》');
+        imagefttext($dst, 25, 0, 80, 950, $black, $font, $username.'正在参加：');
+        imagefttext($dst, 25, 0, 80, 1000, $black, $font, '《'.$ptc_name.'》');
         /*imagefttext($img,$size,$angle,$x,$y,$color,$fontfile,$text)
         $img由图像创建函数返回的图像资源
         size要使用的水印的字体大小
@@ -130,7 +130,7 @@ class ImgController extends Controller
     }
 
 
-    //往图片添加图片水印  $dst_path海报图片  $src_path小图
+    //往图片添加图片水印  $dst_path海报图片  $src_path二维码小图
     public function imgWater($dst_path='',$src_path=''){
         $dst_path = 'http://f4.topitme.com/4/15/11/1166351597fe111154l.jpg'; //海报图片
         $src_path = 'http://www.logodashi.com/FileUpLoad/inspiration/636003768803214440.jpg'; //小图

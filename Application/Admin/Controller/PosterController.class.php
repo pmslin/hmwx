@@ -65,9 +65,21 @@ class PosterController extends BaseController
 
             D()->startTrans(); //开启事务
 
-            $add=M('poster_config','wx_')->add($post);
+            $add_ptc=M('poster_config','wx_')->add($post);
 
-            if ($add > 0){
+            $code = $this->getCode();
+            $pt_data=array(
+                'wx_pt_fans_id' => 1,
+                'wx_pt_code'    => $code,
+                'wx_pt_create_time' => date('Y-m-d H:i:s'),
+                'wx_ptc_id'     => $add_ptc
+            );
+            $add_pt = M('poster','wx_')->add($pt_data);
+
+//            createImg();//创建图片
+
+
+            if ($add_ptc > 0 && $add_pt > 0){
                 D()->commit(); //事务提交
                 $this->success('活动新建成功');
             }else{
