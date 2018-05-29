@@ -62,8 +62,20 @@ class PosterController extends BaseController
                 $post['wx_poster_url'] = 'Uploads/qr/'.$info['wx_poster_url']['savepath'].$info['wx_poster_url']['savename'];
             }
 
+
+            D()->startTrans(); //开启事务
+
             $add=M('poster_config','wx_')->add($post);
-            $add > 0 ? $this->success('活动新建成功') : $this->error('活动新建失败');
+
+            if ($add > 0){
+                D()->commit(); //事务提交
+                $this->success('活动新建成功');
+            }else{
+                D()->rollback(); //事务回滚
+                $this->error('活动新建失败');
+            }
+
+//            $add > 0 ? $this->success('活动新建成功') : $this->error('活动新建失败');
         }else{
             $wx_list = D("WechatAccount")->getWechatAccoun();
             $this->assign('wx_list',$wx_list);
@@ -140,6 +152,21 @@ class PosterController extends BaseController
 
         $delete = M('poster_config','wx_')->where('wx_ptc_id=%d',$ptc_id)->delete();
         $delete ? $this->success("删除成功") : $this->error("删除失败");
+    }
+
+    //获取助力码
+    public function getCode(){
+        $code=rand(100000,999999);
+        $pt_code = M('poster','wx_')->where(" wx_pt_code='%s' ",$code )->select();
+        if (!empty($pt_code)){
+            for ($i=1; $i<=200; $i++){
+                $code=rand(100000,999999);
+                $pt_code = M('poster','wx_')->where(" wx_pt_code='%s' ",$code )->find();
+                if (empty($pt_code)) break;
+            }
+        }
+
+        return $code;
     }
 
 }
