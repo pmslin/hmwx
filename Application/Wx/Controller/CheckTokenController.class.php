@@ -5,12 +5,31 @@ namespace Wx\Controller;
 
 class CheckTokenController extends BaseController
 {
-    public function index(){
 
-        if (!isset($_GET['echostr'])) {
+    public function index(){
+//print_r(I());
+        //echo $_GET['echostr'];
+        if (!isset($_GET['echostr'])) { //发送消息
             $this->responseMsg();
-        }else{
-            $this->valid();
+        }else{ //验证token
+            $wc_id = I('get.wc_id',0,'intval');
+            if ($wc_id <= 0){
+                echo 'wc_id有误';
+                exit();
+            }
+
+            $wc_info = M('wechat_account')->where('wc_id=%d',$wc_id)->find();
+
+            $options = array(
+                'token'=>$wc_info['wc_token'], //填写你设定的key
+                'encodingaeskey'=>$wc_info['wc_encodingaeskey'], //填写加密用的EncodingAESKey，如接口为明文模式可忽略
+                'appid'=>$wc_info['wc_appid'], //填写高级调用功能的app id
+                'appsecret'=>$wc_info['wc_appsecret'] //填写高级调用功能的密钥
+            );
+            $weObj = new \Wechat($options);
+            $weObj->valid();
+
+//            $this->valid();
         }
 
 //        $this->valid();
@@ -20,10 +39,11 @@ class CheckTokenController extends BaseController
     public function responseMsg()
     {
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+        //print_r($GLOBALS);
         if (!empty($postStr)){
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $RX_TYPE = trim($postObj->MsgType);
-
+//echo $RX_TYPE;
             //用户发送的消息类型判断
             switch ($RX_TYPE)
             {
@@ -46,16 +66,13 @@ class CheckTokenController extends BaseController
                 case "link":    //链接消息
                     $result = $this->receiveLink($postObj);
                     break;
-//                case "event":    //关注/取消关注
-//                    $result = $this->receiveLink($postObj);
-//                    break;
                 default:
                     $result = "unknow msg type: ".$RX_TYPE;
                     break;
             }
             echo $result;
         }else {
-            echo "";
+            echo "kong";
             exit;
         }
     }
