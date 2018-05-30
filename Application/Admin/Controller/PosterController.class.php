@@ -58,16 +58,19 @@ class PosterController extends BaseController
             if(!$info) {// 上传错误提示错误信息
                 $this->error($upload->getError());
             }else{// 上传成功 获取上传文件信息
-                $post['wx_ptc_wc_qr'] = 'Uploads/qr/'.$info['wx_ptc_wc_qr']['savepath'].$info['wx_ptc_wc_qr']['savename'];
-                $post['wx_poster_url'] = 'Uploads/qr/'.$info['wx_poster_url']['savepath'].$info['wx_poster_url']['savename'];
+                $post['wx_ptc_wc_qr'] = 'Uploads/qr/'.$info['wx_ptc_wc_qr']['savepath'].$info['wx_ptc_wc_qr']['savename']; //二维码
+                $post['wx_poster_url'] = 'Uploads/qr/'.$info['wx_poster_url']['savepath'].$info['wx_poster_url']['savename']; //海报
             }
 
 
             D()->startTrans(); //开启事务
 
+            $code = $this->getCode();//生成助力码
+
+            $post['wx_ptc_first_code'] = $code;
             $add_ptc=M('poster_config','wx_')->add($post);
 
-            $code = $this->getCode();
+//            $code = $this->getCode();
             $pt_data=array(
                 'wx_pt_fans_id' => 1,
                 'wx_pt_code'    => $code,
@@ -76,7 +79,7 @@ class PosterController extends BaseController
             );
             $add_pt = M('poster','wx_')->add($pt_data);
 
-//            createImg();//创建图片
+            createImg($post['wx_poster_url'],$post['wx_ptc_wc_qr'],'nick',$post['wx_ptc_name'],$code);//创建图片
 
 
             if ($add_ptc > 0 && $add_pt > 0){
@@ -171,7 +174,7 @@ class PosterController extends BaseController
         $code=rand(100000,999999);
         $pt_code = M('poster','wx_')->where(" wx_pt_code='%s' ",$code )->select();
         if (!empty($pt_code)){
-            for ($i=1; $i<=200; $i++){
+            for ($i=1; $i<=2000; $i++){
                 $code=rand(100000,999999);
                 $pt_code = M('poster','wx_')->where(" wx_pt_code='%s' ",$code )->find();
                 if (empty($pt_code)) break;
