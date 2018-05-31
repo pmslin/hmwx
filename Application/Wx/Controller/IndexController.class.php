@@ -25,6 +25,25 @@ class IndexController extends BaseController {
 
     }
 
+    public function test(){
+        $orginalid='gh_32d7972c6152';
+        $wc_info = M('wechat_account')->where("wc_orginalid='%s'",$orginalid)->find();
+        show_bug($wc_info);
+        echo M()->_sql();exit();
+        $options = array(
+            'token'=>'jsgc', //填写你设定的key
+            'encodingaeskey'=>'rIMsVWhv3uHAuyGPhIi2l1DXINb7g4xQFJJihiA8CII', //填写加密用的EncodingAESKey，如接口为明文模式可忽略
+            'appid'=>'wxe0503ddb4a9efe4c', //填写高级调用功能的app id
+            'appsecret'=>'25aa49db47d4ac396ea3cd727394eb6b' //填写高级调用功能的密钥
+        );
+
+        $weObj = new \Wechat($options);
+        $user = $weObj->getUserInfo('oNaLl0xGdgHkdHVkfqA1QwJ2frM4');
+        show_bug($user);
+
+//        M('test','wx_')->add(array('test_cont'=>123));
+    }
+
 
 
 

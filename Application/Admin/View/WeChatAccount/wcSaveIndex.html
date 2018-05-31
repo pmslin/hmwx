@@ -87,6 +87,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-3 control-label">公众号原始ID（开发者账号）：</label>
+                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
+                                <input id="wc_orginalid" name="wc_orginalid" class="form-control" type="text"  value="{$wc_info.wc_orginalid}"  >
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">appid：</label>
                             <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
                                 <input id="wc_appid" name="wc_appid" class="form-control" type="text"  value="{$wc_info.wc_appid}"  >
@@ -200,6 +206,7 @@
                 wc_id:$("#wc_id").val(),
                 wc_name:$("#wc_name").val(),
                 wc_code: $("#wc_code").val(),
+                wc_orginalid:$("#wc_orginalid").val(),
                 wc_appid:$("#wc_appid").val(),
                 wc_appsecret: $("#wc_appsecret").val(),
                 wc_token:$("#wc_token").val(),

@@ -82,7 +82,40 @@ class CheckTokenController extends BaseController
      */
     private function receiveText($object)
     {
-        $content = "你发送的是文本，内容为：".$object->FromUserName;
+        //$weObj = new \Wechat($options);
+        //$access_token = $weObj->getUserInfo('oNaLl0xGdgHkdHVkfqA1QwJ2frM4');
+        //$data['test_cont'] = $access_token;
+
+        $orginalid='';
+        $orginalid .= $object->ToUserName; //开发者微信号
+        $options = $this->getOptions($orginalid);
+        $weObj = new \Wechat($options);
+        $from_user_name='';
+        $from_user_name .= $object->FromUserName; //发送方帐号（一个OpenID） 粉丝OpenID
+        $user_info = $weObj->getUserInfo($from_user_name); //获取粉丝信息
+
+        $wc_info = $this->getWC($orginalid); //获取公众号信息
+
+        $fans_model = M('fans','wx_');
+        $fans_info = $fans_model->where("wx_fans_openid='%s' AND wx_fans_wc_id=%d",$from_user_name,$wc_info['wc_id'])->find();
+        $sql=M()->_sql();
+        if (empty($fans_info)){
+            $fans_data = array(
+                'wx_fans_openid'    =>  $from_user_name, // 粉丝OpenID
+                'wx_fans_name'      =>  $user_info['nickname'], //粉丝名字
+                'wx_fans_wc_id'     =>  $wc_info['wc_id'], //公众号的系统id
+            );
+            M('fans','wx_')->add($fans_data); //将粉丝信息添加至系统
+        }
+
+
+
+
+//        $data['test_cont'].=$object->ToUserName;
+        $data['test_cont']=$sql;
+        M('test','wx_')->add($data);
+        $content = "你发送的是文本，内容为：".$object->Content;
+
         $result = $this->transmitText($object, $content);
         return $result;
     }
@@ -221,6 +254,25 @@ class CheckTokenController extends BaseController
         }else{
             return false;
         }
+    }
+
+    private function getOptions($orginalid){
+        $info = M('wechat_account')->where("wc_orginalid='%s'",$orginalid)->find();
+
+        $options = array(
+            'token'=>$info['wc_token'], //填写你设定的key
+            'encodingaeskey'=>$info['wc_encodingaeskey'], //填写加密用的EncodingAESKey，如接口为明文模式可忽略
+            'appid'=>$info['wc_appid'], //填写高级调用功能的app id
+            'appsecret'=>$info['wc_appsecret'] //填写高级调用功能的密钥
+        );
+
+        return $options;
+    }
+
+    private function getWC($orginalid){
+        $info = M('wechat_account')->where("wc_orginalid='%s'",$orginalid)->find();
+
+        return $info;
     }
 
 }

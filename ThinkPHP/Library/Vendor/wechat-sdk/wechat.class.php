@@ -1218,7 +1218,7 @@ class Wechat
 		}
 
 
-        $authname = 'qywechat_access_token'.$appid;
+        $authname = 'wechat_access_token'.$appid;
         if ($rs = S($authname))  {
             $this->access_token = $rs;
             return $rs;

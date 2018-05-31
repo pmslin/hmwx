@@ -16,6 +16,7 @@ class WeChatAccountController extends BaseController
             $post=array(
                 "wc_name"       =>  I("wc_name","","trim"),
                 "wc_code"       =>  I("wc_code","","trim"),
+                "wc_orginalid"  =>  I("wc_orginalid","","trim"),
                 "wc_appid"      =>  I("wc_appid","","trim"),
                 "wc_appsecret"  =>  I("wc_appsecret","","trim"),
                 "wc_token"      =>  I("wc_token","","trim"),
@@ -78,6 +79,7 @@ class WeChatAccountController extends BaseController
                 "wc_id"     =>  I('wc_id'),
                 "wc_name"  =>  I("wc_name","","trim"),
                 "wc_code"  =>  I("wc_code","","trim"),
+                "wc_orginalid"  =>  I("wc_orginalid","","trim"),
                 "wc_appid"  =>  I("wc_appid","","trim"),
                 "wc_appsecret"  =>  I("wc_appsecret","","trim"),
                 "wc_token"  =>  I("wc_token","","trim"),
