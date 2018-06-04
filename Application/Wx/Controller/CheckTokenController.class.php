@@ -8,7 +8,9 @@ class CheckTokenController extends BaseController
 
     public function index(){
 //print_r(I());
-        //echo $_GET['echostr'];
+//        echo $_GET['echostr'];
+
+        // $wc_id = I('get.wc_id',0,'intval');  !isset($wc_id)
         if (!isset($_GET['echostr'])) { //发送消息
             $this->responseMsg();
         }else{ //验证token
@@ -77,6 +79,7 @@ class CheckTokenController extends BaseController
         }
     }
 
+
     /*
      * 接收文本消息
      */
@@ -105,8 +108,20 @@ class CheckTokenController extends BaseController
                 'wx_fans_name'      =>  $user_info['nickname'], //粉丝名字
                 'wx_fans_wc_id'     =>  $wc_info['wc_id'], //公众号的系统id
             );
-            M('fans','wx_')->add($fans_data); //将粉丝信息添加至系统
+            $fans_id = M('fans','wx_')->add($fans_data); //将粉丝信息添加至系统
         }
+
+
+        //生成助力信息
+        $code = getCode();
+        if ($fans_id > 0){
+            $poster_data = array(
+                'wx_pt_fans_id' =>  $fans_id,
+                'wx_pt_code'    =>  $code,
+
+            );
+        }
+
 
 
 

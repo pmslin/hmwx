@@ -14,6 +14,22 @@ function admin_check()
     }
 }
 
+
+//获取助力码
+function getCode(){
+    $code=rand(100000,999999);
+    $pt_code = M('poster','wx_')->where(" wx_pt_code='%s' ",$code )->select();
+    if (!empty($pt_code)){
+        for ($i=1; $i<=2000; $i++){
+            $code=rand(100000,999999);
+            $pt_code = M('poster','wx_')->where(" wx_pt_code='%s' ",$code )->find();
+            if (empty($pt_code)) break;
+        }
+    }
+
+    return $code;
+}
+
 //添加文字和图片水印 $dst_path海报图片  $src_path二维码小图  $username粉丝名字  $ptc_name活动名称  $code以助力码命名文件名称
 function createImg($dst_path='' ,$src_path='' ,$username='' ,$ptc_name ,$code){
     /*给图片加文字水印的方法*/
