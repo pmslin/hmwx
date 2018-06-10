@@ -89,6 +89,8 @@ class CheckTokenController extends BaseController
         //$access_token = $weObj->getUserInfo('oNaLl0xGdgHkdHVkfqA1QwJ2frM4');
         //$data['test_cont'] = $access_token;
 
+
+
         $orginalid='';
         $orginalid .= $object->ToUserName; //开发者微信号
         $options = $this->getOptions($orginalid);
@@ -99,9 +101,31 @@ class CheckTokenController extends BaseController
 
         $wc_info = $this->getWC($orginalid); //获取公众号信息
 
+
+
+        $content='';
+        $content .= $object->Content; // 接收的内容
+
+
+
+        $poster_model = M('poster','wx_');
+        $data['test_cont']=33;
+        M('test','wx_')->add($data);
+        exit();
+        $poster_info = $poster_model->where("wx_pt_wx_id=%d AND wx_pt_code='%s'",$wc_info['wc_id'],$content)->find();
+        $sql=M()->_sql();
+
+        $data['test_cont']=$sql;
+
+
+        if (!empty($poster_info)){
+
+
+
+
         $fans_model = M('fans','wx_');
         $fans_info = $fans_model->where("wx_fans_openid='%s' AND wx_fans_wc_id=%d",$from_user_name,$wc_info['wc_id'])->find();
-        $sql=M()->_sql();
+//        $sql=M()->_sql();
         if (empty($fans_info)){
             $fans_data = array(
                 'wx_fans_openid'    =>  $from_user_name, // 粉丝OpenID
@@ -112,14 +136,19 @@ class CheckTokenController extends BaseController
         }
 
 
+
         //生成助力信息
         $code = getCode();
         if ($fans_id > 0){
             $poster_data = array(
                 'wx_pt_fans_id' =>  $fans_id,
                 'wx_pt_code'    =>  $code,
-
+                'wx_pt_zl_id'   =>  $poster_info['wx_pt_id'],
+                'wx_pt_wc_id'   =>  $wc_info['wc_id'],
+                'wx_pt_openid'  =>  $from_user_name,
+                'wx_pt_create_time' =>  date("Y-m-d H:i:s"),
             );
+            $add_poster = $poster_model->add($poster_data);
         }
 
 
@@ -133,6 +162,13 @@ class CheckTokenController extends BaseController
 
         $result = $this->transmitText($object, $content);
         return $result;
+
+        }else{
+            $content = "无此内容";
+
+            $result = $this->transmitText($object, $content);
+            return $result;
+        }
     }
 
     /*
