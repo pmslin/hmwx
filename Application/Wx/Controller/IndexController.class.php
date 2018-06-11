@@ -3,6 +3,11 @@ namespace Wx\Controller;
 use Think\Controller;
 class IndexController extends BaseController {
     public function index(){
+        $poster_model = M('poster','wx_');
+        $poster_info = $poster_model->where("wx_pt_wc_id=%d AND wx_pt_code='%s'",79,123456)->find();
+        $sql=M()->_sql();
+        echo $sql;
+
 //        include "../wechat.class.php";
 //        import("Vendor.wechat-sdk.wechat");
 //

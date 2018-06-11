@@ -109,18 +109,14 @@ class CheckTokenController extends BaseController
 
 
         $poster_model = M('poster','wx_');
-        $data['test_cont']=33;
-        M('test','wx_')->add($data);
-        exit();
-        $poster_info = $poster_model->where("wx_pt_wx_id=%d AND wx_pt_code='%s'",$wc_info['wc_id'],$content)->find();
-        $sql=M()->_sql();
 
-        $data['test_cont']=$sql;
+        $poster_info = $poster_model->where("wx_pt_wc_id=%d AND wx_pt_code='%s'",$wc_info['wc_id'],$content)->find();
+
+
+
 
 
         if (!empty($poster_info)){
-
-
 
 
         $fans_model = M('fans','wx_');
@@ -134,6 +130,8 @@ class CheckTokenController extends BaseController
             );
             $fans_id = M('fans','wx_')->add($fans_data); //将粉丝信息添加至系统
         }
+
+            //        $sql=M()->_sql();
 
 
 
@@ -151,12 +149,14 @@ class CheckTokenController extends BaseController
             $add_poster = $poster_model->add($poster_data);
         }
 
-
+            $data['test_cont']=$add_poster;
+            M('test','wx_')->add($data);
+            exit();
 
 
 
 //        $data['test_cont'].=$object->ToUserName;
-        $data['test_cont']=$sql;
+        $data['test_cont']=$add_poster;
         M('test','wx_')->add($data);
         $content = "你发送的是文本，内容为：".$object->Content;
 
