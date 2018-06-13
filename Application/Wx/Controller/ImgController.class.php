@@ -8,7 +8,9 @@ class ImgController extends Controller
 {
 
     //添加文字和图片水印 $dst_path海报图片  $src_path二维码小图  $username粉丝名字  $ptc_name活动名称
-    public function index($dst_path='' ,$src_path='' ,$username='' ,$ptc_name){
+    public function index($dst_path='' ,$src_path='' ,$username='' ,$ptc_name=''){
+
+        echo 123;exit();
         /*给图片加文字水印的方法*/
         //路径要加上http://
 //        $dst_path = 'http://f4.topitme.com/4/15/11/1166351597fe111154l.jpg'; //网络图片
