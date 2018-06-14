@@ -8,13 +8,9 @@ class CheckTokenController extends BaseController
 
     public function index()
     {
-//print_r(I());
-//        echo $_GET['echostr'];
-
-        // $wc_id = I('get.wc_id',0,'intval');  !isset($wc_id)
         if (!isset($_GET['echostr'])) { //发送消息
             $this->responseMsg();
-//            $this->responseMsg();
+
         } else { //验证token
             $wc_id = I('get.wc_id', 0, 'intval');
             if ($wc_id <= 0) {
@@ -33,10 +29,8 @@ class CheckTokenController extends BaseController
             $weObj = new \Wechat($options);
             $weObj->valid();
 
-//            $this->valid();
         }
 
-//        $this->valid();
 
     }
 
@@ -116,8 +110,8 @@ class CheckTokenController extends BaseController
         $content .= $object->Content; // 接收的内容
 
         //回复图片
-        $rs = $this->transmitImg($object,'0usejn7xgotDCwXtyR2mdaB3S1mUimi10JiyB8UOo2XgUHxUNvyVSn59HMYhuFDh');
-        return $rs;
+//        $rs = $this->transmitImg($object,'TEBRsBOkLMMtOOx_bx0QavGo8KtLfqXPKWPA0y4y8z4LChhZiaJ69rbFu6l4IlXn');
+//        return $rs;
 
 
         if (is_numeric($content)) { //判断接收的内容是否是数字
@@ -176,7 +170,16 @@ class CheckTokenController extends BaseController
 
 
                 //生成助力信息
-                $code = getCode();
+                $code = getCode(); //获取助力码
+
+                createImg($ptc_info['wx_poster_url'],$ptc_info['wx_ptc_wc_qr'],$user_info['nickname'],$ptc_info['wx_ptc_name'],$code);//生成海报图片
+
+                $img_url = $_SERVER['DOCUMENT_ROOT'].'/Public/Uploads/poster/'.$code.'.jpg'; //海报绝对路径，不可以是外链
+                $data = array(
+                    'media' =>  '@'.$img_url
+                );
+                $up_img = $weObj->uploadMedia($data,'image');
+
                 if ($fans_id > 0) {
                     $poster_data = array(
                         'wx_pt_fans_id' => $fans_id,
@@ -186,11 +189,19 @@ class CheckTokenController extends BaseController
                         'wx_pt_openid' => $from_user_name,
                         'wx_pt_ptc_id' => $poster_info['wx_pt_ptc_id'],
                         'wx_pt_create_time' => date("Y-m-d H:i:s"),
+                        'wx_pt_img_media_id' => $up_img['media_id'],
                     );
                     $add_poster = $poster_model->add($poster_data);
+
+                    $content = "助力成功！恭喜你获得专属助力码：" . $code;
+                    $result = $this->transmitText($object, $content);
+                    return $result;
+
+//                    $rs = $this->transmitImg($object,$up_img['media_id']);
+//                    return $rs;
                 }
 
-                createImg($ptc_info['wx_poster_url'],$ptc_info['wx_ptc_wc_qr'],$user_info['nickname'],$ptc_info['wx_ptc_name'],$code);//生成海报图片
+
 
 //                $up = $weObj->uploadForeverMedia();
 //                $content =$add_poster;
@@ -201,11 +212,11 @@ class CheckTokenController extends BaseController
 //            M('test', 'wx_')->add($data);
 //            exit();
 
-                if ($add_poster){
-                    $content = "助力成功！恭喜你获得专属助力码：" . $code;
-                    $result = $this->transmitText($object, $content);
-                    return $result;
-                }
+//                if ($add_poster){
+//                    $content = "助力成功！恭喜你获得专属助力码：" . $code;
+//                    $result = $this->transmitText($object, $content);
+//                    return $result;
+//                }
             }
         } else {
             exit();
