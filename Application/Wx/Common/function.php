@@ -30,8 +30,8 @@ function getCode(){
     return $code;
 }
 
-//添加文字和图片水印 $dst_path海报图片  $src_path二维码小图  $username粉丝名字  $ptc_name活动名称  $code以助力码命名文件名称
-function createImg($dst_path='' ,$src_path='' ,$username='' ,$ptc_name ,$code){
+//添加文字和图片水印 $dst_path海报图片  $src_path二维码小图 $head_path头像图片  $username粉丝名字  $ptc_name活动名称  $code以助力码命名文件名称
+function createImg($dst_path='' ,$src_path='', $head_path='' ,$username='' ,$ptc_name ,$code){
     /*给图片加文字水印的方法*/
     //路径要加上http://
 //        $dst_path = 'http://f4.topitme.com/4/15/11/1166351597fe111154l.jpg'; //网络图片
@@ -42,6 +42,7 @@ function createImg($dst_path='' ,$src_path='' ,$username='' ,$ptc_name ,$code){
 //        $src_path1 = 'http://www.logodashi.com/FileUpLoad/inspiration/636003768803214440.jpg'; //小图
     $dst = imagecreatefromstring(file_get_contents($dst_path));
     $src = imagecreatefromstring(file_get_contents($src_path));
+    $head = imagecreatefromstring(file_get_contents($head_path));
 
 //        $src1 = imagecreatefromstring(file_get_contents($src_path1));
 
@@ -56,7 +57,7 @@ function createImg($dst_path='' ,$src_path='' ,$username='' ,$ptc_name ,$code){
     imagefttext($dst, 25, 0, 80, 950, $black, $font, $username.'正在参加：');
     imagefttext($dst, 25, 0, 80, 1000, $black, $font, '《'.$ptc_name.'》');
 
-    imagefttext($dst, 25, 0, 20, 1300, $black, $font, '扫码关注，回复'.$code.'帮好友助力！');
+    imagefttext($dst, 25, 0, 20, 1400, $black, $font, '扫码关注，回复'.$code.'帮好友助力！');
     /*imagefttext($img,$size,$angle,$x,$y,$color,$fontfile,$text)
     $img由图像创建函数返回的图像资源
     size要使用的水印的字体大小
@@ -75,6 +76,10 @@ function createImg($dst_path='' ,$src_path='' ,$username='' ,$ptc_name ,$code){
     list($src_w, $src_h) = getimagesize($src_path);
     //将水印图片复制到目标图片上，最后个参数50是设置透明度，这里实现半透明效果
     imagecopymerge($dst, $src, 560, 1200, 0, 0, $src_w, $src_h, 100);
+
+    //头像图片
+    list($head_w, $head_h) = getimagesize($head_path);
+    imagecopymerge($dst, $head, 10, 930, 0, 0, $head_w, $head_h, 100);
 
 //        imagecopymerge($dst, $src1, 60, 100, 0, 0, $src_w, $src_h, 100);
 //echo $dst_type;exit();
@@ -101,6 +106,7 @@ function createImg($dst_path='' ,$src_path='' ,$username='' ,$ptc_name ,$code){
 
     imagedestroy($dst);
     imagedestroy($src);
+    imagedestroy($head);
 }
 
 

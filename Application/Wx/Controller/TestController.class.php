@@ -13,6 +13,8 @@ class TestController extends BaseController
             'appsecret' => '25aa49db47d4ac396ea3cd727394eb6b' //填写高级调用功能的密钥
         );
         $weObj = new \Wechat($options);
+        $user_info = $weObj->getUserInfo('oNaLl0xGdgHkdHVkfqA1QwJ2frM4'); //获取粉丝信息
+        show_bug($user_info);exit();
 
         $rs = $this->transmitImg($weObj,'TEBRsBOkLMMtOOx_bx0QavGo8KtLfqXPKWPA0y4y8z4LChhZiaJ69rbFu6l4IlXn');
         return $rs;
