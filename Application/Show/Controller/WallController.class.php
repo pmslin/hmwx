@@ -59,6 +59,8 @@ class WallController extends BaseController
         $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
         $upload->rootPath = './Public/Uploads/';
 
+//        if ($_FILES['rm_img_url']['size'] > 291456) $this->error('图片过大'); //图片限制在2M
+
         if ($_FILES['lw_img_url']['error']==4) return'';
 
         $info = $upload->uploadOne($_FILES['lw_img_url']);

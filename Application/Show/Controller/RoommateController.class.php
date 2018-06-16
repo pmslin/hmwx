@@ -56,8 +56,11 @@ class RoommateController extends BaseController
     public function upload(){
         $upload = new \Think\Upload();
         $upload->maxSize = 3145728;
+//        $upload->maxSize = 145728;//145728  1M+
         $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
         $upload->rootPath = './Public/Uploads/roommate/';
+
+//        if ($_FILES['rm_img_url']['size'] > 291456) $this->error('图片过大'); //图片限制在2M
 
         if ($_FILES['rm_img_url']['error']==4) return'';
 
