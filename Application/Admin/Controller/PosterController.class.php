@@ -76,7 +76,7 @@ class PosterController extends BaseController
                 'wx_pt_code'    => $code,
                 'wx_pt_wc_id'   => $post['wx_ptc_wc_id'],
                 'wx_pt_create_time' => date('Y-m-d H:i:s'),
-                'wx_ptc_id'     => $add_ptc
+                'wx_pt_ptc_id'     => $add_ptc
             );
             $add_pt = M('poster','wx_')->add($pt_data);
 

@@ -6,35 +6,65 @@ namespace Wx\Controller;
 class CheckTokenController extends BaseController
 {
 
-    public function index(){
-//print_r(I());
-//        echo $_GET['echostr'];
-
-        // $wc_id = I('get.wc_id',0,'intval');  !isset($wc_id)
+    public function index()
+    {
         if (!isset($_GET['echostr'])) { //发送消息
             $this->responseMsg();
-        }else{ //验证token
-            $wc_id = I('get.wc_id',0,'intval');
-            if ($wc_id <= 0){
+//            echo I('get.openid');
+
+            $wc_id = I('get.wc_id');
+            $openid = I('get.openid');
+            $poster = M('poster','wx_')->where(" wx_pt_openid='%s' ",$openid)->find();
+            $ptc_info = M('poster_config','wx_')->where('wx_ptc_id=%d',$poster['wx_pt_ptc_id'])->find();
+//            $data['test_cont'] = $wc_id;
+//            M('test', 'wx_')->add($data);
+//            exit();
+
+            $fans_info = M('fans','wx_')->where(" wx_fans_openid='%s' ",$openid)->find();
+//
+            $wc_info = M('wechat_account')->where('wc_id=%d',$wc_id)->find();
+            $options = array(
+                'token' => $wc_info['wc_token'], //填写你设定的key
+                'encodingaeskey' => $wc_info['wc_encodingaeskey'], //填写加密用的EncodingAESKey，如接口为明文模式可忽略
+                'appid' => $wc_info['wc_appid'], //填写高级调用功能的app id
+                'appsecret' => $wc_info['wc_appsecret'] //填写高级调用功能的密钥
+            );
+            $weObj = new \Wechat($options);
+//
+//
+//            set_time_limit(0);
+            //生成图片时候话费时长太长，超过5s反应给微信
+            createImg($ptc_info['wx_poster_url'], $ptc_info['wx_ptc_wc_qr'], $fans_info['wx_fans_img'], $fans_info['wx_fans_name'], $ptc_info['wx_ptc_name'], $poster['wx_pt_code']);//生成海报图片
+////
+//            $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/poster/' . $code . '.jpg'; //海报绝对路径，不可以是外链
+//            $data = array(
+//                'media' => '@' . $img_url
+//            );
+//
+//            $up_img = $weObj->uploadMedia($data, 'image');
+//            $save_poster = M('poster','wx_')->where('wx_pt_id=%d',$poster['wx_pt_id'])->save(array('wx_pt_img_media_id'=>$up_img['media_id']));
+////            echo 123;
+
+        } else { //验证token
+            $wc_id = I('get.wc_id', 0, 'intval');
+            if ($wc_id <= 0) {
                 echo 'wc_id有误';
                 exit();
             }
 
-            $wc_info = M('wechat_account')->where('wc_id=%d',$wc_id)->find();
+            $wc_info = M('wechat_account')->where('wc_id=%d', $wc_id)->find();
 
             $options = array(
-                'token'=>$wc_info['wc_token'], //填写你设定的key
-                'encodingaeskey'=>$wc_info['wc_encodingaeskey'], //填写加密用的EncodingAESKey，如接口为明文模式可忽略
-                'appid'=>$wc_info['wc_appid'], //填写高级调用功能的app id
-                'appsecret'=>$wc_info['wc_appsecret'] //填写高级调用功能的密钥
+                'token' => $wc_info['wc_token'], //填写你设定的key
+                'encodingaeskey' => $wc_info['wc_encodingaeskey'], //填写加密用的EncodingAESKey，如接口为明文模式可忽略
+                'appid' => $wc_info['wc_appid'], //填写高级调用功能的app id
+                'appsecret' => $wc_info['wc_appsecret'] //填写高级调用功能的密钥
             );
             $weObj = new \Wechat($options);
             $weObj->valid();
 
-//            $this->valid();
         }
 
-//        $this->valid();
 
     }
 
@@ -42,43 +72,53 @@ class CheckTokenController extends BaseController
     {
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         //print_r($GLOBALS);
-        if (!empty($postStr)){
+        if (!empty($postStr)) {
             $postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
             $RX_TYPE = trim($postObj->MsgType);
 //echo $RX_TYPE;
             //用户发送的消息类型判断
-            switch ($RX_TYPE)
-            {
+            switch ($RX_TYPE) {
                 case "text":    //文本消息
                     $result = $this->receiveText($postObj);
                     break;
-                case "image":   //图片消息
-                    $result = $this->receiveImage($postObj);
-                    break;
-
-                case "voice":   //语音消息
-                    $result = $this->receiveVoice($postObj);
-                    break;
-                case "video":   //视频消息
-                    $result = $this->receiveVideo($postObj);
-                    break;
-                case "location"://位置消息
-                    $result = $this->receiveLocation($postObj);
-                    break;
-                case "link":    //链接消息
-                    $result = $this->receiveLink($postObj);
-                    break;
+//                case "image":   //图片消息
+//                    $result = $this->receiveImage($postObj);
+//                    break;
+//                case "voice":   //语音消息
+//                    $result = $this->receiveVoice($postObj);
+//                    break;
+//                case "video":   //视频消息
+//                    $result = $this->receiveVideo($postObj);
+//                    break;
+//                case "location"://位置消息
+//                    $result = $this->receiveLocation($postObj);
+//                    break;
+//                case "link":    //链接消息
+//                    $result = $this->receiveLink($postObj);
+//                    break;
                 default:
-                    $result = "unknow msg type: ".$RX_TYPE;
+                    $result = "unknow msg type: " . $RX_TYPE;
                     break;
             }
             echo $result;
-        }else {
+
+        } else {
             echo "kong";
             exit;
         }
     }
 
+
+    private function img($object)
+    {
+        $dateArray = array();
+        $dateArray[] = array("Title" => "单图文标题",
+            "Description" => "单图文内容",
+            "Picurl" => 'http://' . $_SERVER['HTTP_HOST'] . '/Public/Uploads/poster/387406.jpg',
+            "Url" => "http://baidu.com");
+        $resultStr = $this->transmitNews($object, $dateArray);
+        return $resultStr;
+    }
 
     /*
      * 接收文本消息
@@ -90,82 +130,160 @@ class CheckTokenController extends BaseController
         //$data['test_cont'] = $access_token;
 
 
-
-        $orginalid='';
+        $orginalid = '';
         $orginalid .= $object->ToUserName; //开发者微信号
         $options = $this->getOptions($orginalid);
         $weObj = new \Wechat($options);
-        $from_user_name='';
+        $from_user_name = '';
         $from_user_name .= $object->FromUserName; //发送方帐号（一个OpenID） 粉丝OpenID
         $user_info = $weObj->getUserInfo($from_user_name); //获取粉丝信息
 
         $wc_info = $this->getWC($orginalid); //获取公众号信息
 
-
-
-        $content='';
+        $content = '';
         $content .= $object->Content; // 接收的内容
 
+        //回复图片
+//        $rs = $this->transmitImg($object,'TEBRsBOkLMMtOOx_bx0Qalyu5ecSrm_KzQq1JHZRwyijLejeo5S6-dNRUQMA5z6P');
+//        return $rs;
 
 
-        $poster_model = M('poster','wx_');
+        if (is_numeric($content)) { //判断接收的内容是否是数字
+//            $content = "不能帮自己助力哦，赶紧叫朋友帮你助力吧。";
+//            $result = $this->transmitText($object, $content);
+//            return $result;
+            $poster_model = M('poster', 'wx_');
+            $poster_info = $poster_model->where("wx_pt_wc_id=%d AND wx_pt_code='%s'", $wc_info['wc_id'], $content)->find(); //根据接收的助力码查找被助力的记录
+//            return "success";
+            if (!empty($poster_info)) {
+                $ptc_info = M('poster_config', 'wx_')->where('wx_ptc_id=%d', $poster_info['wx_pt_ptc_id'])->find();
+                if ($ptc_info) {
+                    $now_time = date('Y-m-d H:i:s');
+                    if (!($ptc_info['wx_ptc_status'] == 1 && $now_time > $ptc_info['wx_ptc_start_time'] && $now_time < $ptc_info['wx_ptc_end_time'])) { //判断活动合法性
+//                        $content = "活动已关闭，或不在活动时间";
+//                        $result = $this->transmitText($object, $content);
+//                        return $result;
+                        exit();
+                    }
 
-        $poster_info = $poster_model->where("wx_pt_wc_id=%d AND wx_pt_code='%s'",$wc_info['wc_id'],$content)->find();
-
-
-
-
-
-        if (!empty($poster_info)){
-
-
-        $fans_model = M('fans','wx_');
-        $fans_info = $fans_model->where("wx_fans_openid='%s' AND wx_fans_wc_id=%d",$from_user_name,$wc_info['wc_id'])->find();
-//        $sql=M()->_sql();
-        if (empty($fans_info)){
-            $fans_data = array(
-                'wx_fans_openid'    =>  $from_user_name, // 粉丝OpenID
-                'wx_fans_name'      =>  $user_info['nickname'], //粉丝名字
-                'wx_fans_wc_id'     =>  $wc_info['wc_id'], //公众号的系统id
-            );
-            $fans_id = M('fans','wx_')->add($fans_data); //将粉丝信息添加至系统
-        }
-
-            //        $sql=M()->_sql();
+                }
 
 
+                $fans_model = M('fans', 'wx_');
+                $fans_info = $fans_model->where("wx_fans_openid='%s' AND wx_fans_wc_id=%d", $from_user_name, $wc_info['wc_id'])->find();
+                $fans_id = $fans_info['wx_fans_id'];
 
-        //生成助力信息
-        $code = getCode();
-        if ($fans_id > 0){
-            $poster_data = array(
-                'wx_pt_fans_id' =>  $fans_id,
-                'wx_pt_code'    =>  $code,
-                'wx_pt_zl_id'   =>  $poster_info['wx_pt_id'],
-                'wx_pt_wc_id'   =>  $wc_info['wc_id'],
-                'wx_pt_openid'  =>  $from_user_name,
-                'wx_pt_create_time' =>  date("Y-m-d H:i:s"),
-            );
-            $add_poster = $poster_model->add($poster_data);
-        }
+                $headimgurl = str_replace('132','64',$user_info['headimgurl']);
+                if (empty($fans_info)) {
+                    $fans_data = array(
+                        'wx_fans_openid' => $from_user_name, // 粉丝OpenID
+                        'wx_fans_name'   => $user_info['nickname'], //粉丝名字
+                        'wx_fans_wc_id'  => $wc_info['wc_id'], //公众号的系统id
+                        'wx_fans_img'    => $headimgurl, //粉丝头像
+                    );
+                    $fans_id = M('fans', 'wx_')->add($fans_data); //将粉丝信息添加至系统
+                }
 
-            $data['test_cont']=$add_poster;
-            M('test','wx_')->add($data);
+
+                //        $sql=M()->_sql();
+
+
+                if ($poster_info['wx_pt_fans_id'] === $fans_id) { //如果助力者跟自己助力，提示无法帮自己助力
+                    $content = "不能帮自己助力哦，赶紧叫朋友帮你助力吧。";
+                    $result = $this->transmitText($object, $content);
+                    return $result;
+                }
+
+                $check_poster = $poster_model->where('wx_pt_fans_id=%d AND wx_pt_ptc_id=%d AND wx_pt_wc_id=%d', $fans_id, $poster_info['wx_pt_ptc_id'], $poster_info['wx_pt_wc_id'])->find();
+                if ($check_poster) {
+                    $content = "成功助力(一人只能助力一次)，你的助力码为：".$check_poster['wx_pt_code']."，赶紧叫朋友帮你助力吧。";
+                    $result = $this->transmitText($object, $content);
+                    return $result;
+                } else {
+                    //生成助力信息
+                    $code = getCode(); //获取助力码
+
+//                    set_time_limit(0);
+//                    //生成图片时候话费时长太长，超过5s反应给微信
+//                    createImg($ptc_info['wx_poster_url'], $ptc_info['wx_ptc_wc_qr'], $headimgurl, $user_info['nickname'], $ptc_info['wx_ptc_name'], $code);//生成海报图片
+////
+//                    $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/poster/' . $code . '.jpg'; //海报绝对路径，不可以是外链
+//                    $data = array(
+//                        'media' => '@' . $img_url
+//                    );
+//                    $up_img = $weObj->uploadMedia($data, 'image');
+
+//                    if ($up_img) {
+                        $poster_data = array(
+                            'wx_pt_fans_id' => $fans_id,
+                            'wx_pt_code' => $code,
+                            'wx_pt_zl_id' => $poster_info['wx_pt_id'],
+                            'wx_pt_wc_id' => $wc_info['wc_id'],
+                            'wx_pt_openid' => $from_user_name,
+                            'wx_pt_ptc_id' => $poster_info['wx_pt_ptc_id'],
+                            'wx_pt_create_time' => date("Y-m-d H:i:s"),
+//                            'wx_pt_img_media_id' => $up_img['media_id'],
+                        );
+                        $check_poster = $poster_model->where('wx_pt_fans_id=%d AND wx_pt_ptc_id=%d AND wx_pt_wc_id=%d', $fans_id, $poster_info['wx_pt_ptc_id'], $poster_info['wx_pt_wc_id'])->find();
+                        if (empty($check_poster)){ //避免重复插入
+                            $add_poster = $poster_model->add($poster_data);
+//                            return 'success';
+////                            exit();
+                            $content1 = "助力成功！恭喜你获得专属助力码：" . $code;
+                            $result = $this->transmitText($object, $content1);
+                            return $result;
+//                        }
+//                    return "success";
+
+//                        exit();
+//                        if ($add_poster > 0){
+//                        return "success";
+                    }
+
+
+//                            $content = "助力成功！恭喜你获得专属助力码：" . $code;
+//                            $result = $this->transmitText($object, $content);
+//                            return $result;
+//                        }
+
+
+//                $poster_info_s = $poster_model->where('wx_pt_fans_id=%d AND wx_pt_wc_id=%d',$fans_id,)
+
+
+//                    $send_data = '{
+//                        "touser":"oNaLl0xGdgHkdHVkfqA1QwJ2frM4",
+//                    }';
+//                    $this->sendCustomMessage($send_data);
+//                    exit();
+
+//                    $content = "助力成功！恭喜你获得专属助力码：" . $code;
+//                    $result = $this->transmitText($object, $content);
+//                    return $result;
+
+//                    $rs = $this->transmitImg($object,$up_img['media_id']);
+//                    return $rs;
+                }
+
+
+//                $up = $weObj->uploadForeverMedia();
+//                $content =$add_poster;
+//                $result = $this->transmitText($object, $content);
+//                return $result;
+
+//            $data['test_cont'] = $add_poster;
+//            M('test', 'wx_')->add($data);
+//            exit();
+
+//                if ($add_poster){
+//                    $content = "助力成功！恭喜你获得专属助力码：" . $code;
+//                    $result = $this->transmitText($object, $content);
+//                    return $result;
+//                }
+            }
+        } else {
+            return 'success';
             exit();
-
-
-
-//        $data['test_cont'].=$object->ToUserName;
-        $data['test_cont']=$add_poster;
-        M('test','wx_')->add($data);
-        $content = "你发送的是文本，内容为：".$object->Content;
-
-        $result = $this->transmitText($object, $content);
-        return $result;
-
-        }else{
             $content = "无此内容";
-
             $result = $this->transmitText($object, $content);
             return $result;
         }
@@ -176,7 +294,7 @@ class CheckTokenController extends BaseController
      */
     private function receiveImage($object)
     {
-        $content = "你发送的是图片，地址为：".$object->PicUrl;
+        $content = "你发送的是图片，地址为：" . $object->PicUrl;
         $result = $this->transmitText($object, $content);
         return $result;
     }
@@ -186,7 +304,7 @@ class CheckTokenController extends BaseController
      */
     private function receiveVoice($object)
     {
-        $content = "你发送的是语音，媒体ID为：".$object->MediaId;
+        $content = "你发送的是语音，媒体ID为：" . $object->MediaId;
         $result = $this->transmitText($object, $content);
         return $result;
     }
@@ -196,7 +314,7 @@ class CheckTokenController extends BaseController
      */
     private function receiveVideo($object)
     {
-        $content = "你发送的是视频，媒体ID为：".$object->MediaId;
+        $content = "你发送的是视频，媒体ID为：" . $object->MediaId;
         $result = $this->transmitText($object, $content);
         return $result;
     }
@@ -206,7 +324,7 @@ class CheckTokenController extends BaseController
      */
     private function receiveLocation($object)
     {
-        $content = "你发送的是位置，纬度为：".$object->Location_X."；经度为：".$object->Location_Y."；缩放级别为：".$object->Scale."；位置为：".$object->Label;
+        $content = "你发送的是位置，纬度为：" . $object->Location_X . "；经度为：" . $object->Location_Y . "；缩放级别为：" . $object->Scale . "；位置为：" . $object->Label;
         $result = $this->transmitText($object, $content);
         return $result;
     }
@@ -216,7 +334,7 @@ class CheckTokenController extends BaseController
      */
     private function receiveLink($object)
     {
-        $content = "你发送的是链接，标题为：".$object->Title."；内容为：".$object->Description."；链接地址为：".$object->Url;
+        $content = "你发送的是链接，标题为：" . $object->Title . "；内容为：" . $object->Description . "；链接地址为：" . $object->Url;
         $result = $this->transmitText($object, $content);
         return $result;
     }
@@ -237,15 +355,65 @@ class CheckTokenController extends BaseController
         return $result;
     }
 
+    /*
+     * 回复图片消息
+     */
+    private function transmitImg($object, $mediaId)
+    {
+        $textTpl = "<xml>
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[image]]></MsgType>
+                    <Image>
+                        <MediaId><![CDATA[%s]]></MediaId>
+                    </Image>
+                    </xml>";
+        $result = sprintf($textTpl, $object->FromUserName, $object->ToUserName, time(), $mediaId);
+        return $result;
+    }
 
+    /*
+     * 回复图文消息
+     */
+    private function transmitNews($object, $arr_item, $flag = 0)
+    {
+        if (!is_array($arr_item))
+            return;
 
+        $itemTpl = "    <item>
+        <Title><![CDATA[%s]]></Title>
+        <Description><![CDATA[%s]]></Description>
+        <PicUrl><![CDATA[%s]]></PicUrl>
+        <Url><![CDATA[%s]]></Url>
+    </item>
+    ";
+        $item_str = "";
+        foreach ($arr_item as $item)
+            $item_str .= sprintf($itemTpl, $item['Title'], $item['Description'], $item['Picurl'], $item['Url']);
+
+        $newsTpl = "<xml>
+    <ToUserName><![CDATA[%s]]></ToUserName>
+    <FromUserName><![CDATA[%s]]></FromUserName>
+    <CreateTime>%s</CreateTime>
+    <MsgType><![CDATA[news]]></MsgType>
+    <Content><![CDATA[]]></Content>
+    <ArticleCount>%s</ArticleCount>
+    <Articles>
+    $item_str</Articles>
+    <FuncFlag>%s</FuncFlag>
+    </xml>";
+
+        $resultStr = sprintf($newsTpl, $object->FromUserName, $object->ToUserName, time(), count($arr_item), $flag);
+        return $resultStr;
+    }
 
     public function valid()
     {
         $echoStr = $_GET["echostr"];
 
         //valid signature , option
-        if($this->checkSignature()){
+        if ($this->checkSignature()) {
             echo $echoStr;
             exit;
         }
@@ -297,31 +465,33 @@ class CheckTokenController extends BaseController
         $token = 'wxtk';
         $tmpArr = array($token, $timestamp, $nonce);
         sort($tmpArr);
-        $tmpStr = implode( $tmpArr );
-        $tmpStr = sha1( $tmpStr );
+        $tmpStr = implode($tmpArr);
+        $tmpStr = sha1($tmpStr);
 
-        if( $tmpStr == $signature ){
+        if ($tmpStr == $signature) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    private function getOptions($orginalid){
-        $info = M('wechat_account')->where("wc_orginalid='%s'",$orginalid)->find();
+    private function getOptions($orginalid)
+    {
+        $info = M('wechat_account')->where("wc_orginalid='%s'", $orginalid)->find();
 
         $options = array(
-            'token'=>$info['wc_token'], //填写你设定的key
-            'encodingaeskey'=>$info['wc_encodingaeskey'], //填写加密用的EncodingAESKey，如接口为明文模式可忽略
-            'appid'=>$info['wc_appid'], //填写高级调用功能的app id
-            'appsecret'=>$info['wc_appsecret'] //填写高级调用功能的密钥
+            'token' => $info['wc_token'], //填写你设定的key
+            'encodingaeskey' => $info['wc_encodingaeskey'], //填写加密用的EncodingAESKey，如接口为明文模式可忽略
+            'appid' => $info['wc_appid'], //填写高级调用功能的app id
+            'appsecret' => $info['wc_appsecret'] //填写高级调用功能的密钥
         );
 
         return $options;
     }
 
-    private function getWC($orginalid){
-        $info = M('wechat_account')->where("wc_orginalid='%s'",$orginalid)->find();
+    private function getWC($orginalid)
+    {
+        $info = M('wechat_account')->where("wc_orginalid='%s'", $orginalid)->find();
 
         return $info;
     }
