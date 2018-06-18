@@ -16,12 +16,7 @@ class CheckTokenController extends BaseController
             $openid = I('get.openid');
             $poster = M('poster','wx_')->where(" wx_pt_openid='%s' ",$openid)->find();
             $ptc_info = M('poster_config','wx_')->where('wx_ptc_id=%d',$poster['wx_pt_ptc_id'])->find();
-//            $data['test_cont'] = $wc_id;
-//            M('test', 'wx_')->add($data);
-//            exit();
-
             $fans_info = M('fans','wx_')->where(" wx_fans_openid='%s' ",$openid)->find();
-//
             $wc_info = M('wechat_account')->where('wc_id=%d',$wc_id)->find();
             $options = array(
                 'token' => $wc_info['wc_token'], //填写你设定的key
@@ -29,21 +24,30 @@ class CheckTokenController extends BaseController
                 'appid' => $wc_info['wc_appid'], //填写高级调用功能的app id
                 'appsecret' => $wc_info['wc_appsecret'] //填写高级调用功能的密钥
             );
+
+
+
             $weObj = new \Wechat($options);
-//
-//
+//            exit();
+
+//            $data['test_cont'] = $poster['wx_pt_code'];
+//            M('test', 'wx_')->add($data);
+//            exit();
+
+
 //            set_time_limit(0);
             //生成图片时候话费时长太长，超过5s反应给微信
             createImg($ptc_info['wx_poster_url'], $ptc_info['wx_ptc_wc_qr'], $fans_info['wx_fans_img'], $fans_info['wx_fans_name'], $ptc_info['wx_ptc_name'], $poster['wx_pt_code']);//生成海报图片
-////
-//            $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/poster/' . $code . '.jpg'; //海报绝对路径，不可以是外链
+
+//            $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/poster/' . $poster['wx_pt_code'] . '.jpg'; //海报绝对路径，不可以是外链
 //            $data = array(
 //                'media' => '@' . $img_url
 //            );
 //
 //            $up_img = $weObj->uploadMedia($data, 'image');
 //            $save_poster = M('poster','wx_')->where('wx_pt_id=%d',$poster['wx_pt_id'])->save(array('wx_pt_img_media_id'=>$up_img['media_id']));
-////            echo 123;
+
+            //客服接口发送信息
 
         } else { //验证token
             $wc_id = I('get.wc_id', 0, 'intval');
@@ -148,6 +152,20 @@ class CheckTokenController extends BaseController
 //        return $rs;
 
 
+        $msg_data = array();
+        $msg_data['touser'] = $from_user_name;
+        $msg_data['msgtype'] = "text";
+        $msg_data['text']['content'] = "Hello World";
+
+        $data['test_cont'] = json_encode($msg_data);
+            M('test', 'wx_')->add($data);
+            exit();
+
+        $weObj->sendCustomMessage(json_encode($msg_data));
+        exit();
+
+
+
         if (is_numeric($content)) { //判断接收的内容是否是数字
 //            $content = "不能帮自己助力哦，赶紧叫朋友帮你助力吧。";
 //            $result = $this->transmitText($object, $content);
@@ -196,7 +214,7 @@ class CheckTokenController extends BaseController
 
                 $check_poster = $poster_model->where('wx_pt_fans_id=%d AND wx_pt_ptc_id=%d AND wx_pt_wc_id=%d', $fans_id, $poster_info['wx_pt_ptc_id'], $poster_info['wx_pt_wc_id'])->find();
                 if ($check_poster) {
-                    $content = "成功助力(一人只能助力一次)，你的助力码为：".$check_poster['wx_pt_code']."，赶紧叫朋友帮你助力吧。";
+                    $content = "成功助力(只能助力一次)，你的助力码为：".$check_poster['wx_pt_code']."，赶紧叫朋友帮你助力吧。";
                     $result = $this->transmitText($object, $content);
                     return $result;
                 } else {
