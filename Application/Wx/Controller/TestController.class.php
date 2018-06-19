@@ -20,6 +20,31 @@ class TestController extends BaseController
         return $rs;
     }
 
+    public function sendMsg(){
+        $options = array(
+            'token' => 'jsgc', //填写你设定的key
+            'encodingaeskey' => 'rIMsVWhv3uHAuyGPhIi2l1DXINb7g4xQFJJihiA8CII', //填写加密用的EncodingAESKey，如接口为明文模式可忽略
+            'appid' => 'wxe0503ddb4a9efe4c', //填写高级调用功能的app id
+            'appsecret' => '25aa49db47d4ac396ea3cd727394eb6b' //填写高级调用功能的密钥
+        );
+        $weObj = new \Wechat($options);
+
+        $msg_data = array();
+        $msg_data['touser'] = 'oNaLl0xGdgHkdHVkfqA1QwJ2frM4';
+        $msg_data['msgtype'] = "text";
+        $msg_data['text']['content'] = "Hello World";
+
+//        $data['test_cont'] = json_encode($msg_data);
+//            M('test', 'wx_')->add($data);
+//            exit();
+
+//        $result = $weObj->sendCustomMessage(json_encode($msg_data));
+        $result = $weObj->sendCustomMessage($msg_data);
+        show_bug($result);
+        return $result;
+        exit();
+    }
+
 
     //上传图片，获取media_id
     public function uploadMedia(){

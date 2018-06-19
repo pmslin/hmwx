@@ -16,7 +16,7 @@ class PosterController extends BaseController
     public function getPosterList(){
         admin_check();
 
-        $list = M('poster_config','wx_')->join('wechat_account ON wc_id=wx_ptc_wc_id')->select();
+        $list = M('poster_config','wx_')->join('wechat_account ON wc_id=wx_ptc_wc_id')->order('wx_ptc_end_time desc')->select();
         foreach ($list as $k=>$v){
             $list[$k]['k']=$k+1;
             if ($v['wx_ptc_status']==1){
@@ -24,7 +24,8 @@ class PosterController extends BaseController
             }elseif ($v['wx_ptc_status']==0) {
                 $list[$k]['wx_ptc_status_name'] = '关闭';
             }
-            $list[$k]['ac']='<button class="layui-btn" onclick="save('.$v['wx_ptc_id'].')" >修改</button> 
+            $list[$k]['ac']='<button class="layui-btn" onclick="data('.$v['wx_ptc_id'].')" >数据</button>
+                <button class="layui-btn" onclick="save('.$v['wx_ptc_id'].')" >修改</button> 
                 <button class="layui-btn" onclick="dele('.$v['wx_ptc_id'].')" >删除</button> ';
         }
         $this->ajaxReturn($list,'json');
@@ -102,6 +103,8 @@ class PosterController extends BaseController
 
     //修改活动
     public function save(){
+        admin_check();
+
         $ptc_id = I("wx_ptc_id",0);
         if ($ptc_id <= 0) $this->error("参数有误");
 
@@ -157,6 +160,78 @@ class PosterController extends BaseController
             $this->display();
         }
     }
+
+
+    //活动数据页面
+    public function data(){
+        admin_check();
+
+        $ptc_id = I("wx_ptc_id", 0);
+        $info = M('poster_config','wx_')->where('wx_ptc_id=%d',$ptc_id)->join('wechat_account ON wx_ptc_wc_id=wc_id','left')->find();
+        $this->assign('info',$info);
+        $this->assign('wx_ptc_id',$ptc_id);
+        $this->display();
+//        echo $ptc_id;exit();
+    }
+
+    //获取活动数据
+    public function getData(){
+        admin_check();
+
+        $ptc_id = I("wx_ptc_id", 0);
+        if ($ptc_id > 0){
+            $list = M('poster','wx_')->where('wx_pt_ptc_id=%d',$ptc_id)->join('wx_fans ON wx_pt_fans_id=wx_fans_id','left')->order('wx_pt_count desc')->select();
+            foreach ($list as $k=>$v){
+                $list[$k]['k']=$k+1;
+//                if ($v['wx_ptc_status']==1){
+//                    $list[$k]['wx_ptc_status_name']='开启';
+//                }elseif ($v['wx_ptc_status']==0) {
+//                    $list[$k]['wx_ptc_status_name'] = '关闭';
+//                }
+                $list[$k]['ac']='<button class="layui-btn" onclick="details('.$v['wx_pt_id'].')" >详情</button> ';
+            }
+            $this->ajaxReturn($list,'json');
+        }
+    }
+
+
+    //海报活动助力粉丝列表页面
+    public function details(){
+        admin_check();
+
+        $pt_id = I("wx_pt_id", 0);
+//        echo $pt_id;
+//        exit();
+        $info = M('poster','wx_')->where('wx_pt_id=%d',$pt_id)->join('wx_fans ON wx_fans_id=wx_pt_fans_id','left')->find();
+        $this->assign('info',$info);
+        $this->assign('pt_id',$pt_id);
+        $this->display();
+//        echo $ptc_id;exit();
+    }
+
+    //获取海报活动助力粉丝列表
+    public function getDetails(){
+        admin_check();
+
+        $pt_id = I("pt_id", 0);
+        if ($pt_id > 0){
+            $list = M('poster','wx_')->where('wx_pt_zl_id=%d',$pt_id)
+                ->join('wx_fans ON wx_pt_fans_id=wx_fans_id','left')
+                ->order('wx_pt_create_time desc')->select();
+//            echo M()->_sql();
+            foreach ($list as $k=>$v){
+                $list[$k]['k']=$k+1;
+//                if ($v['wx_ptc_status']==1){
+//                    $list[$k]['wx_ptc_status_name']='开启';
+//                }elseif ($v['wx_ptc_status']==0) {
+//                    $list[$k]['wx_ptc_status_name'] = '关闭';
+//                }
+//                $list[$k]['ac']='<button class="layui-btn" onclick="details('.$v['wx_pt_id'].')" >详情</button> ';
+            }
+            $this->ajaxReturn($list,'json');
+        }
+    }
+
 
 
     //删除活动

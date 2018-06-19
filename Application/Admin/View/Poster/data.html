@@ -49,7 +49,7 @@
 <div class="content">
 
     <div class="lead">
-        <h4><strong>海报列表</strong></h4>
+        <h4><strong>海报活动数据列表({$info.wc_name}——{$info.wx_ptc_name})</strong></h4>
     </div>
 
     <hr>
@@ -77,16 +77,16 @@
         
 
 
-
+<input type="hidden" name="wx_ptc_id" id="wx_ptc_id" value="{$wx_ptc_id}">
 <table id="table_id_example" class="display">
     <thead>
     <tr>
         <th style="width: 10px;">序号</th>
-        <th style="width: 70px;">公众号</th>
-        <th style="width: 70px;">活动名称</th>
-        <th style="width: 20px;">活动开始时间</th>
-        <th style="width: 20px;">活动结束时间</th>
-        <th style="width: 80px;">活动状态</th>
+        <th style="width: 70px;">粉丝名称</th>
+        <!-- <th style="width: 70px;">活动名称</th> -->
+        <th style="width: 20px;">助力码</th>
+        <th style="width: 20px;">助力总数</th>
+        <!-- <th style="width: 80px;">活动状态</th> -->
         <th style="width: 80px;">操作</th>
     </tr>
     </thead>
@@ -101,6 +101,9 @@
 <script type="text/javascript">
     var table;
     $(document).ready(function() {
+        // var wx_ptc_id = $('#wx_ptc_id').val();
+
+        // alert(wx_ptc_id);
         table = $('#table_id_example').DataTable( {
             "pagingType": "simple_numbers",//设置分页控件的模式
             searching: true,//datatales的查询框
@@ -112,23 +115,24 @@
 			//"deferRender": true, //渲染加速
             // "serverSide": true,//打开后台分页
             "ajax": {
-                "url": "{:U('admin/Poster/getPosterList')}",
+                "url": "{:U('admin/Poster/getData')}",
                 "dataSrc": '',
                 // "type": "POST",
                 "data": function ( d ) {
                     //添加额外的参数传给服务器
-                    d.date_b = $('#date_b').val();
-                    d.date_e = $('#date_e').val();
+                    // d.date_b = $('#date_b').val();
+                    // d.date_e = $('#date_e').val();
+                    d.wx_ptc_id = $('#wx_ptc_id').val();
                  
                 }
             },
             "columns": [
                 { "data": "k" },
-                { "data": "wc_name" },
-                { "data": "wx_ptc_name" },
-                { "data": "wx_ptc_start_time" },
-                { "data": "wx_ptc_end_time" },
-                { "data": "wx_ptc_status_name" },
+                { "data": "wx_fans_name" },
+                // { "data": "wx_ptc_name" },
+                { "data": "wx_pt_code" },
+                { "data": "wx_pt_count" },
+                // { "data": "wx_ptc_status_name" },
                 { "data": "ac" },
             ]
 
@@ -143,49 +147,49 @@
 
 
     //新建海报活动
-    function add(){
-        layer.open({
-            type: 2,
-            title: ['新建海报活动'],
-            scrollbar: false, //是否允许浏览器出现滚动条
-            maxmin: false,  //最大最小化按钮
-            shadeClose: true, //点击遮罩关闭层
-            area: ['100%', '100%'], //控制大小
-            content: "__CONTROLLER__/addPoster" ,
-            closeBtn: 1,    //关闭按钮样式
-            anim:3, //弹出动画
-            moveOut: true //是否允许拖动
-        });
-    }
+    // function add(){
+    //     layer.open({
+    //         type: 2,
+    //         title: ['新建海报活动'],
+    //         scrollbar: false, //是否允许浏览器出现滚动条
+    //         maxmin: false,  //最大最小化按钮
+    //         shadeClose: true, //点击遮罩关闭层
+    //         area: ['100%', '100%'], //控制大小
+    //         content: "__CONTROLLER__/addPoster" ,
+    //         closeBtn: 1,    //关闭按钮样式
+    //         anim:3, //弹出动画
+    //         moveOut: true //是否允许拖动
+    //     });
+    // }
 
 
     //海报活动修改
-    function save(id){
+    // function save(id){
+    //     layer.open({
+    //         type: 2,
+    //         title: ['海报活动修改'],
+    //         scrollbar: false, //是否允许浏览器出现滚动条
+    //         maxmin: false,  //最大最小化按钮
+    //         shadeClose: true, //点击遮罩关闭层
+    //         area: ['100%', '100%'], //控制大小
+    //         content: "__CONTROLLER__/save/wx_ptc_id/" + id,
+    //         closeBtn: 1,    //关闭按钮样式
+    //         anim:3, //弹出动画
+    //         moveOut: true //是否允许拖动
+    //     });
+    // }
+
+
+    //活动数据详情
+    function details(id){
         layer.open({
             type: 2,
-            title: ['海报活动修改'],
+            title: ['活动数据详情'],
             scrollbar: false, //是否允许浏览器出现滚动条
             maxmin: false,  //最大最小化按钮
             shadeClose: true, //点击遮罩关闭层
             area: ['100%', '100%'], //控制大小
-            content: "__CONTROLLER__/save/wx_ptc_id/" + id,
-            closeBtn: 1,    //关闭按钮样式
-            anim:3, //弹出动画
-            moveOut: true //是否允许拖动
-        });
-    }
-
-
-    //活动数据
-    function data(id){
-        layer.open({
-            type: 2,
-            title: ['活动数据'],
-            scrollbar: false, //是否允许浏览器出现滚动条
-            maxmin: false,  //最大最小化按钮
-            shadeClose: true, //点击遮罩关闭层
-            area: ['100%', '100%'], //控制大小
-            content: "__CONTROLLER__/data/wx_ptc_id/" + id,
+            content: "__CONTROLLER__/details/wx_pt_id/" + id,
             closeBtn: 1,    //关闭按钮样式
             anim:3, //弹出动画
             moveOut: true //是否允许拖动
@@ -195,16 +199,16 @@
    
     
     //删除
-    function dele(id){
-        var msg = "您真的确定要删除吗？\n\n请确认！"; 
-         if (confirm(msg)==true){ 
-          var url = "{:U('Admin/Poster/delete/wx_ptc_id/"+id+"')}";
-           // alert(url);
-            window.location.href = url; 
-         }else{ 
-          return false; 
-         } 
-    }
+    // function dele(id){
+    //     var msg = "您真的确定要删除吗？\n\n请确认！"; 
+    //      if (confirm(msg)==true){ 
+    //       var url = "{:U('Admin/Poster/delete/wx_ptc_id/"+id+"')}";
+    //        // alert(url);
+    //         window.location.href = url; 
+    //      }else{ 
+    //       return false; 
+    //      } 
+    // }
     
 
 
