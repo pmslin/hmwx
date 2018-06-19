@@ -62,7 +62,7 @@ class WeChatAccountController extends BaseController
     public function getWcList(){
         $list = D("WechatAccount")->getWechatAccoun();
         foreach ($list as $k=>$v){
-            $list[$k]['key']=$k+1;
+            $list[$k]['key']=$k.'('.$v['wc_id'].')';
             $list[$k]['ac']='<button class="layui-btn" onclick="save('.$v['wc_id'].')" >修改</button> 
                 <button class="layui-btn" onclick="dele('.$v['wc_id'].')" >删除</button> ';
         }
