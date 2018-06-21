@@ -49,14 +49,15 @@ function createImg($dst_path='' ,$src_path='' ,$username='' ,$ptc_name ,$code){
     图像格式将自动监测，只要php支持jpeg,png,gif,wbmp,gd2.*/
 
     //Linux-debian 字体默认路径：/usr/share/fonts/truetype/ttf-dejavu/
-    $font = 'c://WINDOWS//Fonts//simsun.ttc';
+    $font = '/usr/share/fonts/lyx/simsun.ttc'; //wx服务器 Linux
+//    $font = 'c://WINDOWS//Fonts//simsun.ttc';
 //    $font = '/usr/share/fonts/lyx/cmr10.ttf'; //wx服务器 Linux
     $black = imagecolorallocate($dst, 0, 0, 0);
     //wx服务器:/usr/share/fonts/lyx/cmr10.ttf
     imagefttext($dst, 25, 0, 80, 950, $black, $font, $username.'正在参加：');
     imagefttext($dst, 25, 0, 80, 1000, $black, $font, '《'.$ptc_name.'》');
 
-    imagefttext($dst, 25, 0, 20, 1300, $black, $font, '扫码关注，回复'.$code.'帮好友助力！');
+    imagefttext($dst, 25, 0, 20, 1400, $black, $font, '扫码关注，回复'.$code.'帮好友助力！');
     /*imagefttext($img,$size,$angle,$x,$y,$color,$fontfile,$text)
     $img由图像创建函数返回的图像资源
     size要使用的水印的字体大小

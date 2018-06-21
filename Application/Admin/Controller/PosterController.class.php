@@ -37,6 +37,8 @@ class PosterController extends BaseController
 
         if (IS_POST){
 
+            $code = $this->getCode();//生成助力码
+
             $post=array(
                 "wx_ptc_name"            =>  I("wx_ptc_name","","trim"),
                 "wx_ptc_start_time"      =>  I("wx_ptc_start_time","","trim"),
@@ -63,10 +65,12 @@ class PosterController extends BaseController
                 $post['wx_poster_url'] = 'Uploads/qr/'.$info['wx_poster_url']['savepath'].$info['wx_poster_url']['savename']; //海报
             }
 
+            $post['wx_poster_pic'] = 'Uploads/poster/'.$code.'.jpg'; //首张海报
+
 
             D()->startTrans(); //开启事务
 
-            $code = $this->getCode();//生成助力码
+//            $code = $this->getCode();//生成助力码
 
             $post['wx_ptc_first_code'] = $code;
             $add_ptc=M('poster_config','wx_')->add($post);
