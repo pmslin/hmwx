@@ -77,7 +77,7 @@ class PosterController extends BaseController
 
 //            $code = $this->getCode();
             $pt_data=array(
-                'wx_pt_fans_id' => 1,
+                'wx_pt_fans_id' => 0,
                 'wx_pt_code'    => $code,
                 'wx_pt_wc_id'   => $post['wx_ptc_wc_id'],
                 'wx_pt_create_time' => date('Y-m-d H:i:s'),
@@ -192,6 +192,7 @@ class PosterController extends BaseController
 //                }elseif ($v['wx_ptc_status']==0) {
 //                    $list[$k]['wx_ptc_status_name'] = '关闭';
 //                }
+                $list[$k]['wx_pt_valid_count']=$v['wx_pt_count'] - $v['wx_pt_invalid_count'];
                 $list[$k]['ac']='<button class="layui-btn" onclick="details('.$v['wx_pt_id'].')" >详情</button> ';
             }
             $this->ajaxReturn($list,'json');
@@ -225,11 +226,11 @@ class PosterController extends BaseController
 //            echo M()->_sql();
             foreach ($list as $k=>$v){
                 $list[$k]['k']=$k+1;
-//                if ($v['wx_ptc_status']==1){
-//                    $list[$k]['wx_ptc_status_name']='开启';
-//                }elseif ($v['wx_ptc_status']==0) {
-//                    $list[$k]['wx_ptc_status_name'] = '关闭';
-//                }
+                if ($v['wx_pt_status']==1){
+                    $list[$k]['wx_pt_status_name']='有效';
+                }elseif ($v['wx_pt_status']==0) {
+                    $list[$k]['wx_pt_status_name'] = '无效';
+                }
 //                $list[$k]['ac']='<button class="layui-btn" onclick="details('.$v['wx_pt_id'].')" >详情</button> ';
             }
             $this->ajaxReturn($list,'json');
