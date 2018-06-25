@@ -39,6 +39,8 @@ function createImg($dst_path='' ,$src_path='', $head_path='' ,$username='' ,$ptc
     $dst_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/'.$dst_path; //海报图片
 
     $src_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/'.$src_path; //小图
+
+    $head_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/'.$head_path; //头像图片
 //        $src_path1 = 'http://www.logodashi.com/FileUpLoad/inspiration/636003768803214440.jpg'; //小图
     $dst = imagecreatefromstring(file_get_contents($dst_path));
     $src = imagecreatefromstring(file_get_contents($src_path));

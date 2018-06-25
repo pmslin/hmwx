@@ -226,20 +226,22 @@ class CheckTokenController extends BaseController
                 $fans_info = $fans_model->where("wx_fans_openid='%s' AND wx_fans_wc_id=%d", $from_user_name, $wc_info['wc_id'])->find();
                 $fans_id = $fans_info['wx_fans_id'];
 
-                if (empty($fans_info)) {
+                if (empty($fans_info)) {//新增粉丝信息
                     $fans_data = array(
                         'wx_fans_openid' => $from_user_name, // 粉丝OpenID
                         'wx_fans_name' => $user_info['nickname'], //粉丝名字
                         'wx_fans_wc_id' => $wc_info['wc_id'], //公众号的系统id
-                        'wx_fans_img' => 'Uploads/head/'.$fans_id.'.jpg', //粉丝头像
+//                        'wx_fans_img' => 'Uploads/head/'.$fans_id.'.jpg', //粉丝头像
                     );
                     $fans_id = M('fans', 'wx_')->add($fans_data); //将粉丝信息添加至系统
+
+                    $headimgurl = str_replace('132', '64', $user_info['headimgurl']).'.jpg';
+                    downloadImage($headimgurl,'./Public/Uploads/head/',$fans_id.'.jpg');//下载粉丝头像至本地
                 }
 
-                $headimgurl = str_replace('132', '64', $user_info['headimgurl']).'.jpg';
-                downloadImage($headimgurl,'./Public/Uploads/head/',$fans_id.'.jpg');//下载粉丝头像至本地
 
-//                $test_data['test_cont'] = 6666;
+
+//                $test_data['test_cont'] = $fans_id;
 //                M('test','wx_')->add($test_data);
 //                exit();
 
@@ -314,7 +316,7 @@ class CheckTokenController extends BaseController
 
                         set_time_limit(50);
                         //生成图片时候话费时长太长，超过5s反应给微信
-                        createImg($ptc_info['wx_poster_url'], $ptc_info['wx_ptc_wc_qr'], 'http://'.$_SERVER['HTTP_HOST'].'/Public/Uploads/head/'.$fans_id.'.jpg', $user_info['nickname'], $ptc_info['wx_ptc_name'], $code);//生成海报图片
+                        createImg($ptc_info['wx_poster_url'], $ptc_info['wx_ptc_wc_qr'], 'Uploads/head/'.$fans_id.'.jpg', $user_info['nickname'], $ptc_info['wx_ptc_name'], $code);//生成海报图片
 
                         //上传图片至微信，并将media_id更新到表
                         $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/poster/' . $code . '.jpg'; //海报绝对路径，不可以是外链
