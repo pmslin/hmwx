@@ -231,7 +231,7 @@ class CheckTokenController extends BaseController
                         'wx_fans_openid' => $from_user_name, // 粉丝OpenID
                         'wx_fans_name' => $user_info['nickname'], //粉丝名字
                         'wx_fans_wc_id' => $wc_info['wc_id'], //公众号的系统id
-                        'wx_fans_img' => 'Uploads/qr/'.$fans_id.'.jpg', //粉丝头像
+                        'wx_fans_img' => 'Uploads/head/'.$fans_id.'.jpg', //粉丝头像
                     );
                     $fans_id = M('fans', 'wx_')->add($fans_data); //将粉丝信息添加至系统
                 }
@@ -261,7 +261,7 @@ class CheckTokenController extends BaseController
                     // $content = "成功助力(只能助力一次)，你的助力码为：".$check_poster['wx_pt_code']."，赶紧叫朋友帮你助力吧。";
                     // $result = $this->transmitText($object, $content);
                     // return $result;
-                    $check_poster_code = $check_poster['wx_pt_code'];
+                    $check_poster_code = $check_poster['wx_pt_code']; //助力码，有用
                     $msg_data = array();
                     $msg_data['touser'] = $fans_info['wx_fans_openid'];
                     $msg_data['msgtype'] = "text";
@@ -314,7 +314,7 @@ class CheckTokenController extends BaseController
 
                         set_time_limit(50);
                         //生成图片时候话费时长太长，超过5s反应给微信
-                        createImg($ptc_info['wx_poster_url'], $ptc_info['wx_ptc_wc_qr'], 'http://'.$_SERVER['HTTP_HOST'].'/Public/Uploads/qr/'.$fans_id.'.jpg', $user_info['nickname'], $ptc_info['wx_ptc_name'], $code);//生成海报图片
+                        createImg($ptc_info['wx_poster_url'], $ptc_info['wx_ptc_wc_qr'], 'http://'.$_SERVER['HTTP_HOST'].'/Public/Uploads/head/'.$fans_id.'.jpg', $user_info['nickname'], $ptc_info['wx_ptc_name'], $code);//生成海报图片
 
                         //上传图片至微信，并将media_id更新到表
                         $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/poster/' . $code . '.jpg'; //海报绝对路径，不可以是外链
