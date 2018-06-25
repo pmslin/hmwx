@@ -46,6 +46,7 @@ class PosterController extends BaseController
                 "wx_ptc_status"          =>  I("wx_ptc_status","","trim"),
                 "wx_ptc_wc_id"           =>  I("wx_ptc_wc_id","","trim"),
                 "wx_create_time"         =>  date("Y-m-d H:i:s"),
+                "wx_poster_prompt"       =>  I("wx_poster_prompt","","trim"),
             );
 
             if ($post['wx_ptc_start_time'] >= $post['wx_ptc_end_time'])
@@ -123,6 +124,7 @@ class PosterController extends BaseController
             $post['wx_ptc_id'] = $ptc_id;
             $post['wx_ptc_name'] = I("wx_ptc_name","","trim");
             $post['wx_ptc_status'] = I("wx_ptc_status","","trim");
+            $post['wx_poster_prompt'] = I("wx_poster_prompt","","trim");
 
             $upload = new \Think\Upload();// 实例化上传类
             $upload->maxSize   =     3145728 ;// 设置附件上传大小

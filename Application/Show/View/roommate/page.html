@@ -16,7 +16,7 @@
     <div class="weui_cell">
         <!-- <div class="weui_cell_hd"><label class="weui_label">昵称</label></div> -->
         <div class="weui_cell_bd weui_cell_primary">
-            <input class="weui_input" name="rm_tel" type="text" placeholder="{$rminfo.rmc_tel}" required="">
+            <input class="weui_input" name="rm_tel" type="text" placeholder="{$rminfo.rmc_tel}">
         </div>
     </div>
     <div class="weui_cell">
@@ -53,7 +53,7 @@
     <div class="weui_cell">
             <div class="weui_cell_bd weui_cell_primary" style="color: #828282;">
                 {$rminfo.rmc_img}
-                <input class="weui_input" type="file" name="rm_img_url" >
+                <input class="weui_input" type="file" name="rm_img_url" required>
             </div>
     </div>
     <input type="hidden" name="wechat" value="{$wechat}" >

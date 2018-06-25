@@ -5,7 +5,77 @@ namespace Wx\Controller;
 
 class TestController extends BaseController
 {
+    public function prompt(){
+        $info = M('poster_config','wx_')->where('wx_ptc_wx_id=79')->find();
+        echo $info['wx_poster_prompt'];
+        exit();
+    }
+
+
+    /*
+     *@$url string 远程图片地址
+     *@$dir string 目录，可选 ，默认当前目录（相对路径）
+     *@$filename string 新文件名，可选
+     */
+    function GrabImage($url, $dir='', $filename=''){
+        if(empty($url)){
+            return false;
+        }
+        $ext = strrchr($url, '.');
+        if($ext != '.gif' && $ext != ".jpg" && $ext != ".bmp"){
+            echo "格式不支持！";
+            return false;
+        }
+
+        //为空就当前目录
+        if(empty($dir))$dir = './';
+
+        $dir = realpath($dir);
+        //目录+文件
+        $filename = $dir . (empty($filename) ? '/'.time().$ext : '/'.$filename);
+        //开始捕捉
+        ob_start();
+        readfile($url);
+        $img = ob_get_contents();
+        ob_end_clean();
+        $size = strlen($img);
+        $fp2 = fopen($filename , "a");
+        fwrite($fp2, $img);
+        fclose($fp2);
+        return $filename;
+    }
+
+    public function head(){
+        $head = 'http://thirdwx.qlogo.cn/mmopen/Hn2mrF1ksPCoO9WYTKDkeTse90OIrFEJYPYtElibKL5ONorpvl2uWxsE5lAM53HPjmQEayItTmusL4BrOUpm6POoOoQkA2rBI/64.jpg';
+        $up = './Public/Uploads/head/';
+//        $this->GrabImage($head,$up,'1.jpg');
+        $this->downloadImage($head,$up,'166.jpg');
+    }
+
+    public function downloadImage($url, $path='images/',$filename)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 30);
+        $file = curl_exec($ch);
+        curl_close($ch);
+
+        saveAsImage($url, $file, $path,$filename);
+    }
+
+    private function saveAsImage($url, $file, $path,$filename)
+    {
+//        $filename = pathinfo($url, PATHINFO_BASENAME);
+        $resource = fopen($path . $filename, 'a');
+        fwrite($resource, $file);
+        fclose($resource);
+    }
+
+
+
     public function index(){
+        exit();
         $options = array(
             'token' => 'jsgc', //填写你设定的key
             'encodingaeskey' => 'rIMsVWhv3uHAuyGPhIi2l1DXINb7g4xQFJJihiA8CII', //填写加密用的EncodingAESKey，如接口为明文模式可忽略

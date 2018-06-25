@@ -80,7 +80,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">活动名称：</label>
                             <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
-                                <input id="wx_ptc_name" name="wx_ptc_name" class="form-control" type="text">
+                                <input id="wx_ptc_name" name="wx_ptc_name" class="form-control" type="text" required>
                             </div>
                         </div>
                         <div class="form-group">
@@ -116,6 +116,13 @@
                                     </volist>
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">海报活动提示语：</label>
+                            <div class="col-sm-5"  style="font-size: 15px;padding-top: 5px;">
+                                <input id="wx_poster_prompt" name="wx_poster_prompt" class="form-control" type="text" required>
+                            </div>
+                            示例：成功助力(只能助力一次)，你的助力码为：{{$check_poster_code}$check_poster_code}，赶紧叫朋友帮你助力吧。
                         </div>
                         <div class="form-group">
                             <label class="col-sm-3 control-label">公众号二维码(尺寸：205*206)：</label>
