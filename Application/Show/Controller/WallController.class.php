@@ -19,6 +19,9 @@ class WallController extends BaseController
         $LWInfo =  LoveWallConfigModel::getLoveWallConfigById($wc['wc_id']);
         if (empty($LWInfo)) $this->error("迷路了？");
 
+        //创建token
+        creatToken();
+
         $this->assign('lwinfo',$LWInfo);
         $this->assign("wechat",I("wechat",'','trim'));
         $this->display();
@@ -27,6 +30,12 @@ class WallController extends BaseController
     //添加表白
     public function sendWall(){
         if (IS_POST){
+            //防止重复提交 如果重复提交跳转至相关页面
+            if (!checkToken($_POST['TOKEN'])) {
+                $this->redirect('wall/page');
+                return;
+            }
+
 //            show_bug(I());exit();
             $post = array(
                 "lw_express_class"  =>  I("lw_express_class","","trim"),

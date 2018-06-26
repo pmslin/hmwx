@@ -17,7 +17,10 @@ class RoommateController extends BaseController
 
         $RMInfo =  RoommateConfigModel::getRoommateConfigById($wc['wc_id']);
         if (empty($RMInfo)) $this->error("迷路了？");
-//echo M()->_sql();exit();
+
+        //创建token
+        creatToken();
+
         $this->assign('rminfo',$RMInfo);
         $this->assign("wechat",I("wechat",'','trim'));
         $this->display();
@@ -25,6 +28,12 @@ class RoommateController extends BaseController
 
     //添加表白
     public function sendRoommate(){
+        //防止重复提交 如果重复提交跳转至相关页面
+        if (!checkToken($_POST['TOKEN'])) {
+            $this->redirect('wall/page');
+            return;
+        }
+
         if (IS_POST){
             $post = array(
                 "rm_tel"            =>  I("rm_tel","","trim"),
