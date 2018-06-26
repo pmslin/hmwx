@@ -68,6 +68,8 @@ class PosterController extends BaseController
 
             $post['wx_poster_pic'] = 'Uploads/poster/'.$code.'.jpg'; //首张海报
 
+            $post['wx_poster_img'] = 'Uploads/posterImg/'.$code.'.jpg'; //只带二维码的海报
+
 
             D()->startTrans(); //开启事务
 
@@ -86,7 +88,9 @@ class PosterController extends BaseController
             );
             $add_pt = M('poster','wx_')->add($pt_data);
 
-            createImg($post['wx_poster_url'],$post['wx_ptc_wc_qr'],'nick',$post['wx_ptc_name'],$code);//创建图片
+            createImg($post['wx_poster_url'],$post['wx_ptc_wc_qr'],'nick',$post['wx_ptc_name'],$code);//创建首张海报图片
+
+            createPoster($post['wx_poster_url'],$post['wx_ptc_wc_qr'],$code);//创建只带二维码的海报图片
 
 
             if ($add_ptc > 0 && $add_pt > 0){

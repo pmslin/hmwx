@@ -178,14 +178,10 @@ class CheckTokenController extends BaseController
      */
     private function receiveText($object)
     {
-        //$weObj = new \Wechat($options);
-        //$access_token = $weObj->getUserInfo('oNaLl0xGdgHkdHVkfqA1QwJ2frM4');
-        //$data['test_cont'] = $access_token;
         $content = '';
         $content .= $object->Content; // 接收的内容
 
         if (is_numeric($content)) { //判断接收的内容是否是数字
-
             $orginalid = '';
             $orginalid .= $object->ToUserName; //开发者微信号
             $options = $this->getOptions($orginalid);
@@ -193,18 +189,9 @@ class CheckTokenController extends BaseController
             $from_user_name = '';
             $from_user_name .= $object->FromUserName; //发送方帐号（一个OpenID） 粉丝OpenID
             $user_info = $weObj->getUserInfo($from_user_name); //获取粉丝信息
-
             $wc_info = $this->getWC($orginalid); //获取公众号信息
 
 
-            //回复图片
-//        $rs = $this->transmitImg($object,'TEBRsBOkLMMtOOx_bx0Qalyu5ecSrm_KzQq1JHZRwyijLejeo5S6-dNRUQMA5z6P');
-//        return $rs;
-
-
-//            $content = "不能帮自己助力哦，赶紧叫朋友帮你助力吧。";
-//            $result = $this->transmitText($object, $content);
-//            return $result;
             $poster_model = M('poster', 'wx_');
             $poster_info = $poster_model->where("wx_pt_wc_id=%d AND wx_pt_code='%s'", $wc_info['wc_id'], $content)->find(); //根据接收的助力码查找被助力的记录
 
@@ -224,7 +211,8 @@ class CheckTokenController extends BaseController
 
                 $fans_model = M('fans', 'wx_');
                 $fans_info = $fans_model->where("wx_fans_openid='%s' AND wx_fans_wc_id=%d", $from_user_name, $wc_info['wc_id'])->find();
-                $fans_id = $fans_info['wx_fans_id'];
+                !empty($fans_info) ? $fans_id = $fans_info['wx_fans_id'] : '';
+//                $fans_id = $fans_info['wx_fans_id'];
 
                 if (empty($fans_info)) {//新增粉丝信息
                     $fans_data = array(
@@ -237,8 +225,9 @@ class CheckTokenController extends BaseController
 
                     $headimgurl = str_replace('132', '64', $user_info['headimgurl']).'.jpg';
                     downloadImage($headimgurl,'./Public/Uploads/head/',$fans_id.'.jpg');//下载粉丝头像至本地
-                }
 
+                    $fans_info = $fans_model->where("wx_fans_id=%d", $fans_id)->find();
+                }
 
 
 //                $test_data['test_cont'] = $fans_id;
@@ -246,9 +235,6 @@ class CheckTokenController extends BaseController
 //                exit();
 
                 if ($poster_info['wx_pt_fans_id'] === $fans_id) { //如果助力者跟自己助力，提示无法帮自己助力
-                    // $content = "不能帮自己助力哦，赶紧叫朋友帮你助力吧。";
-                    // $result = $this->transmitText($object, $content);
-                    // return $result;
                     $wx_pt_valid_count = $poster_info['wx_pt_count'] - $poster_info['wx_pt_invalid_count']; //有效助力数
                     $msg_data = array();
                     $msg_data['touser'] = $fans_info['wx_fans_openid'];
@@ -260,9 +246,6 @@ class CheckTokenController extends BaseController
 
                 $check_poster = $poster_model->where('wx_pt_fans_id=%d AND wx_pt_ptc_id=%d AND wx_pt_wc_id=%d', $fans_id, $poster_info['wx_pt_ptc_id'], $poster_info['wx_pt_wc_id'])->find();
                 if ($check_poster) {
-                    // $content = "成功助力(只能助力一次)，你的助力码为：".$check_poster['wx_pt_code']."，赶紧叫朋友帮你助力吧。";
-                    // $result = $this->transmitText($object, $content);
-                    // return $result;
                     $check_poster_code = $check_poster['wx_pt_code']; //助力码，有用
                     $msg_data = array();
                     $msg_data['touser'] = $fans_info['wx_fans_openid'];
@@ -277,18 +260,6 @@ class CheckTokenController extends BaseController
                 } else {
                     //生成助力信息
                     $code = getCode(); //获取助力码
-
-//                    set_time_limit(0);
-//                    //生成图片时候话费时长太长，超过5s反应给微信
-//                    createImg($ptc_info['wx_poster_url'], $ptc_info['wx_ptc_wc_qr'], $headimgurl, $user_info['nickname'], $ptc_info['wx_ptc_name'], $code);//生成海报图片
-////
-//                    $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/poster/' . $code . '.jpg'; //海报绝对路径，不可以是外链
-//                    $data = array(
-//                        'media' => '@' . $img_url
-//                    );
-//                    $up_img = $weObj->uploadMedia($data, 'image');
-
-//                    if ($up_img) {
                     $poster_data = array(
                         'wx_pt_fans_id' => $fans_id,
                         'wx_pt_code' => $code,
@@ -301,10 +272,10 @@ class CheckTokenController extends BaseController
                     );
                     $check_poster = $poster_model->where('wx_pt_fans_id=%d AND wx_pt_ptc_id=%d AND wx_pt_wc_id=%d', $fans_id, $poster_info['wx_pt_ptc_id'], $poster_info['wx_pt_wc_id'])->find();
                     if (empty($check_poster)) { //避免重复插入
-                        $add_poster = $poster_model->add($poster_data);
+                        D()->startTrans(); //开启事务
+
+                        $add_poster = $poster_model->add($poster_data);//新增助力数据
                         $poster_model->where('wx_pt_id=%d', $poster_info['wx_pt_id'])->setInc('wx_pt_count'); // 助力数加1
-
-
 
 
                         //+++++++++++++
@@ -314,14 +285,24 @@ class CheckTokenController extends BaseController
                         $msg_data['text']['content'] = "已助力，正在拼命生成海报，请稍后...";
                         $weObj->sendCustomMessage($msg_data);
 
+
+                        $check_poster_code = $code; //助力码，有用
+                        $msg_data = array();
+                        $msg_data['touser'] = $fans_info['wx_fans_openid'];
+                        $msg_data['msgtype'] = "text";
+                        $wx_poster_prompt = $ptc_info['wx_poster_prompt'];
+                        eval("\$wx_poster_prompt = \"$wx_poster_prompt\";"); //处理变量
+                        $msg_data['text']['content'] = $wx_poster_prompt; //自定义提示语--"成功助力(只能助力一次)，你的助力码为：{$check_poster_code}，赶紧叫朋友帮你助力吧。"
+//                    $msg_data['text']['content'] = "成功助力(只能助力一次)，你的助力码为：{$check_poster_code}，赶紧叫朋友帮你助力吧。";
+                        $weObj->sendCustomMessage($msg_data);
+
+
                         set_time_limit(50);
-                        //生成图片时候话费时长太长，超过5s反应给微信
-                        createImg($ptc_info['wx_poster_url'], $ptc_info['wx_ptc_wc_qr'], 'Uploads/head/'.$fans_id.'.jpg', $user_info['nickname'], $ptc_info['wx_ptc_name'], $code);//生成海报图片
+                        //生成图片时候话费时长太长，不能超过5s反应给微信服务器
+                        createImg($ptc_info['wx_poster_img'], 'Uploads/head/'.$fans_id.'.jpg', $user_info['nickname'], $ptc_info['wx_ptc_name'], $code);//生成海报图片
 
                         //上传图片至微信，并将media_id更新到表
                         $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/poster/' . $code . '.jpg'; //海报绝对路径，不可以是外链
-//                        $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/2018-06-22/5b2ca9b5b47a7.jpg';
-//                        $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/poster/371747.jpg';
                         $data = array(
                             'media' => '@' . $img_url
                         );
@@ -330,21 +311,25 @@ class CheckTokenController extends BaseController
 
 
                         if ($save_poster !== false) {
+                            D()->commit(); //事务提交
+
                             //将海报图片发送给用户
                             $msg_img = array();
                             $msg_img['touser'] = $fans_info['wx_fans_openid'];
                             $msg_img['msgtype'] = "image";
                             $msg_img['image']['media_id'] = $up_img['media_id'];
                             $weObj->sendCustomMessage($msg_img);
+                        }else{
+                            D()->rollback(); //事务回滚
+                            $msg_data = array();
+                            $msg_data['touser'] = $from_user_name;
+                            $msg_data['msgtype'] = "text";
+                            $msg_data['text']['content'] = "助力失败请重新助力";
+                            $weObj->sendCustomMessage($msg_data);
+                            exit();
                         }
-
-
-
-
                     }
                 }
-
-
             } else { //没有对应的助力码
                 $msg_data = array();
                 $msg_data['touser'] = $from_user_name;
@@ -361,6 +346,11 @@ class CheckTokenController extends BaseController
             $result = $this->transmitText($object, $content);
             return $result;
         }
+
+
+        //            $content = "不能帮自己助力哦，赶紧叫朋友帮你助力吧。";
+//            $result = $this->transmitText($object, $content);
+//            return $result;
     }
 
     /*

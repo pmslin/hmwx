@@ -30,20 +30,20 @@ function getCode(){
     return $code;
 }
 
-//添加文字和图片水印 $dst_path海报图片  $src_path二维码小图 $head_path头像图片  $username粉丝名字  $ptc_name活动名称  $code以助力码命名文件名称
-function createImg($dst_path='' ,$src_path='', $head_path='' ,$username='' ,$ptc_name ,$code){
+//添加文字和图片水印 $dst_path海报图片  $src_path二维码小图  $head_path头像图片  $username粉丝名字  $ptc_name活动名称  $code以助力码命名文件名称
+function createImg($dst_path='' , $head_path='' ,$username='' ,$ptc_name ,$code){
     /*给图片加文字水印的方法*/
     //路径要加上http://
 //        $dst_path = 'http://f4.topitme.com/4/15/11/1166351597fe111154l.jpg'; //网络图片
     // $dst_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/Uploads/qr/5b0a44e8b91d1.jpg';
     $dst_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/'.$dst_path; //海报图片
 
-    $src_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/'.$src_path; //小图
+//    $src_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/'.$src_path; //二维码小图
 
     $head_path  = 'http://'.$_SERVER['HTTP_HOST'].'/Public/'.$head_path; //头像图片
 //        $src_path1 = 'http://www.logodashi.com/FileUpLoad/inspiration/636003768803214440.jpg'; //小图
     $dst = imagecreatefromstring(file_get_contents($dst_path));
-    $src = imagecreatefromstring(file_get_contents($src_path));
+//    $src = imagecreatefromstring(file_get_contents($src_path));
     $head = imagecreatefromstring(file_get_contents($head_path));
 
 //        $src1 = imagecreatefromstring(file_get_contents($src_path1));
@@ -73,11 +73,15 @@ function createImg($dst_path='' ,$src_path='', $head_path='' ,$username='' ,$ptc
     /*getimagesize()能获取到什么信息？
     getimagesize函数会返回图像的所有信息，包括大小，类型等等*/
 
-    //图片水印
+
+
+    //添加二维码图片水印
     //获取水印图片的宽高
-    list($src_w, $src_h) = getimagesize($src_path);
-    //将水印图片复制到目标图片上，最后个参数50是设置透明度，这里实现半透明效果
-    imagecopymerge($dst, $src, 560, 1200, 0, 0, $src_w, $src_h, 100);
+//    list($src_w, $src_h) = getimagesize($src_path);
+//    //将水印图片复制到目标图片上，最后个参数50是设置透明度，这里实现半透明效果
+//    imagecopymerge($dst, $src, 560, 1200, 0, 0, $src_w, $src_h, 100);
+
+
 
     //头像图片
     list($head_w, $head_h) = getimagesize($head_path);
@@ -107,7 +111,7 @@ function createImg($dst_path='' ,$src_path='', $head_path='' ,$username='' ,$ptc
 
 
     imagedestroy($dst);
-    imagedestroy($src);
+//    imagedestroy($src);
     imagedestroy($head);
 }
 
