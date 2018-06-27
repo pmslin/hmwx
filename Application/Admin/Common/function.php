@@ -57,7 +57,7 @@ function createImg($dst_path='' ,$src_path='' ,$username='' ,$ptc_name ,$code){
     imagefttext($dst, 25, 0, 80, 950, $black, $font, $username.'正在参加：');
     imagefttext($dst, 25, 0, 80, 1000, $black, $font, '《'.$ptc_name.'》');
 
-    imagefttext($dst, 25, 0, 20, 1400, $black, $font, '扫码关注，回复'.$code.'帮好友助力！');
+    imagefttext($dst, 25, 0, 20, 1400, $black, $font, '扫码后台回复'.$code.'帮好友助力！');
     /*imagefttext($img,$size,$angle,$x,$y,$color,$fontfile,$text)
     $img由图像创建函数返回的图像资源
     size要使用的水印的字体大小
