@@ -67,7 +67,6 @@ class CheckTokenController extends BaseController
 //             }
 
 
-
         } else { //验证token
             $wc_id = I('get.wc_id', 0, 'intval');
             if ($wc_id <= 0) {
@@ -223,8 +222,8 @@ class CheckTokenController extends BaseController
                     );
                     $fans_id = M('fans', 'wx_')->add($fans_data); //将粉丝信息添加至系统
 
-                    $headimgurl = str_replace('132', '64', $user_info['headimgurl']).'.jpg';
-                    downloadImage($headimgurl,'./Public/Uploads/head/',$fans_id.'.jpg');//下载粉丝头像至本地
+                    $headimgurl = str_replace('132', '64', $user_info['headimgurl']) . '.jpg';
+                    downloadImage($headimgurl, './Public/Uploads/head/', $fans_id . '.jpg');//下载粉丝头像至本地
 
                     $fans_info = $fans_model->where("wx_fans_id=%d", $fans_id)->find();
                 }
@@ -239,7 +238,7 @@ class CheckTokenController extends BaseController
                     $msg_data = array();
                     $msg_data['touser'] = $fans_info['wx_fans_openid'];
                     $msg_data['msgtype'] = "text";
-                    $msg_data['text']['content'] = "不能帮自己助力哦，赶紧叫朋友帮你助力吧。".'目前已经有：'.$wx_pt_valid_count.'个朋友帮你助力了哦。';
+                    $msg_data['text']['content'] = "不能帮自己助力哦，赶紧叫朋友帮你助力吧。" . '目前已经有：' . $wx_pt_valid_count . '个朋友帮你助力了哦。';
                     $weObj->sendCustomMessage($msg_data);
                     exit();
                 }
@@ -270,7 +269,7 @@ class CheckTokenController extends BaseController
                         'wx_pt_create_time' => date("Y-m-d H:i:s"),
 //                            'wx_pt_img_media_id' => $up_img['media_id'],
                     );
-                    $check_poster = $poster_model->where('wx_pt_fans_id=%d AND wx_pt_ptc_id=%d AND wx_pt_wc_id=%d', $fans_id, $poster_info['wx_pt_ptc_id'], $poster_info['wx_pt_wc_id'])->find();
+                    $check_poster = $poster_model->where("wx_pt_fans_id=%d AND wx_pt_ptc_id=%d AND wx_pt_wc_id=%d", $fans_id, $poster_info['wx_pt_ptc_id'], $poster_info['wx_pt_wc_id'])->find();
                     if (empty($check_poster)) { //避免重复插入
                         D()->startTrans(); //开启事务
 
@@ -278,36 +277,39 @@ class CheckTokenController extends BaseController
                         $poster_model->where('wx_pt_id=%d', $poster_info['wx_pt_id'])->setInc('wx_pt_count'); // 助力数加1
 
 
+                        $ptc_info['wx_ptc_poster_status'] == 1 ? $msg_content = "已助力，正在拼命生成海报，请稍后..." : $msg_content = "助力成功！";
                         //+++++++++++++
                         $msg_data = array();
                         $msg_data['touser'] = $fans_info['wx_fans_openid'];
                         $msg_data['msgtype'] = "text";
-                        $msg_data['text']['content'] = "已助力，正在拼命生成海报，请稍后...";
+                        $msg_data['text']['content'] = $msg_content;
                         $weObj->sendCustomMessage($msg_data);
 
-
-                        $check_poster_code = $code; //助力码，有用
-                        $msg_data = array();
-                        $msg_data['touser'] = $fans_info['wx_fans_openid'];
-                        $msg_data['msgtype'] = "text";
-                        $wx_poster_prompt = $ptc_info['wx_poster_prompt'];
-                        eval("\$wx_poster_prompt = \"$wx_poster_prompt\";"); //处理变量
-                        $msg_data['text']['content'] = $wx_poster_prompt; //自定义提示语--"成功助力(只能助力一次)，你的助力码为：{$check_poster_code}，赶紧叫朋友帮你助力吧。"
+                        $save_poster = true;
+                        if ($ptc_info['wx_ptc_poster_status'] == 1) { //如果允许生成新海报
+                            $check_poster_code = $code; //助力码，有用
+                            $msg_data = array();
+                            $msg_data['touser'] = $fans_info['wx_fans_openid'];
+                            $msg_data['msgtype'] = "text";
+                            $wx_poster_prompt = $ptc_info['wx_poster_prompt'];
+                            eval("\$wx_poster_prompt = \"$wx_poster_prompt\";"); //处理变量
+                            $msg_data['text']['content'] = $wx_poster_prompt; //自定义提示语--"成功助力(只能助力一次)，你的助力码为：{$check_poster_code}，赶紧叫朋友帮你助力吧。"
 //                    $msg_data['text']['content'] = "成功助力(只能助力一次)，你的助力码为：{$check_poster_code}，赶紧叫朋友帮你助力吧。";
-                        $weObj->sendCustomMessage($msg_data);
+                            $weObj->sendCustomMessage($msg_data);
 
 
-                        set_time_limit(50);
-                        //生成图片时候话费时长太长，不能超过5s反应给微信服务器
-                        createImg($ptc_info['wx_poster_img'], 'Uploads/head/'.$fans_id.'.jpg', $user_info['nickname'], $ptc_info['wx_ptc_name'], $code);//生成海报图片
+                            set_time_limit(50);
+                            //生成图片时候话费时长太长，不能超过5s反应给微信服务器
+                            createImg($ptc_info['wx_poster_img'], 'Uploads/head/' . $fans_id . '.jpg', $user_info['nickname'], $ptc_info['wx_ptc_name'], $code);//生成海报图片
 
-                        //上传图片至微信，并将media_id更新到表
-                        $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/poster/' . $code . '.jpg'; //海报绝对路径，不可以是外链
-                        $data = array(
-                            'media' => '@' . $img_url
-                        );
-                        $up_img = $weObj->uploadMedia($data, 'image');//上传图片至微信
-                        $save_poster = M('poster', 'wx_')->where('wx_pt_id=%d', $add_poster)->save(array('wx_pt_img_media_id' => $up_img['media_id']));
+                            //上传图片至微信，并将media_id更新到表
+                            $img_url = $_SERVER['DOCUMENT_ROOT'] . '/Public/Uploads/poster/' . $code . '.jpg'; //海报绝对路径，不可以是外链
+                            $data = array(
+                                'media' => '@' . $img_url
+                            );
+                            $up_img = $weObj->uploadMedia($data, 'image');//上传图片至微信
+                            $save_poster = M('poster', 'wx_')->where('wx_pt_id=%d', $add_poster)->save(array('wx_pt_img_media_id' => $up_img['media_id']));
+                        }
 
 
                         if ($save_poster !== false) {
@@ -319,7 +321,7 @@ class CheckTokenController extends BaseController
                             $msg_img['msgtype'] = "image";
                             $msg_img['image']['media_id'] = $up_img['media_id'];
                             $weObj->sendCustomMessage($msg_img);
-                        }else{
+                        } else {
                             D()->rollback(); //事务回滚
                             $msg_data = array();
                             $msg_data['touser'] = $from_user_name;

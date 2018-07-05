@@ -129,6 +129,7 @@ class PosterController extends BaseController
             $post['wx_ptc_name'] = I("wx_ptc_name","","trim");
             $post['wx_ptc_status'] = I("wx_ptc_status","","trim");
             $post['wx_poster_prompt'] = I("wx_poster_prompt","","trim");
+            $post['wx_ptc_poster_status'] = I("wx_ptc_poster_status","","trim");
 
             $upload = new \Think\Upload();// 实例化上传类
             $upload->maxSize   =     3145728 ;// 设置附件上传大小

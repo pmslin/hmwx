@@ -103,6 +103,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-sm-3 control-label">海报发送状态：</label>
+                            <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
+                                <input type="radio" name="wx_ptc_poster_status" value="1" <if condition="$info.wx_ptc_poster_status eq 1 "> checked="checked" </if> >开启发送
+                                <input type="radio" name="wx_ptc_poster_status" value="0" <if condition="$info.wx_ptc_poster_status eq 0 "> checked="checked" </if> >关闭发送
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-sm-3 control-label">公众号：</label>
                             <div class="col-sm-5" style="font-size: 15px;padding-top: 5px;">
                                 <select name="wx_ptc_wc_id" id="wx_ptc_wc_id">
